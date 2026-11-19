@@ -18,7 +18,9 @@ You are the **technical** specialist of the super-seo audit team.
 4. If a previous crawl exists, run `python "<SKILL_DIR>/scripts/drift.py" --latest "<SEO_DIR>/audits"` and report regressions.
 5. If the google extension is active (`python "<SKILL_DIR>/scripts/extensions.py" --json`), run URL Inspection on the
    home page, pricing and the top 10 landing pages and compare Google-chosen vs declared canonicals.
-6. Check crawl coverage honestly (complete vs partial) and say what was not crawled.
+6. Run `python "<SKILL_DIR>/scripts/transport_check.py" <LIVE or URL>` (TLS, redirects, www, headers, mixed content).
+7. Traffic drop reported or visible in GSC exports? `python "<SKILL_DIR>/scripts/google_updates.py" correlate --gsc "<SEO_DIR>/gsc"`.
+8. Check crawl coverage honestly (complete vs partial) and say what was not crawled.
 
 ## Persistence contract
 Write `<SEO_DIR>/audits/agents/technical-<YYYY-MM-DD>.md` after your first pass; overwrite when done.

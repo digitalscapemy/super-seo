@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="96" viewBox="0 0 1200 96" role="img" aria-labelledby="t d">
+<title id="t">Mission Control</title><desc id="d">Comic section title MISSION CONTROL with a WHOOSH! sound effect.</desc>
+<defs>
+<pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.7" fill="#141414" fill-opacity="0.10"/></pattern>
+<pattern id="dotsY" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#ffcf2e"/><circle cx="4.5" cy="4.5" r="2.1" fill="#ff8a1f" fill-opacity="0.55"/></pattern>
+<pattern id="dotsB" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#2b7de9"/><circle cx="4.5" cy="4.5" r="2.2" fill="#1b4fa8" fill-opacity="0.6"/></pattern>
+<pattern id="dotsR" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#ee3b34"/><circle cx="4.5" cy="4.5" r="2.2" fill="#a8201b" fill-opacity="0.55"/></pattern>
+<pattern id="dotsC" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#19c2b0"/><circle cx="4.5" cy="4.5" r="2.1" fill="#0d7d72" fill-opacity="0.5"/></pattern>
+</defs>
+<style>
+text{font-family:'Trebuchet MS', 'Segoe UI', Verdana, Arial, sans-serif} .h{font-family:Impact, 'Arial Black', 'Helvetica Neue', Arial, sans-serif;letter-spacing:.5px} .m{font-family:ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes flap{0%,100%{transform:skewX(0deg) scaleX(1)}50%{transform:skewX(-7deg) scaleX(1.06)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes jitter{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(1px,-1px) rotate(-1deg)}75%{transform:translate(-1px,1px) rotate(1deg)}}
+.bob{animation:bob 2.4s ease-in-out infinite;transform-box:fill-box}
+.eye{animation:blink 4s infinite;transform-box:fill-box;transform-origin:center}
+.cape{animation:flap .7s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
+.spin{animation:spin 14s linear infinite;transform-box:fill-box;transform-origin:center}
+.jit{animation:jitter .35s steps(2) infinite;transform-box:fill-box;transform-origin:center}
+@keyframes a1{0.0%{transform:rotate(-6deg) scale(1)}12.5%{transform:rotate(5deg) scale(1.12)}25.0%{transform:rotate(-6deg) scale(1)}100.0%{transform:rotate(-6deg) scale(1)}}.a1{animation:a1 4.0s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes a2{0.0%{opacity:.25}5.0%{opacity:1}15.0%{opacity:.25}100.0%{opacity:.25}}.a2{animation:a2 4.0s linear infinite;}
+@keyframes a3{0.0%{opacity:.25}8.0%{opacity:1}18.0%{opacity:.25}100.0%{opacity:.25}}.a3{animation:a3 4.0s linear infinite;}
+@keyframes a4{0.0%{opacity:.25}11.0%{opacity:1}21.0%{opacity:.25}100.0%{opacity:.25}}.a4{animation:a4 4.0s linear infinite;}
+@keyframes a5{0.0%{opacity:.25}14.0%{opacity:1}24.0%{opacity:.25}100.0%{opacity:.25}}.a5{animation:a5 4.0s linear infinite;}
+@keyframes a6{0.0%{opacity:.25}17.0%{opacity:1}27.0%{opacity:.25}100.0%{opacity:.25}}.a6{animation:a6 4.0s linear infinite;}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}.i0{opacity:0!important}.i1{opacity:1!important;transform:none!important}}
+</style>
+<rect width="1200" height="96" fill="none"/>
+<polygon points="38,18 508,12 500,86 38,90" fill="#141414"/><polygon points="30,12 500,6 492,80 30,84" fill="#ff8a1f" stroke="#141414" stroke-width="4"/><polygon points="30,12 500,6 492,80 30,84" fill="url(#dots)"/><text class="h" x="58" y="60" font-size="40" fill="#fff" stroke="#141414" stroke-width="5" paint-order="stroke">MISSION CONTROL</text>
+<g class="a1"><polygon points="627.5,48.0 608.1,56.7 621.8,72.9 600.6,72.4 605.9,93.0 587.0,83.2 582.8,104.1 570.0,87.1 557.2,104.1 553.0,83.2 534.1,93.0 539.4,72.4 518.2,72.9 531.9,56.7 512.5,48.0 531.9,39.3 518.2,23.1 539.4,23.6 534.1,3.0 553.0,12.8 557.2,-8.1 570.0,8.9 582.8,-8.1 587.0,12.8 605.9,3.0 600.6,23.6 621.8,23.1 608.1,39.3" fill="#fff" stroke="#141414" stroke-width="4" stroke-linejoin="round"/><text class="h" x="570" y="56" text-anchor="middle" font-size="17" fill="#ee3b34" stroke="#141414" stroke-width="1.5" paint-order="stroke">WHOOSH!</text></g>
+<line class="a2" x1="640" y1="30" x2="700" y2="30" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+<line class="a3" x1="662" y1="38" x2="722" y2="38" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+<line class="a4" x1="684" y1="46" x2="744" y2="46" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+<line class="a5" x1="706" y1="54" x2="766" y2="54" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+<line class="a6" x1="728" y1="62" x2="788" y2="62" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+</svg>

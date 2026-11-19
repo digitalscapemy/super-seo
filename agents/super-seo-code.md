@@ -20,7 +20,9 @@ context summary, and the baseline audit JSON path if one exists.
    hreflang generation, OG image conventions, JSON-LD components (server-rendered? real values?), 404 handling,
    redirects/headers config, middleware, data fetched in client effects on public pages, `<img>` without dimensions or
    alt, hero image lazy-loaded, `div onClick` navigation.
-5. For each problem, draft the exact fix: file path, the change (a short unified diff or replacement block), and why.
+5. Generate correct files instead of hand-writing them when useful: `robots_gen.py --format nextjs|txt` (verified
+   against RFC 9309), `sitemap_gen.py --from-crawl`, `llms_gen.py`.
+6. For each problem, draft the exact fix: file path, the change (a short unified diff or replacement block), and why.
    Prefer the framework's native API and the templates in `<SKILL_DIR>/templates/`.
 
 ## Persistence contract

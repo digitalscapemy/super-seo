@@ -20,7 +20,10 @@ You are the **content** specialist of the super-seo audit team.
 4. Metadata: list titles/descriptions that are missing, duplicated, templated (description repeats the title, shared
    stock CTA) or off-intent; draft replacements by hand per the formulas in saas-pages.md §6.
 5. Internal links: orphans, hubs missing, money pages not linked from home, generic anchors.
-6. Content source in code: where copy lives (MDX, CMS, components) so fixes can be applied.
+6. Scaled page families (integrations, locations, templates, glossary): `python "<SKILL_DIR>/scripts/programmatic_check.py"
+   --from-crawl <crawl json> --pattern "/<family>/"` and apply the gates. Hidden characters in content files:
+   `text_clean.py <content dir> --check`. Page-type fit for key queries: `references/sxo.md`.
+7. Content source in code: where copy lives (MDX, CMS, components) so fixes can be applied.
 
 ## Persistence contract
 Write `<SEO_DIR>/audits/agents/content-<YYYY-MM-DD>.md` after your first pass; overwrite when done.

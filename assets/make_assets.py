@@ -396,3 +396,186 @@ def terminal():
 
 
 
+
+
+# =================================================================== GADGET BELT (extensions)
+GADGETS = [
+    ("GOOGLE", "Search Console · GA4 · CrUX", "G", BLUE),
+    ("BING", "Webmaster · backlinks", "B", CYAN),
+    ("INDEXNOW", "instant re-crawl", "⇪", GRN),
+    ("POSTHOG", "AI referrals", "P", ORG),
+    ("MATOMO", "organic traffic", "M", PUR),
+    ("UMAMI", "privacy analytics", "U", MAG),
+    ("CLOUDFLARE", "bot & AI crawl", "☁", ORG),
+    ("LIGHTHOUSE", "lab + agentic", "L", RED),
+    ("BROWSER", "render · screenshots", "◉", BLUE),
+    ("SHOPIFY", "store SEO", "S", GRN),
+    ("YOUTUBE", "video presence", "▶", RED),
+]
+
+
+def gadget_belt():
+    T = 9.0
+    A = Anim(T)
+    W, H = 1200, 360
+    b = [f'<rect width="{W}" height="{H}" fill="{PAPER2}"/><rect width="{W}" height="{H}" fill="url(#dots)"/>']
+    b.append(panel([(18, 18), (1182, 14), (1178, 342), (22, 346)], "url(#dots)", "#fffaf0"))
+    b.append(f'<text class="h" x="600" y="70" text-anchor="middle" font-size="44" fill="{YEL}" stroke="{INK}" stroke-width="7" paint-order="stroke">THE GADGET BELT</text>')
+    b.append(f'<text x="600" y="96" text-anchor="middle" font-size="15" font-weight="700" fill="{INK}">Free extensions. Each one clicks in the moment its key or tool is found.</text>')
+    # the belt
+    b.append(f'<rect x="40" y="196" width="1120" height="38" rx="8" fill="#7a4a24" stroke="{INK}" stroke-width="4"/>'
+             f'<rect x="40" y="204" width="1120" height="6" fill="#9a6232"/>')
+    b.append(f'<rect x="566" y="186" width="68" height="58" rx="10" fill="url(#dotsY)" stroke="{INK}" stroke-width="4"/>'
+             f'<text class="h" x="600" y="226" text-anchor="middle" font-size="30" fill="{RED}" stroke="{INK}" stroke-width="1.5" paint-order="stroke">S</text>')
+    n = len(GADGETS)
+    grid = [74 + i * (1052 / n) for i in range(n + 1)]          # n+1 evenly spaced slots...
+    centre = min(range(len(grid)), key=lambda i: abs(grid[i] - 600))
+    slots = [x + (16 if x > 600 else -16) for i, x in enumerate(grid) if i != centre]  # minus the buckle slot, spread
+    for i, (name, sub, glyph, col) in enumerate(GADGETS):
+        x = slots[i]
+        t0 = 0.3 + i * 0.32
+        pop = A.pop(t0, 8.4)
+        b.append(f'<g class="{pop} i1"><rect x="{x - 34}" y="150" width="68" height="64" rx="12" fill="{col}" stroke="{INK}" stroke-width="4"/>'
+                 f'<rect x="{x - 26}" y="158" width="52" height="34" rx="8" fill="#fff" stroke="{INK}" stroke-width="3"/>'
+                 f'<text class="h" x="{x}" y="186" text-anchor="middle" font-size="24" fill="{INK}">{escape(glyph)}</text>'
+                 f'<circle cx="{x + 22}" cy="204" r="5" fill="{YEL}" stroke="{INK}" stroke-width="2"/></g>')
+        lbl = A.show(t0 + 0.2, 8.4)
+        b.append(f'<g class="{lbl} i1"><text class="h" x="{x}" y="272" text-anchor="middle" font-size="16" fill="{INK}">{escape(name)}</text>'
+                 + "".join(f'<text x="{x}" y="{290 + k * 14}" text-anchor="middle" font-size="11" font-weight="700" fill="{INK}" opacity="0.8">{escape(line)}</text>'
+                           for k, line in enumerate(wrap(sub, 14))) + "</g>")
+    b.append(f'<g class="{A.pop(4.2, 8.4)} i1">{burst(1110, 66, 40, 14, RED, 0.68)}<text class="h" x="1110" y="75" text-anchor="middle" font-size="22" fill="#fff" stroke="{INK}" stroke-width="2" paint-order="stroke">CLICK!</text></g>')
+    b.append(f'<g class="{A.pop(2.0, 8.4)} i1">{burst(92, 66, 36, 12, YEL, 0.66)}<text class="h" x="92" y="74" text-anchor="middle" font-size="20" fill="{RED}">FREE</text></g>')
+    svg = frame(W, H, "\n".join(b), A.css(), "The super-seo gadget belt",
+                "A comic utility belt where eleven free extension gadgets click into place one by one: Google, Bing, IndexNow, "
+                "PostHog, Matomo, Umami, Cloudflare, Lighthouse, Browser, Shopify and YouTube.")
+    (OUT / "gadgets.svg").write_text(svg, encoding="utf-8")
+
+
+# =================================================================== SUIT UP (install)
+def suit_up():
+    T = 10.0
+    A = Anim(T)
+    W, H = 1200, 340
+    b = [f'<rect width="{W}" height="{H}" fill="{PAPER2}"/><rect width="{W}" height="{H}" fill="url(#dots)"/>']
+    b.append(panel([(18, 18), (330, 14), (326, 322), (22, 326)], "url(#dotsY)", YEL))
+    b.append(panel([(344, 14), (1182, 18), (1178, 326), (340, 322)], "url(#dots)", "#fffaf0"))
+    b.append(f'<g class="bob">{hero(176, 214, 1.05, BLUE, RED, "S", YEL)}</g>')
+    b.append(f'<g class="{A.pop(0.3, 9.4)} i1">{burst(176, 68, 70, 16, "#fff", 0.74)}'
+             f'<text class="h" x="176" y="79" text-anchor="middle" font-size="30" fill="{RED}" stroke="{INK}" stroke-width="2" paint-order="stroke">SUIT UP!</text></g>')
+    b.append(f'<rect x="372" y="48" width="784" height="248" rx="12" fill="#10131c" stroke="{INK}" stroke-width="4"/>'
+             f'<rect x="372" y="48" width="784" height="30" rx="12" fill="{YEL}" stroke="{INK}" stroke-width="4"/><rect x="376" y="66" width="776" height="10" fill="{YEL}"/>'
+             f'<text class="h" x="764" y="70" text-anchor="middle" font-size="16" fill="{INK}">THREE STEPS TO HERO MODE</text>')
+    steps = [
+        (0.6, "#7CFC8A", "$ git clone https://github.com/digitalscapemy/super-seo.git"),
+        (2.0, "#7CFC8A", "$ cd super-seo && ./install.sh        # Windows: .\\install.ps1"),
+        (3.4, "#9aa4b8", "  ✓ skill · 11 extensions · 8 agents · hook (optional)"),
+        (4.6, "#7fd8ff", "  open any project in Claude Code, then type:"),
+        (5.6, "#ffcf2e", "> /super-seo"),
+    ]
+    for k, (t0, col, txt) in enumerate(steps):
+        y = 112 + k * 36
+        big = k == 4
+        cls = A.raw([(0, "opacity:0"), (t0, "opacity:0"), (t0 + 0.2, "opacity:1"), (9.4, "opacity:1"), (9.7, "opacity:0"), (T, "opacity:0")], box=False)
+        b.append(f'<text class="m {cls} i1" x="396" y="{y}" font-size="{24 if big else 15}" font-weight="{800 if big else 400}" fill="{col}">{escape(txt)}</text>')
+    b.append(f'<g class="{A.pop(6.2, 9.4)} i1">{burst(1060, 270, 44, 14, RED, 0.68)}<text class="h" x="1060" y="279" text-anchor="middle" font-size="22" fill="#fff" stroke="{INK}" stroke-width="2" paint-order="stroke">GO!</text></g>')
+    svg = frame(W, H, "\n".join(b), A.css(), "Install super-seo",
+                "Comic panel: the super-seo hero shouts Suit up! next to a terminal where git clone, the installer and then "
+                "/super-seo are typed in turn.")
+    (OUT / "install.svg").write_text(svg, encoding="utf-8")
+
+
+# =================================================================== STACK TILES (frameworks)
+STACK = [("Next.js", INK, "#fff"), ("Laravel", RED, "#fff"), ("Astro", PUR, "#fff"), ("Nuxt", GRN, "#fff"),
+         ("SvelteKit", ORG, "#fff"), ("Vite", "#6b4cff", YEL), ("Remix", "#3a3a3a", CYAN), ("React Router", RED, "#fff"),
+         ("TanStack", YEL, INK), ("Shopify", GRN, "#fff"), ("Static + nginx", BLUE, "#fff"), ("Inertia", MAG, "#fff")]
+
+
+def stack_tiles():
+    T = 8.0
+    A = Anim(T)
+    W, H = 1200, 260
+    b = [f'<rect width="{W}" height="{H}" fill="{PAPER2}"/><rect width="{W}" height="{H}" fill="url(#dots)"/>']
+    b.append(panel([(18, 18), (1182, 14), (1178, 242), (22, 246)], "url(#dots)", "#fffaf0"))
+    b.append(f'<text class="h" x="600" y="64" text-anchor="middle" font-size="38" fill="{CYAN}" stroke="{INK}" stroke-width="6" paint-order="stroke">WORKS WITH YOUR STACK</text>')
+    cols, w, h, gx, gy = 6, 168, 58, 16, 18
+    x0 = (W - (cols * w + (cols - 1) * gx)) / 2
+    for i, (name, bg, fg) in enumerate(STACK):
+        r, c = divmod(i, cols)
+        x, y = x0 + c * (w + gx), 92 + r * (h + gy)
+        rot = ((i * 7) % 5 - 2) * 0.9
+        t0 = 0.2 + i * 0.22
+        cls = A.raw([(0, "transform:rotateY(90deg) scale(.6);opacity:0"), (t0, "transform:rotateY(90deg) scale(.6);opacity:0"),
+                     (t0 + 0.25, "transform:rotateY(0) scale(1.08);opacity:1"), (t0 + 0.4, "transform:rotateY(0) scale(1);opacity:1"),
+                     (7.4, "transform:scale(1);opacity:1"), (7.7, "transform:scale(.6);opacity:0"), (T, "opacity:0")])
+        b.append(f'<g class="{cls} i1"><g transform="rotate({rot} {x + w / 2} {y + h / 2})">'
+                 f'<rect x="{x + 5}" y="{y + 5}" width="{w}" height="{h}" rx="8" fill="{INK}"/>'
+                 f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{bg}" stroke="{INK}" stroke-width="4"/>'
+                 f'<text class="h" x="{x + w / 2}" y="{y + h / 2 + 9}" text-anchor="middle" font-size="{24 if len(name) < 11 else 19}" fill="{fg}">{escape(name)}</text></g></g>')
+    svg = frame(W, H, "\n".join(b), A.css(), "Supported stacks",
+                "Comic tiles flip in for Next.js, Laravel, Astro, Nuxt, SvelteKit, Vite, Remix, React Router, TanStack, Shopify, "
+                "static sites with nginx, and Inertia.")
+    (OUT / "stacks.svg").write_text(svg, encoding="utf-8")
+
+
+# =================================================================== SECTION HEADERS
+HEADERS = [("commands", "COMMAND CENTER", "ZAP!", RED, YEL), ("toolkit", "THE ARSENAL", "KA-CHING!", BLUE, YEL),
+           ("memory", "THE HQ", "BEEP!", PUR, "#fff"), ("faq", "HERO HOTLINE · FAQ", "RING!", GRN, YEL),
+           ("integrations", "MISSION CONTROL", "WHOOSH!", ORG, "#fff"), ("principles", "THE HERO CODE", "OATH!", MAG, YEL)]
+
+
+def section_headers():
+    for slug, title, sound, col, bfill in HEADERS:
+        T = 4.0
+        A = Anim(T)
+        W, H = 1200, 96
+        b = [f'<rect width="{W}" height="{H}" fill="none"/>']
+        tw = len(title) * 26 + 80
+        x0 = 30
+        b.append(f'<polygon points="{x0 + 8},18 {x0 + tw + 8},12 {x0 + tw},86 {x0 + 8},90" fill="{INK}"/>'
+                 f'<polygon points="{x0},12 {x0 + tw},6 {x0 + tw - 8},80 {x0},84" fill="{col}" stroke="{INK}" stroke-width="4"/>'
+                 f'<polygon points="{x0},12 {x0 + tw},6 {x0 + tw - 8},80 {x0},84" fill="url(#dots)"/>'
+                 f'<text class="h" x="{x0 + 28}" y="60" font-size="40" fill="#fff" stroke="{INK}" stroke-width="5" paint-order="stroke">{escape(title)}</text>')
+        sx = x0 + tw + 70
+        wig = A.raw([(0, "transform:rotate(-6deg) scale(1)"), (0.5, "transform:rotate(5deg) scale(1.12)"), (1.0, "transform:rotate(-6deg) scale(1)"),
+                     (T, "transform:rotate(-6deg) scale(1)")], ease="ease-in-out")
+        b.append(f'<g class="{wig}">{burst(sx, 48, 40 + len(sound) * 2.5, 14, bfill, 0.68)}'
+                 f'<text class="h" x="{sx}" y="{48 + 8}" text-anchor="middle" font-size="{22 if len(sound) < 7 else 17}" fill="{RED}" stroke="{INK}" stroke-width="1.5" paint-order="stroke">{escape(sound)}</text></g>')
+        for k in range(5):
+            lx = sx + 70 + k * 22
+            ln = A.raw([(0, "opacity:.25"), (0.2 + k * 0.12, "opacity:1"), (0.6 + k * 0.12, "opacity:.25"), (T, "opacity:.25")], box=False)
+            b.append(f'<line class="{ln}" x1="{lx}" y1="{30 + k * 8}" x2="{lx + 60}" y2="{30 + k * 8}" stroke="{INK}" stroke-width="4" stroke-linecap="round"/>')
+        svg = frame(W, H, "\n".join(b), A.css(), title.title(), f"Comic section title {title} with a {sound} sound effect.")
+        (OUT / f"h-{slug}.svg").write_text(svg, encoding="utf-8")
+
+
+# =================================================================== FOOTER
+def footer():
+    T = 6.0
+    A = Anim(T)
+    W, H = 1200, 260
+    b = [f'<rect width="{W}" height="{H}" fill="{PAPER2}"/><rect width="{W}" height="{H}" fill="url(#dots)"/>']
+    b.append(panel([(18, 18), (1182, 14), (1178, 242), (22, 246)], "url(#dotsY)", YEL))
+    wave = A.raw([(0, "transform:rotate(0)"), (0.4, "transform:rotate(-14deg)"), (0.8, "transform:rotate(6deg)"), (1.2, "transform:rotate(-14deg)"),
+                  (1.6, "transform:rotate(0)"), (T, "transform:rotate(0)")], ease="ease-in-out")
+    b.append(f'<g class="bob"><g class="{wave}" style="transform-origin:200px 230px">{hero(200, 170, 0.95, BLUE, RED, "S", YEL)}</g></g>')
+    b.append(f'<text class="h" x="380" y="112" font-size="64" fill="#fff" stroke="{INK}" stroke-width="8" paint-order="stroke">TO BE CONTINUED…</text>')
+    b.append(f'<text class="h" x="384" y="152" font-size="22" fill="{INK}">The squad gets new powers with every release.</text>')
+    b.append(f'<g class="{A.pop(0.8, 5.6)} i1">{bubble(380, 178, 300, 40, "★ Star the repo to join the squad!", "tl", 15)}</g>')
+    b.append(f'<g class="{A.pop(1.6, 5.6)} i1">{burst(1080, 152, 78, 18, RED, 0.74)}<text class="h" x="1080" y="140" text-anchor="middle" font-size="20" fill="#fff" stroke="{INK}" stroke-width="2" paint-order="stroke">BUILT BY</text>'
+             f'<text class="h" x="1080" y="166" text-anchor="middle" font-size="20" fill="{YEL}" stroke="{INK}" stroke-width="2" paint-order="stroke">DIGITALSCAPE</text></g>')
+    svg = frame(W, H, "\n".join(b), A.css(), "To be continued",
+                "Closing comic panel: the super-seo hero waves, the caption reads To be continued, a bubble asks readers to "
+                "star the repo, and a burst says Built by Digitalscape.")
+    (OUT / "footer.svg").write_text(svg, encoding="utf-8")
+
+
+hero_strip()
+squad()
+mission()
+terminal()
+gadget_belt()
+suit_up()
+stack_tiles()
+section_headers()
+footer()
+print("ok", sorted(p_.name for p_ in OUT.glob("*.svg")))

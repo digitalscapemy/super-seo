@@ -17,9 +17,11 @@ You are the **performance & rendering** specialist of the super-seo audit team.
 3. Rendering: browser extension `render` on home, pricing and one dynamic route → js_gap; `screenshot` desktop + mobile,
    then Read the PNGs and judge above-the-fold content, intrusive overlays, visible CTA; `agent-ux` and `mobile`.
 4. Images: `python "<SKILL_DIR>/scripts/image_audit.py" <URL>` on home and pricing.
-5. In code, find the causes: hero image not prioritised, render-blocking scripts, heavy client bundles on marketing
+5. Hints without a browser: `python "<SKILL_DIR>/scripts/hints_check.py" <URL>` (render-blocking, preload, hero
+   priority, bfcache killers, DOM size).
+6. In code, find the causes: hero image not prioritised, render-blocking scripts, heavy client bundles on marketing
    pages, fonts without `display: swap`, missing dimensions, third-party scripts loaded synchronously.
-6. Thresholds and fix map: `<SKILL_DIR>/references/technical-seo.md` §7–8.
+7. Thresholds and fix map: `<SKILL_DIR>/references/technical-seo.md` §7–8.
 
 ## Persistence contract
 Write `<SEO_DIR>/audits/agents/performance-<YYYY-MM-DD>.md` after your first pass; overwrite when done.

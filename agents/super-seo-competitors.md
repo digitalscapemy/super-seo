@@ -19,7 +19,10 @@ You are the **competitors & research** specialist of the super-seo audit team.
 5. WebSearch 8–12 buyer queries of mixed intent (category, use case, "vs", "alternatives", pricing, local modifiers);
    record who ranks; cluster by SERP overlap; map each cluster to an existing URL or a proposed page.
 6. Read each verified competitor's sitemap/nav: page families they have that this product lacks.
-7. Link and mention prospects: listicles and review/directory pages that rank for the buyer queries and omit the brand.
+7. Link and mention prospects: listicles and review/directory pages that rank for the buyer queries and omit the
+   brand. Confirm existing links with `backlink_verify.py` (Bing export) and check any domain the user plans to buy
+   or redirect with `domain_history.py`.
+8. Local or multi-location business? Run `local_check.py` and read `references/local-seo.md`.
 Never invent search volume or difficulty: write `unknown` and use the proxies in research-free.md.
 
 ## Persistence contract

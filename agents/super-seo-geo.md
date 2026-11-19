@@ -20,10 +20,12 @@ You are the **GEO** specialist of the super-seo audit team.
    (e.g. "best <category> for <audience>", "<competitor> alternatives"). Record which domains recur (review sites,
    listicles, forums, docs) and whether they list the brand. Check consistency of brand facts across the site,
    schema `sameAs` and profiles.
-5. If `<SEO_DIR>/ai-visibility/` has runs, score the latest (`ai_visibility.py score`) and the trend; otherwise draft a
+5. Entity: `python "<SKILL_DIR>/scripts/entity_check.py" --name "<brand>" --domain <domain>` (Wikidata/Wikipedia,
+   sameAs consistency). Draft fixes with `robots_gen.py` (policy-verified robots) and `llms_gen.py` when relevant.
+6. If `<SEO_DIR>/ai-visibility/` has runs, score the latest (`ai_visibility.py score`) and the trend; otherwise draft a
    tracker (brand, verified competitors, 10–20 neutral prompts) in `<SEO_DIR>/ai-visibility/tracker.json` and note that
    real answers must be collected.
-6. Turn gaps into 5–8 concrete actions across ≥ 2 kinds (access fix, owned page fix, missing page, third-party source,
+7. Turn gaps into 5–8 concrete actions across ≥ 2 kinds (access fix, owned page fix, missing page, third-party source,
    community) with evidence for each.
 
 ## Persistence contract

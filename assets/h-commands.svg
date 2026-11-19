@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="96" viewBox="0 0 1200 96" role="img" aria-labelledby="t d">
+<title id="t">Command Center</title><desc id="d">Comic section title COMMAND CENTER with a ZAP! sound effect.</desc>
+<defs>
+<pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.7" fill="#141414" fill-opacity="0.10"/></pattern>
+<pattern id="dotsY" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#ffcf2e"/><circle cx="4.5" cy="4.5" r="2.1" fill="#ff8a1f" fill-opacity="0.55"/></pattern>
+<pattern id="dotsB" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#2b7de9"/><circle cx="4.5" cy="4.5" r="2.2" fill="#1b4fa8" fill-opacity="0.6"/></pattern>
+<pattern id="dotsR" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#ee3b34"/><circle cx="4.5" cy="4.5" r="2.2" fill="#a8201b" fill-opacity="0.55"/></pattern>
+<pattern id="dotsC" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#19c2b0"/><circle cx="4.5" cy="4.5" r="2.1" fill="#0d7d72" fill-opacity="0.5"/></pattern>
+</defs>
+<style>
+text{font-family:'Trebuchet MS', 'Segoe UI', Verdana, Arial, sans-serif} .h{font-family:Impact, 'Arial Black', 'Helvetica Neue', Arial, sans-serif;letter-spacing:.5px} .m{font-family:ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes flap{0%,100%{transform:skewX(0deg) scaleX(1)}50%{transform:skewX(-7deg) scaleX(1.06)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes jitter{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(1px,-1px) rotate(-1deg)}75%{transform:translate(-1px,1px) rotate(1deg)}}
+.bob{animation:bob 2.4s ease-in-out infinite;transform-box:fill-box}
+.eye{animation:blink 4s infinite;transform-box:fill-box;transform-origin:center}
+.cape{animation:flap .7s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
+.spin{animation:spin 14s linear infinite;transform-box:fill-box;transform-origin:center}
+.jit{animation:jitter .35s steps(2) infinite;transform-box:fill-box;transform-origin:center}
+@keyframes a1{0.0%{transform:rotate(-6deg) scale(1)}12.5%{transform:rotate(5deg) scale(1.12)}25.0%{transform:rotate(-6deg) scale(1)}100.0%{transform:rotate(-6deg) scale(1)}}.a1{animation:a1 4.0s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes a2{0.0%{opacity:.25}5.0%{opacity:1}15.0%{opacity:.25}100.0%{opacity:.25}}.a2{animation:a2 4.0s linear infinite;}
+@keyframes a3{0.0%{opacity:.25}8.0%{opacity:1}18.0%{opacity:.25}100.0%{opacity:.25}}.a3{animation:a3 4.0s linear infinite;}
+@keyframes a4{0.0%{opacity:.25}11.0%{opacity:1}21.0%{opacity:.25}100.0%{opacity:.25}}.a4{animation:a4 4.0s linear infinite;}
+@keyframes a5{0.0%{opacity:.25}14.0%{opacity:1}24.0%{opacity:.25}100.0%{opacity:.25}}.a5{animation:a5 4.0s linear infinite;}
+@keyframes a6{0.0%{opacity:.25}17.0%{opacity:1}27.0%{opacity:.25}100.0%{opacity:.25}}.a6{animation:a6 4.0s linear infinite;}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}.i0{opacity:0!important}.i1{opacity:1!important;transform:none!important}}
+</style>
+<rect width="1200" height="96" fill="none"/>
+<polygon points="38,18 482,12 474,86 38,90" fill="#141414"/><polygon points="30,12 474,6 466,80 30,84" fill="#ee3b34" stroke="#141414" stroke-width="4"/><polygon points="30,12 474,6 466,80 30,84" fill="url(#dots)"/><text class="h" x="58" y="60" font-size="40" fill="#fff" stroke="#141414" stroke-width="5" paint-order="stroke">COMMAND CENTER</text>
+<g class="a1"><polygon points="594.0,48.0 577.1,55.6 589.0,69.7 570.6,69.2 575.2,87.1 558.8,78.6 555.1,96.7 544.0,82.0 532.9,96.7 529.2,78.6 512.8,87.1 517.4,69.2 499.0,69.7 510.9,55.6 494.0,48.0 510.9,40.4 499.0,26.3 517.4,26.8 512.8,8.9 529.2,17.4 532.9,-0.7 544.0,14.0 555.1,-0.7 558.8,17.4 575.2,8.9 570.6,26.8 589.0,26.3 577.1,40.4" fill="#ffcf2e" stroke="#141414" stroke-width="4" stroke-linejoin="round"/><text class="h" x="544" y="56" text-anchor="middle" font-size="22" fill="#ee3b34" stroke="#141414" stroke-width="1.5" paint-order="stroke">ZAP!</text></g>
+<line class="a2" x1="614" y1="30" x2="674" y2="30" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+<line class="a3" x1="636" y1="38" x2="696" y2="38" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+<line class="a4" x1="658" y1="46" x2="718" y2="46" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+<line class="a5" x1="680" y1="54" x2="740" y2="54" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+<line class="a6" x1="702" y1="62" x2="762" y2="62" stroke="#141414" stroke-width="4" stroke-linecap="round"/>
+</svg>

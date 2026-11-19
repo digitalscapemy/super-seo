@@ -29,6 +29,8 @@ When invoked as `/super-seo` (with or without arguments), follow `references/ful
 | `/super-seo launch` | Pre-launch gate and launch-day setup |
 | `/super-seo integrations` | SEO integrations in the super-admin backend (workflow H) |
 | `/super-seo extensions` | Which extensions are active and how to enable the rest |
+| `/super-seo doctor` | Environment check (`doctor.py --online`) with fixes for anything missing |
+| `/super-seo plan` | 90-day roadmap for this business type (`strategy-plans.md`) built from the latest audit |
 | `/super-seo quick <url>` | Baseline `audit.py` only, summarised in chat |
 
 The specialist agents (`super-seo-code`, `-technical`, `-geo`, `-content`, `-schema`, `-performance`, `-competitors`,
@@ -51,8 +53,18 @@ without a leading slash (`--paths pricing docs`).
 | `image_audit.py` | Image weight, served format, dimensions, oversizing, alt quality, hero lazy-load / fetchpriority | `image_audit.py <url>` |
 | `ai_visibility.py` | Scores collected AI answers: mention/citation rate, position, gaps, cited sources, trend | `ai_visibility.py checklist|score|trend .seo/ai-visibility[/runs/<date>]` |
 | `gsc_report.py` | Search Console CSV exports → striking distance, low CTR vs the site's own curve, cannibalisation, brand share, question queries | `gsc_report.py .seo/gsc --brand "acme"` |
-| `drift.py` | Compares two crawls → SEO regressions between releases | `drift.py --latest .seo/audits --fail-on critical` |
-| `extensions.py` | Lists extensions and whether each is active on this machine | `extensions.py [--json]` |
+| `drift.py` | Compares two crawls → SEO regressions between releases; `--history` = readiness trend across audits | `drift.py --latest .seo/audits --fail-on critical` |
+| `transport_check.py` | TLS certificate, http→https and www consolidation, security headers, cookies, mixed content | `transport_check.py <url>` |
+| `hints_check.py` | Performance hints from HTML: render-blocking scripts, preloads, hero priority, bfcache killers, DOM size | `hints_check.py <url>` |
+| `programmatic_check.py` | Scaled/template page quality: unique-content ratio, boilerplate, near-duplicates, templated metadata | `programmatic_check.py --sitemap <url> --pattern /integrations/` |
+| `sitemap_gen.py` · `robots_gen.py` · `llms_gen.py` | Generate (and validate) sitemap, policy-verified robots.txt / `robots.ts`, llms.txt from crawl or sitemap | `robots_gen.py --domain x.com --training block` |
+| `text_clean.py` | Find/remove hidden Unicode (zero-width, bidi, tag chars) in content files; stock-phrase report | `text_clean.py content/ --check` |
+| `backlink_verify.py` | Check a list of backlinks still exists: status, rel, anchor, noindex/canonical caveats | `backlink_verify.py links.csv --target x.com` |
+| `google_updates.py` | Live Google Search update timeline; correlate traffic changes in GSC exports with update windows | `google_updates.py correlate --gsc .seo/gsc` |
+| `entity_check.py` | Wikidata/Wikipedia entity lookup and consistency with the site's `sameAs` | `entity_check.py --name "Acme" --domain acme.com` |
+| `local_check.py` | NAP consistency, LocalBusiness schema completeness, tel links, map embeds, location-page scale | `local_check.py <url>` |
+| `domain_history.py` | Internet Archive history: activity gaps, status mix, past titles, spam-topic history | `domain_history.py example.com` |
+| `extensions.py` · `doctor.py` | Extension status · full environment check (`/super-seo doctor`) | `doctor.py --online` |
 
 ## Extensions (all free; read the extension's `EXTENSION.md` before using it)
 Run `scripts/extensions.py --json` first. Active ones are used automatically by the agents.
@@ -67,6 +79,7 @@ Run `scripts/extensions.py --json` first. Active ones are used automatically by 
 | `extensions/lighthouse` | Lighthouse (incl. agentic browsing) on any URL incl. localhost, site-wide runs | `npx` |
 | `extensions/browser` | Raw vs rendered HTML diff, desktop/mobile screenshots, agent-UX and mobile checks | an installed Chrome/Edge/Chromium |
 | `extensions/shopify` | Product/collection SEO gaps, redirect chains | `SHOPIFY_STORE` + `SHOPIFY_ADMIN_TOKEN` |
+| `extensions/youtube` | Brand mentions in videos, channel stats, video SEO (chapters, captions) | `YOUTUBE_API_KEY` |
 
 ## References (read only what the task needs)
 | File | Read when |
@@ -81,6 +94,8 @@ Run `scripts/extensions.py --json` first. Active ones are used automatically by 
 | `references/ecommerce.md` | Product/Offer/ProductGroup schema, merchant listings, faceted navigation, stock handling |
 | `references/local-seo.md` | Business profiles, LocalBusiness schema, location pages, citations |
 | `references/og-images.md` | Open Graph / social card specs and generating them in code |
+| `references/strategy-plans.md` | 90-day roadmaps per business type (SaaS, e-commerce, local, publisher, agency, marketplace, dev tools) |
+| `references/sxo.md` | SERP page-type consensus, page-type mismatch, persona checks, above-the-fold review |
 | `references/ai-visibility.md` | Tracking AI mentions/citations, prompt design, collection, gap → action |
 | `references/research-free.md` | Keywords, clustering, competitors, link prospecting, GSC exports — no paid tools |
 | `references/launch-monitoring.md` | Pre-launch gate, launch day, CI gate, monthly/quarterly routine |
@@ -137,7 +152,8 @@ Run `scripts/extensions.py --json` first. Active ones are used automatically by 
 4. Verify the security checklist (§10), a real connect/disconnect cycle, quotas/backoff, and tenant isolation.
 
 **I. Verticals** → online store: `ecommerce.md` (+ shopify extension); physical locations or service areas:
-`local-seo.md`; multilingual: `hreflang_check.py` + `technical-seo.md` §9.
+`local-seo.md` + `local_check.py`; multilingual: `hreflang_check.py` + `technical-seo.md` §9; scaled pages:
+`programmatic_check.py`; domain purchase/migration: `domain_history.py`; traffic drop: `google_updates.py correlate`.
 
 ## Hard rules
 - Never ship placeholder values, fake ratings/reviews, invented statistics, or contact details you weren't given.

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="t d">
+<title id="t">Install super-seo</title><desc id="d">Comic panel: the super-seo hero shouts Suit up! next to a terminal where git clone, the installer and then /super-seo are typed in turn.</desc>
+<defs>
+<pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.7" fill="#141414" fill-opacity="0.10"/></pattern>
+<pattern id="dotsY" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#ffcf2e"/><circle cx="4.5" cy="4.5" r="2.1" fill="#ff8a1f" fill-opacity="0.55"/></pattern>
+<pattern id="dotsB" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#2b7de9"/><circle cx="4.5" cy="4.5" r="2.2" fill="#1b4fa8" fill-opacity="0.6"/></pattern>
+<pattern id="dotsR" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#ee3b34"/><circle cx="4.5" cy="4.5" r="2.2" fill="#a8201b" fill-opacity="0.55"/></pattern>
+<pattern id="dotsC" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#19c2b0"/><circle cx="4.5" cy="4.5" r="2.1" fill="#0d7d72" fill-opacity="0.5"/></pattern>
+</defs>
+<style>
+text{font-family:'Trebuchet MS', 'Segoe UI', Verdana, Arial, sans-serif} .h{font-family:Impact, 'Arial Black', 'Helvetica Neue', Arial, sans-serif;letter-spacing:.5px} .m{font-family:ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes flap{0%,100%{transform:skewX(0deg) scaleX(1)}50%{transform:skewX(-7deg) scaleX(1.06)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes jitter{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(1px,-1px) rotate(-1deg)}75%{transform:translate(-1px,1px) rotate(1deg)}}
+.bob{animation:bob 2.4s ease-in-out infinite;transform-box:fill-box}
+.eye{animation:blink 4s infinite;transform-box:fill-box;transform-origin:center}
+.cape{animation:flap .7s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
+.spin{animation:spin 14s linear infinite;transform-box:fill-box;transform-origin:center}
+.jit{animation:jitter .35s steps(2) infinite;transform-box:fill-box;transform-origin:center}
+@keyframes a1{0.0%{transform:scale(0);opacity:0}3.0%{transform:scale(0);opacity:0}4.8%{transform:scale(1.25);opacity:1}6.2%{transform:scale(1);opacity:1}94.0%{transform:scale(1);opacity:1}96.0%{transform:scale(0);opacity:0}100.0%{transform:scale(0);opacity:0}}.a1{animation:a1 10.0s linear infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes a2{0.0%{opacity:0}6.0%{opacity:0}8.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100.0%{opacity:0}}.a2{animation:a2 10.0s linear infinite;}
+@keyframes a3{0.0%{opacity:0}20.0%{opacity:0}22.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100.0%{opacity:0}}.a3{animation:a3 10.0s linear infinite;}
+@keyframes a4{0.0%{opacity:0}34.0%{opacity:0}36.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100.0%{opacity:0}}.a4{animation:a4 10.0s linear infinite;}
+@keyframes a5{0.0%{opacity:0}46.0%{opacity:0}48.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100.0%{opacity:0}}.a5{animation:a5 10.0s linear infinite;}
+@keyframes a6{0.0%{opacity:0}56.0%{opacity:0}58.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100.0%{opacity:0}}.a6{animation:a6 10.0s linear infinite;}
+@keyframes a7{0.0%{transform:scale(0);opacity:0}62.0%{transform:scale(0);opacity:0}63.8%{transform:scale(1.25);opacity:1}65.2%{transform:scale(1);opacity:1}94.0%{transform:scale(1);opacity:1}96.0%{transform:scale(0);opacity:0}100.0%{transform:scale(0);opacity:0}}.a7{animation:a7 10.0s linear infinite;transform-box:fill-box;transform-origin:center;}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}.i0{opacity:0!important}.i1{opacity:1!important;transform:none!important}}
+</style>
+<rect width="1200" height="340" fill="#ffe9b8"/><rect width="1200" height="340" fill="url(#dots)"/>
+<polygon points="25,25 337,21 333,329 29,333" fill="#141414"/><polygon points="18,18 330,14 326,322 22,326" fill="#ffcf2e"/><polygon points="18,18 330,14 326,322 22,326" fill="url(#dotsY)" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+<polygon points="351,21 1189,25 1185,333 347,329" fill="#141414"/><polygon points="344,14 1182,18 1178,326 340,322" fill="#fffaf0"/><polygon points="344,14 1182,18 1178,326 340,322" fill="url(#dots)" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+<g class="bob"><g class="" transform="translate(176 214) scale(1.05)"><g transform="">
+<g class="cape"><path d="M-26 -20 L-46 70 L-24 60 L-8 74 L8 60 L24 72 L28 -20 Z" fill="#ee3b34" stroke="#141414" stroke-width="4" stroke-linejoin="round"/></g>
+<rect x="-20" y="34" width="14" height="26" rx="5" fill="#2b7de9" stroke="#141414" stroke-width="4"/><rect x="6" y="34" width="14" height="26" rx="5" fill="#2b7de9" stroke="#141414" stroke-width="4"/><rect x="-24" y="56" width="20" height="10" rx="4" fill="#ee3b34" stroke="#141414" stroke-width="4"/><rect x="4" y="56" width="20" height="10" rx="4" fill="#ee3b34" stroke="#141414" stroke-width="4"/><path d="M26 -8 L44 -42" stroke="#141414" stroke-width="13" stroke-linecap="round"/><path d="M26 -8 L44 -42" stroke="#2b7de9" stroke-width="7" stroke-linecap="round"/><circle cx="46" cy="-47" r="10" fill="#2b7de9" stroke="#141414" stroke-width="4"/><path d="M-26 -6 L-40 30" stroke="#141414" stroke-width="13" stroke-linecap="round"/><path d="M-26 -6 L-40 30" stroke="#2b7de9" stroke-width="7" stroke-linecap="round"/>
+<rect x="-28" y="-26" width="56" height="64" rx="16" fill="#2b7de9" stroke="#141414" stroke-width="4"/>
+<circle cx="0" cy="6" r="17" fill="#ffcf2e" stroke="#141414" stroke-width="4"/>
+<text class="h" x="0" y="13.92" text-anchor="middle" font-size="22" fill="#141414">S</text>
+<line x1="0" y1="-66" x2="0" y2="-82" stroke="#141414" stroke-width="4"/><circle cx="0" cy="-86" r="6" fill="#ee3b34" stroke="#141414" stroke-width="3.5"/>
+<rect x="-30" y="-70" width="60" height="46" rx="16" fill="#e9eef7" stroke="#141414" stroke-width="4"/>
+<rect x="-23" y="-60" width="46" height="22" rx="10" fill="#141414"/>
+<g class="eye"><rect x="-15" y="-55" width="9" height="11" rx="4" fill="#19c2b0"/><rect x="6" y="-55" width="9" height="11" rx="4" fill="#19c2b0"/></g>
+<path d="M-30 -52 L-40 -46 L-30 -40 Z" fill="#ee3b34" stroke="#141414" stroke-width="3"/><path d="M30 -52 L40 -46 L30 -40 Z" fill="#ee3b34" stroke="#141414" stroke-width="3"/>
+</g></g></g>
+<g class="a1 i1"><polygon points="246.0,68.0 226.8,78.1 240.7,94.8 219.1,96.8 225.5,117.5 204.8,111.1 202.8,132.7 186.1,118.8 176.0,138.0 165.9,118.8 149.2,132.7 147.2,111.1 126.5,117.5 132.9,96.8 111.3,94.8 125.2,78.1 106.0,68.0 125.2,57.9 111.3,41.2 132.9,39.2 126.5,18.5 147.2,24.9 149.2,3.3 165.9,17.2 176.0,-2.0 186.1,17.2 202.8,3.3 204.8,24.9 225.5,18.5 219.1,39.2 240.7,41.2 226.8,57.9" fill="#fff" stroke="#141414" stroke-width="4" stroke-linejoin="round"/><text class="h" x="176" y="79" text-anchor="middle" font-size="30" fill="#ee3b34" stroke="#141414" stroke-width="2" paint-order="stroke">SUIT UP!</text></g>
+<rect x="372" y="48" width="784" height="248" rx="12" fill="#10131c" stroke="#141414" stroke-width="4"/><rect x="372" y="48" width="784" height="30" rx="12" fill="#ffcf2e" stroke="#141414" stroke-width="4"/><rect x="376" y="66" width="776" height="10" fill="#ffcf2e"/><text class="h" x="764" y="70" text-anchor="middle" font-size="16" fill="#141414">THREE STEPS TO HERO MODE</text>
+<text class="m a2 i1" x="396" y="112" font-size="15" font-weight="400" fill="#7CFC8A">$ git clone https://github.com/digitalscapemy/super-seo.git</text>
+<text class="m a3 i1" x="396" y="148" font-size="15" font-weight="400" fill="#7CFC8A">$ cd super-seo &amp;&amp; ./install.sh        # Windows: .\install.ps1</text>
+<text class="m a4 i1" x="396" y="184" font-size="15" font-weight="400" fill="#9aa4b8">  ✓ skill · 11 extensions · 8 agents · hook (optional)</text>
+<text class="m a5 i1" x="396" y="220" font-size="15" font-weight="400" fill="#7fd8ff">  open any project in Claude Code, then type:</text>
+<text class="m a6 i1" x="396" y="256" font-size="24" font-weight="800" fill="#ffcf2e">&gt; /super-seo</text>
+<g class="a7 i1"><polygon points="1104.0,270.0 1089.2,276.7 1099.6,289.1 1083.4,288.7 1087.4,304.4 1073.0,297.0 1069.8,312.9 1060.0,299.9 1050.2,312.9 1047.0,297.0 1032.6,304.4 1036.6,288.7 1020.4,289.1 1030.8,276.7 1016.0,270.0 1030.8,263.3 1020.4,250.9 1036.6,251.3 1032.6,235.6 1047.0,243.0 1050.2,227.1 1060.0,240.1 1069.8,227.1 1073.0,243.0 1087.4,235.6 1083.4,251.3 1099.6,250.9 1089.2,263.3" fill="#ee3b34" stroke="#141414" stroke-width="4" stroke-linejoin="round"/><text class="h" x="1060" y="279" text-anchor="middle" font-size="22" fill="#fff" stroke="#141414" stroke-width="2" paint-order="stroke">GO!</text></g>
+</svg>
