@@ -69,11 +69,72 @@ class NoRedirect(request.HTTPRedirectHandler):
         return None
 
 
+def ip_is_public(addr: str) -> bool:
+    """Allow-list check: only globally routable unicast addresses count as public.
+    IPv4-mapped (::ffff:a.b.c.d) and 6to4 (2002::/16) IPv6 addresses are unwrapped first."""
+    try:
+        ip = ipaddress.ip_address(addr.split("%")[0])
+    except ValueError:
+        return False
+    if isinstance(ip, ipaddress.IPv6Address):
+        inner = ip.ipv4_mapped or ip.sixtofour or (ip.teredo[1] if ip.teredo else None)
+        if inner is not None:
+            ip = inner
+    return ip.is_global and not ip.is_multicast
+
+
+# Set by crawl()/callers: when the audit starts from a PUBLIC host, never connect into private networks.
+PUBLIC_ONLY = {"on": False}
+
+
+class BlockedAddress(OSError):
+    pass
+
+
+def _check_peer(sock):
+    """Called right after the TCP connect: checks the address actually connected to (defeats DNS rebinding)."""
+    if PUBLIC_ONLY["on"] and sock is not None:
+        peer = sock.getpeername()[0]
+        if not ip_is_public(peer):
+            try:
+                sock.close()
+            finally:
+                raise BlockedAddress(f"blocked private/internal address {peer} (audit started from a public host)")
+
+
+class _GuardedHTTPConnection(http.client.HTTPConnection):
+    def connect(self):
+        super().connect()
+        _check_peer(self.sock)
+
+
+class _GuardedHTTPSConnection(http.client.HTTPSConnection):
+    def connect(self):
+        # HTTPSConnection.connect() = TCP connect + TLS wrap; check the raw peer before any bytes are sent.
+        http.client.HTTPConnection.connect(self)
+        _check_peer(self.sock)
+        if self._tunnel_host:
+            server_hostname = self._tunnel_host
+        else:
+            server_hostname = self.host
+        self.sock = self._context.wrap_socket(self.sock, server_hostname=server_hostname)
+
+
+class _GuardedHTTPHandler(request.HTTPHandler):
+    def http_open(self, req):
+        return self.do_open(_GuardedHTTPConnection, req)
+
+
+class _GuardedHTTPSHandler(request.HTTPSHandler):
+    def https_open(self, req):
+        return self.do_open(_GuardedHTTPSConnection, req, context=self._context)
+
+
 _ctx = ssl.create_default_context()
 _opener = request.OpenerDirector()
-for _h in (request.HTTPHandler(), request.HTTPSHandler(context=_ctx), NoRedirect(),
+for _h in (_GuardedHTTPHandler(), _GuardedHTTPSHandler(context=_ctx), NoRedirect(),
            request.HTTPErrorProcessor(), request.HTTPDefaultErrorHandler()):
-    _opener.add_handler(_h)  # deliberately no FileHandler/FTPHandler/DataHandler
+    _opener.add_handler(_h)  # deliberately no FileHandler/FTPHandler/DataHandler/ProxyHandler
 
 
 def _decode_body(raw: bytes, encoding: str | None, max_bytes: int) -> tuple[bytes, bool]:
@@ -93,25 +154,15 @@ def _decode_body(raw: bytes, encoding: str | None, max_bytes: int) -> tuple[byte
 
 
 def is_private_host(host: str | None) -> bool:
-    """True if host is (or resolves to) a loopback/private/link-local/reserved address."""
+    """True if host is (or resolves to) any non-public address, or cannot be resolved.
+    Used to decide the audit mode and as an early check; the binding check is _check_peer() at connect time."""
     if not host:
         return True
     try:
         infos = socket.getaddrinfo(host, None)
     except OSError:
-        return False  # unresolvable: the fetch itself will fail
-    for info in infos:
-        try:
-            ip = ipaddress.ip_address(info[4][0].split("%")[0])
-        except ValueError:
-            continue
-        if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast or ip.is_unspecified:
-            return True
-    return False
-
-
-# Set by crawl(): when the audit starts from a PUBLIC host, never follow redirects/sitemaps into private networks.
-PUBLIC_ONLY = {"on": False}
+        return True
+    return any(not ip_is_public(info[4][0]) for info in infos)
 
 
 def url_allowed(url: str) -> str | None:
@@ -156,7 +207,8 @@ def fetch(url: str, ua: str, timeout: float = 20.0, max_redirects: int = 10, acc
             except Exception:
                 raw = b""
         except (error.URLError, socket.timeout, ConnectionError, ssl.SSLError, OSError, ValueError, http.client.HTTPException) as e:
-            return {"url": url, "final_url": current, "status": 0, "error": str(getattr(e, "reason", e)),
+            reason = getattr(e, "reason", e)
+            return {"url": url, "final_url": current, "status": 0, "error": str(reason),
                     "chain": chain, "headers": {}, "body": "", "ttfb_ms": None, "total_ms": None, "bytes": 0}
         if status in (301, 302, 303, 307, 308) and hdrs.get("Location"):
             nxt = urljoin(current, hdrs.get("Location"))
