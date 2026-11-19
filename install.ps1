@@ -7,7 +7,7 @@ if ((Resolve-Path $src).Path.TrimEnd('\') -ieq ([IO.Path]::GetFullPath($dest)).T
     Write-Host "Already installed in place ($dest). Update with: git pull"; exit 0
 }
 New-Item -ItemType Directory -Force -Path $dest | Out-Null
-foreach ($item in "SKILL.md", "NOTICE.md", "README.md", "references", "scripts", "templates") {
+foreach ($item in "SKILL.md", "README.md", "references", "scripts", "templates") {
     $target = Join-Path $dest $item
     if (Test-Path $target) { Remove-Item -Recurse -Force -Confirm:$false $target }
     Copy-Item -Recurse -Force (Join-Path $src $item) $target

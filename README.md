@@ -46,19 +46,3 @@ python scripts/drift.py --latest .seo/audits
 ```
 PageSpeed / CrUX (`--psi`): set `PSI_API_KEY` (kunci percuma dari Google Cloud Console). Tanpa kunci, ia guna kuota
 kongsi yang selalu penuh.
-
-## Apa yang lebih baik berbanding 3 repo asal
-| | claude-seo | geo-seo-claude | open-seo | **super-seo** |
-|---|---|---|---|---|
-| Baca codebase (Next/Vite/Laravel/Astro...) | ✗ | ✗ | ✗ | ✓ |
-| Audit localhost / preview sebelum deploy | ✗ (disekat) | ✗ | ✗ | ✓ |
-| Fix terus dalam kod (templat framework) | sebahagian | ✗ | ✗ | ✓ |
-| Python stdlib sahaja, jalan di Py 3.10 + Windows | ✗ (3.11+, bash) | ✗ (requests/bs4) | n/a | ✓ |
-| Senarai crawler AI terkini, ikut peranan | sebahagian | ✗ (salah) | sebahagian | ✓ |
-| Probe WAF/Cloudflare dengan UA bot | ✗ | ✗ | ✗ | ✓ |
-| Tracking AI visibility tanpa API berbayar | ✗ | ✗ | ✗ (perlu DataForSEO) | ✓ |
-| Gate CI + drift selepas setiap release | sebahagian (SQLite) | ✗ | ✗ | ✓ |
-| Playbook halaman SaaS + pagar programmatic | sebahagian | ✗ | sebahagian | ✓ |
-| Dakwaan tanpa bukti dibuang / dilabel | sebahagian | ✗ | ✓ | ✓ |
-
-Lihat `NOTICE.md` untuk atribusi (MIT).

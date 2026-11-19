@@ -2,7 +2,6 @@
 
 Goal: know, per buyer prompt and per engine, whether AI answers mention and cite the brand, which competitors they name
 instead, and which sources they lean on, then act on the gaps. Scored by `scripts/ai_visibility.py`.
-Methodology adapted from open-seo (MIT), without its paid data pipeline.
 
 ## 1. Set up the tracker (`.seo/ai-visibility/tracker.json`, template in `templates/tracker.example.json`)
 - `brand`: name exactly as people write it (no "Sdn Bhd", no "website"), domain, aliases (e.g. "Acme MY").

@@ -5,9 +5,8 @@ description: SEO + GEO (AI search / generative engine optimization) for SaaS web
 
 # SaaS SEO + GEO
 
-Code-first SEO and AI-search optimization for every SaaS project. Merges and corrects the best of claude-seo,
-geo-seo-claude and open-seo (all MIT; see NOTICE.md), with three upgrades none of them had: it reads the **codebase**,
-audits a **localhost/preview build before deploy**, and **implements fixes in the framework's own APIs**.
+Code-first SEO and AI-search optimization for every SaaS project. It reads the **codebase**, audits a
+**localhost/preview build before deploy**, and **implements fixes in the framework's own APIs**.
 
 **Core principles**
 1. **Evidence before advice.** Run the scripts, read the files, fetch the pages. Never guess a metric; write `unknown`.

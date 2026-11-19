@@ -22,7 +22,7 @@ Usage:
   python ai_visibility.py trend  .seo/ai-visibility        # latest run vs previous comparable run
   python ai_visibility.py checklist .seo/ai-visibility     # print the prompt x engine checklist to collect
 
-Metric rules (adapted from open-seo, MIT):
+Metric rules:
   - Denominator = answered observations only; no-answer and failed are coverage, not absence.
   - Branded prompts (that name the brand) are excluded from rates.
   - Mention = brand name/alias/domain in the prose, URLs blanked first. Citation = a linked URL on the brand's domain/subdomain.

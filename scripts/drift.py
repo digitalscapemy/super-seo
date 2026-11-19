@@ -8,7 +8,7 @@ Typical release gate:
 
   python drift.py --latest .seo/audits        # compare the two newest crawl-*.json files
 
-Rules (adapted from claude-seo drift, MIT):
+Rules:
   CRITICAL  status 2xx -> 4xx/5xx, noindex added, canonical changed/removed, title removed,
             H1 removed, H1 rewritten (similarity < 0.5), all structured data removed, page disappeared
   WARNING   title changed, meta description changed, all Open Graph removed, schema types changed,
