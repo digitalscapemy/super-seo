@@ -196,10 +196,12 @@ def run(rows: list[dict], ua: str = UA_DEFAULT, delay: float = 1.0, timeout: flo
     robots_cache: dict[str, object] = {}
     results = []
     last_host = None
+    # Backlink sources are third-party URLs from a file: protection stays ON for every row unless the user explicitly
+    # passes --allow-private. A row's own host can never switch it off.
+    ca.PUBLIC_ONLY["on"] = not allow_private
     for i, r in enumerate(rows):
         src = r["source_url"]
         host = urlparse(src).hostname
-        ca.set_network_mode(host, allow_private)
         if delay and i and host == last_host:
             time.sleep(delay)
         elif delay and i:

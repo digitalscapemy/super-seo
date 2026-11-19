@@ -319,17 +319,23 @@ def urls_from_crawl(path: str, pattern: str | None) -> list[str]:
     return list(dict.fromkeys(out))
 
 
+def _same_site(u: str, host: str) -> bool:
+    h = (urlparse(u).hostname or "").lower().removeprefix("www.")
+    base = (host or "").lower().removeprefix("www.")
+    return bool(h) and (h == base or h.endswith("." + base))
+
+
 def urls_from_sitemap(sm: str, pattern: str | None, ua: str) -> list[str]:
-    ca.set_network_mode(urlparse(sm).hostname)
+    # Network mode is set once in main() from the user-supplied sitemap URL; fetched content never changes it.
+    host = urlparse(sm).hostname or ""
     urls, _ = ca.read_sitemap_urls(sm, ua, limit=50000)
-    return list(dict.fromkeys(u for u in urls if not pattern or re.search(pattern, u)))
+    # drop entries on other hosts: a sitemap must not be able to point the checker anywhere else
+    return list(dict.fromkeys(u for u in urls if _same_site(u, host) and (not pattern or re.search(pattern, u))))
 
 
 def fetch_pages(urls: list[str], ua: str, delay: float, timeout: float, allow_private: bool) -> tuple[list[dict], list[dict]]:
     pages, skipped = [], []
-    if urls:
-        ca.set_network_mode(urlparse(urls[0]).hostname, allow_private)
-    for i, u in enumerate(urls):
+    for i, u in enumerate(urls):   # network mode was fixed once in main(); per-URL checks happen inside fetch()
         res = ca.fetch(u, ua, timeout=timeout)
         if res["status"] != 200 or "html" not in res["headers"].get("content-type", ""):
             skipped.append({"url": u, "status": res["status"], "error": res.get("error")})
@@ -391,12 +397,26 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    # Decide the network mode ONCE from what the user supplied, never from fetched content.
+    source_host = urlparse(a.sitemap).hostname if a.sitemap else None
+    if a.from_crawl:
+        try:
+            source_host = urlparse(json.loads(Path(a.from_crawl).read_text(encoding="utf-8")).get("origin", "")).hostname
+        except (OSError, json.JSONDecodeError):
+            source_host = None
+    if a.urls:
+        first = next((l.strip() for l in Path(a.urls).read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")), "")
+        source_host = urlparse(first).hostname
+    if source_host:
+        ca.set_network_mode(source_host, a.allow_private)
+    else:
+        ca.PUBLIC_ONLY["on"] = not a.allow_private   # unknown origin: protection stays on
     if a.urls:
         urls = [l.strip() for l in Path(a.urls).read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")]
         if a.pattern:
             urls = [u for u in urls if re.search(a.pattern, u)]
     elif a.from_crawl:
-        urls = urls_from_crawl(a.from_crawl, a.pattern)
+        urls = [u for u in urls_from_crawl(a.from_crawl, a.pattern) if not source_host or _same_site(u, source_host)]
     else:
         urls = urls_from_sitemap(a.sitemap, a.pattern, a.ua)
     if not urls:

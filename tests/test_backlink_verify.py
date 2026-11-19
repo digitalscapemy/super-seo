@@ -103,7 +103,11 @@ class Run(unittest.TestCase):
         rows[0]["expected_anchor"] = "Something else"
         with mock.patch.object(ca, "set_network_mode") as snm:
             r = bv.run(rows, delay=0, fetcher=lambda u: pages[u], robots_reader=lambda o: robots[o])
-        self.assertEqual([c.args[0] for c in snm.call_args_list], ["a.test", "a.test", "b.test", "b.test"])
+        snm.assert_not_called()                 # rows never switch the network mode
+        self.assertTrue(ca.PUBLIC_ONLY["on"])   # protection stays on for third-party sources
+        bv.run(rows[:1], delay=0, fetcher=lambda u: pages[u], robots_reader=lambda o: robots[o], allow_private=True)
+        self.assertFalse(ca.PUBLIC_ONLY["on"])  # only an explicit --allow-private turns it off
+        ca.PUBLIC_ONLY["on"] = True
         self.assertEqual(r["summary"], {"live_dofollow": 1, "live_nofollow": 1, "lost": 1, "page_gone": 1, "unverified": 0})
         by = {x["source_url"]: x for x in r["results"]}
         self.assertFalse(by["https://a.test/2"]["googlebot_allowed"])

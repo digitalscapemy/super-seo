@@ -107,15 +107,60 @@ def compare(a: dict, b: dict) -> list[dict]:
     return out
 
 
+def history(folder: Path) -> list[dict]:
+    """Every audit summary (written by audit.py) in chronological order, with change vs the previous run."""
+    rows = []
+    for f in sorted(folder.glob("audit-*.json")):
+        try:
+            d = json.loads(f.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        if "readiness" not in d:
+            continue
+        rows.append({"file": f.name, "when": d.get("when"), "target": d.get("target"), "readiness": d.get("readiness"),
+                     "critical": d.get("counts", {}).get("critical", 0), "high": d.get("counts", {}).get("high", 0),
+                     "categories": d.get("categories", {})})
+    for prev, cur in zip(rows, rows[1:]):
+        if prev["readiness"] is not None and cur["readiness"] is not None:
+            cur["delta"] = cur["readiness"] - prev["readiness"]
+        cur["category_drops"] = {c: (prev["categories"].get(c), v) for c, v in cur["categories"].items()
+                                 if v is not None and prev["categories"].get(c) is not None and v < prev["categories"][c] - 5}
+    return rows
+
+
+def render_history(rows: list[dict]) -> str:
+    if not rows:
+        return "No audit summaries found (run audit.py first; it writes .seo/audits/audit-<stamp>.json)."
+    out = ["# Readiness history", "", "| When | Target | Readiness | Δ | Critical | High | Category drops > 5 pts |",
+           "|---|---|---|---|---|---|---|"]
+    for r in rows:
+        d = r.get("delta")
+        drops = ", ".join(f"{c} {a}→{b}" for c, (a, b) in (r.get("category_drops") or {}).items())
+        out.append(f"| {(r['when'] or '')[:16]} | {(r['target'] or '')[:40]} | {r['readiness'] if r['readiness'] is not None else '—'} | "
+                   f"{'' if d is None else f'{d:+d}'} | {r['critical']} | {r['high']} | {drops or '-'} |")
+    first, last = rows[0]["readiness"], rows[-1]["readiness"]
+    if first is not None and last is not None and len(rows) > 1:
+        out += ["", f"Overall: {first} → {last} ({last - first:+d}) across {len(rows)} audits."]
+    return "\n".join(out) + "\n"
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("files", nargs="*")
     ap.add_argument("--latest", metavar="DIR", help="compare the two newest crawl-*.json in DIR")
     ap.add_argument("--fail-on", choices=["critical", "warning"])
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--history", metavar="DIR", help="readiness and severity trend across every audit-*.json summary in DIR")
     a = ap.parse_args(argv)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if a.history:
+        rows = history(Path(a.history))
+        if a.json:
+            print(json.dumps(rows, indent=2))
+        else:
+            print(render_history(rows))
+        return
     if a.latest:
         files = sorted(Path(a.latest).glob("crawl-*.json"), key=lambda p: p.stat().st_mtime)[-2:]
     else:
