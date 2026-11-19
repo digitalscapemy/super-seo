@@ -17,7 +17,7 @@ and use the proxies below.
 
 ## 2. Keyword research workflow
 1. Seeds from `.seo/project.md`: category, problems solved, use cases, audiences, integrations, competitor names
-   (for vs/alternatives), local modifiers (Malaysia, LHDN, FPX, SST, BM terms).
+   (for vs/alternatives), local modifiers (Malaysia, LHDN, FPX, SST, Malay-language terms).
 2. Expand each seed (WebSearch): related searches, PAA, modifiers `best / vs / alternative / pricing / free / template /
    how to / for <audience> / Malaysia`.
 3. Classify intent — **SERP intent wins over word cues**: informational, commercial (best/top/review/vs/alternatives/

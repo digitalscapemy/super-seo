@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="250" viewBox="0 0 1200 250" role="img" aria-labelledby="t d">
+<title id="t">How super-seo works</title><desc id="d">Five steps highlighted in turn: scan the code, crawl localhost before deploy, check AI access, fix in code, gate every release.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a0f1f"/><stop offset="1" stop-color="#111a33"/></linearGradient>
+<linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+<radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#7c5cff" stop-opacity="0.35"/><stop offset="1" stop-color="#7c5cff" stop-opacity="0"/></radialGradient>
+<radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#22d3ee" stop-opacity="0.25"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+<pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.035"/></pattern>
+<clipPath id="round"><rect width="1200" height="250" rx="18"/></clipPath>
+</defs>
+<style>
+text{font-family:ui-sans-serif, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif} .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace}
+@keyframes floatA{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,18px)}}
+@keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(-36px,-14px)}}
+.fa{animation:floatA 14s ease-in-out infinite} .fb{animation:floatB 17s ease-in-out infinite}
+@keyframes k1{0%{opacity:0}5.33%{opacity:0}9.33%{opacity:1}22.67%{opacity:1}26.67%{opacity:0}100%{opacity:0}}.k1{animation:k1 7.5s linear infinite}
+@keyframes k2{0%{opacity:0}18.67%{opacity:0}20.67%{opacity:1}25.33%{opacity:1}27.33%{opacity:0}100%{opacity:0}}.k2{animation:k2 7.5s linear infinite}
+@keyframes k3{0%{opacity:0}21.33%{opacity:0}25.33%{opacity:1}38.67%{opacity:1}42.67%{opacity:0}100%{opacity:0}}.k3{animation:k3 7.5s linear infinite}
+@keyframes k4{0%{opacity:0}34.67%{opacity:0}36.67%{opacity:1}41.33%{opacity:1}43.33%{opacity:0}100%{opacity:0}}.k4{animation:k4 7.5s linear infinite}
+@keyframes k5{0%{opacity:0}37.33%{opacity:0}41.33%{opacity:1}54.67%{opacity:1}58.67%{opacity:0}100%{opacity:0}}.k5{animation:k5 7.5s linear infinite}
+@keyframes k6{0%{opacity:0}50.67%{opacity:0}52.67%{opacity:1}57.33%{opacity:1}59.33%{opacity:0}100%{opacity:0}}.k6{animation:k6 7.5s linear infinite}
+@keyframes k7{0%{opacity:0}53.33%{opacity:0}57.33%{opacity:1}70.67%{opacity:1}74.67%{opacity:0}100%{opacity:0}}.k7{animation:k7 7.5s linear infinite}
+@keyframes k8{0%{opacity:0}66.67%{opacity:0}68.67%{opacity:1}73.33%{opacity:1}75.33%{opacity:0}100%{opacity:0}}.k8{animation:k8 7.5s linear infinite}
+@keyframes k9{0%{opacity:0}69.33%{opacity:0}73.33%{opacity:1}86.67%{opacity:1}90.67%{opacity:0}100%{opacity:0}}.k9{animation:k9 7.5s linear infinite}
+@media (prefers-reduced-motion: reduce){*{animation:none!important} .initial{opacity:0!important} .final{opacity:1!important;transform:none!important}}
+</style>
+<g clip-path="url(#round)">
+<rect width="1200" height="250" fill="url(#bg)"/><rect width="1200" height="250" fill="url(#grid)"/>
+<ellipse class="fa" cx="264.0" cy="37.5" rx="300" ry="200" fill="url(#glowA)"/>
+<ellipse class="fb" cx="1020.0" cy="225.0" rx="320" ry="210" fill="url(#glowB)"/>
+<text x="600" y="48" text-anchor="middle" font-size="15" fill="#8d97b0" letter-spacing="2">HOW IT WORKS</text>
+<rect x="50.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
+<rect class="k1" x="50.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
+<circle cx="80.0" cy="118" r="14" fill="url(#acc)"/><text x="80.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">1</text>
+<text x="104.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">Scan code</text>
+<text x="72.0" y="164" font-size="14" fill="#8d97b0">framework, routes, leaks</text>
+<line x1="250.0" y1="138" x2="272.0" y2="138" stroke="#26324f" stroke-width="2"/>
+<circle class="k2" cx="261.0" cy="138" r="4" fill="#22d3ee" opacity="0"/>
+<rect x="276.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
+<rect class="k3" x="276.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
+<circle cx="306.0" cy="118" r="14" fill="url(#acc)"/><text x="306.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">2</text>
+<text x="330.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">Crawl localhost</text>
+<text x="298.0" y="164" font-size="14" fill="#8d97b0">before you deploy</text>
+<line x1="476.0" y1="138" x2="498.0" y2="138" stroke="#26324f" stroke-width="2"/>
+<circle class="k4" cx="487.0" cy="138" r="4" fill="#22d3ee" opacity="0"/>
+<rect x="502.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
+<rect class="k5" x="502.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
+<circle cx="532.0" cy="118" r="14" fill="url(#acc)"/><text x="532.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">3</text>
+<text x="556.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">AI access</text>
+<text x="524.0" y="164" font-size="14" fill="#8d97b0">bots, WAF, llms.txt</text>
+<line x1="702.0" y1="138" x2="724.0" y2="138" stroke="#26324f" stroke-width="2"/>
+<circle class="k6" cx="713.0" cy="138" r="4" fill="#22d3ee" opacity="0"/>
+<rect x="728.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
+<rect class="k7" x="728.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
+<circle cx="758.0" cy="118" r="14" fill="url(#acc)"/><text x="758.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">4</text>
+<text x="782.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">Fix in code</text>
+<text x="750.0" y="164" font-size="14" fill="#8d97b0">metadata, schema, SSR</text>
+<line x1="928.0" y1="138" x2="950.0" y2="138" stroke="#26324f" stroke-width="2"/>
+<circle class="k8" cx="939.0" cy="138" r="4" fill="#22d3ee" opacity="0"/>
+<rect x="954.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
+<rect class="k9" x="954.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
+<circle cx="984.0" cy="118" r="14" fill="url(#acc)"/><text x="984.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">5</text>
+<text x="1008.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">Gate releases</text>
+<text x="976.0" y="164" font-size="14" fill="#8d97b0">CI + drift</text>
+<text x="600" y="226" text-anchor="middle" font-size="13" fill="#8d97b0">One command: python scripts/audit.py --path . --url http://localhost:3000</text>
+</g>
+<rect x="0.5" y="0.5" width="1199" height="249" rx="18" fill="none" stroke="#26324f"/>
+</svg>

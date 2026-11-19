@@ -43,7 +43,7 @@ Files from `templates/nextjs/`: `lib/seo.ts`, `components/json-ld.tsx`, `app/sit
    `app/opengraph-image.png`.
 5. **Icons**: `app/icon.png` (or `.svg`), `app/apple-icon.png`, `app/favicon.ico`.
 6. **Sitemap/robots/llms.txt**: templates above. Large sites: `generateSitemaps()`.
-7. **i18n**: `alternates: { canonical: "/ms/harga", languages: { "en": "/pricing", "ms-MY": "/ms/harga", "x-default": "/pricing" } }`.
+7. **i18n**: `alternates: { canonical: "/ms/pricing", languages: { "en": "/pricing", "ms-MY": "/ms/pricing", "x-default": "/pricing" } }`.
 8. **Content in HTML**: fetch data in Server Components (or `generateStaticParams` + ISR `export const revalidate = 3600`),
    not in `useEffect`. Marketing pages: static or ISR; avoid `dynamic = "force-dynamic"` unless needed (TTFB).
 9. **Images**: `next/image` with `alt`, `width/height` or `fill` + sized parent; `priority` on the hero only.

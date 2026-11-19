@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="t d">
+<title id="t">super-seo: rank in Google, get cited by AI</title><desc id="d">Animated banner: a SaaS site&#x27;s SEO checks turn from failing to passing, its Google position climbs from 47 to 1, readiness fills up, then Google, ChatGPT, Perplexity, Gemini, Claude and Copilot light up as citing the site.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a0f1f"/><stop offset="1" stop-color="#111a33"/></linearGradient>
+<linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+<radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#7c5cff" stop-opacity="0.35"/><stop offset="1" stop-color="#7c5cff" stop-opacity="0"/></radialGradient>
+<radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#22d3ee" stop-opacity="0.25"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+<pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.035"/></pattern>
+<clipPath id="round"><rect width="1200" height="420" rx="18"/></clipPath>
+</defs>
+<style>
+text{font-family:ui-sans-serif, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif} .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace}
+@keyframes floatA{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,18px)}}
+@keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(-36px,-14px)}}
+.fa{animation:floatA 14s ease-in-out infinite} .fb{animation:floatB 17s ease-in-out infinite}
+@keyframes k1{0%{opacity:0}63.0%{opacity:0}66.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k1{animation:k1 10.0s linear infinite}
+@keyframes k2{0%{opacity:0}66.2%{opacity:0}69.2%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k2{animation:k2 10.0s linear infinite}
+@keyframes k3{0%{opacity:0}69.4%{opacity:0}72.4%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k3{animation:k3 10.0s linear infinite}
+@keyframes k4{0%{opacity:0}72.6%{opacity:0}75.6%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k4{animation:k4 10.0s linear infinite}
+@keyframes k5{0%{opacity:0}75.8%{opacity:0}78.8%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k5{animation:k5 10.0s linear infinite}
+@keyframes k6{0%{opacity:0}79.0%{opacity:0}82.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k6{animation:k6 10.0s linear infinite}
+@keyframes k7{0%{opacity:1}10.0%{opacity:1}13.0%{opacity:0}97.0%{opacity:0}100%{opacity:1}}.k7{animation:k7 10.0s linear infinite}
+@keyframes k8{0%{opacity:0}10.0%{opacity:0}13.0%{opacity:1}22.0%{opacity:1}25.0%{opacity:0}100%{opacity:0}}.k8{animation:k8 10.0s linear infinite}
+@keyframes k9{0%{opacity:0}22.0%{opacity:0}25.0%{opacity:1}34.0%{opacity:1}37.0%{opacity:0}100%{opacity:0}}.k9{animation:k9 10.0s linear infinite}
+@keyframes k10{0%{opacity:0}34.0%{opacity:0}37.0%{opacity:1}46.0%{opacity:1}49.0%{opacity:0}100%{opacity:0}}.k10{animation:k10 10.0s linear infinite}
+@keyframes k11{0%{opacity:0}46.0%{opacity:0}49.0%{opacity:1}58.0%{opacity:1}61.0%{opacity:0}100%{opacity:0}}.k11{animation:k11 10.0s linear infinite}
+@keyframes k12{0%{opacity:0}58.0%{opacity:0}61.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k12{animation:k12 10.0s linear infinite}
+@keyframes k13{0%{transform:scaleX(0)}8.0%{transform:scaleX(0)}60.0%{transform:scaleX(1)}94.0%{transform:scaleX(1)}97.0%{transform:scaleX(0)}100%{transform:scaleX(0)}}.k13{animation:k13 10.0s ease-out infinite;transform-box:fill-box;transform-origin:left center}
+@keyframes k14{0%{opacity:1}10.0%{opacity:1}13.0%{opacity:0}97.0%{opacity:0}100%{opacity:1}}.k14{animation:k14 10.0s linear infinite}
+@keyframes k15{0%{opacity:0}10.0%{opacity:0}13.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k15{animation:k15 10.0s linear infinite}
+@keyframes k16{0%{opacity:1}22.0%{opacity:1}25.0%{opacity:0}97.0%{opacity:0}100%{opacity:1}}.k16{animation:k16 10.0s linear infinite}
+@keyframes k17{0%{opacity:0}22.0%{opacity:0}25.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k17{animation:k17 10.0s linear infinite}
+@keyframes k18{0%{opacity:1}34.0%{opacity:1}37.0%{opacity:0}97.0%{opacity:0}100%{opacity:1}}.k18{animation:k18 10.0s linear infinite}
+@keyframes k19{0%{opacity:0}34.0%{opacity:0}37.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k19{animation:k19 10.0s linear infinite}
+@keyframes k20{0%{opacity:1}46.0%{opacity:1}49.0%{opacity:0}97.0%{opacity:0}100%{opacity:1}}.k20{animation:k20 10.0s linear infinite}
+@keyframes k21{0%{opacity:0}46.0%{opacity:0}49.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k21{animation:k21 10.0s linear infinite}
+@keyframes k22{0%{opacity:1}58.0%{opacity:1}61.0%{opacity:0}97.0%{opacity:0}100%{opacity:1}}.k22{animation:k22 10.0s linear infinite}
+@keyframes k23{0%{opacity:0}58.0%{opacity:0}61.0%{opacity:1}94.0%{opacity:1}97.0%{opacity:0}100%{opacity:0}}.k23{animation:k23 10.0s linear infinite}
+@keyframes k24{0%{transform:translateY(0);opacity:0}8%{opacity:.9}58.0%{transform:translateY(150px);opacity:.9}62.0%{opacity:0}100%{opacity:0;transform:translateY(150px)}}.k24{animation:k24 10.0s linear infinite}
+@media (prefers-reduced-motion: reduce){*{animation:none!important} .initial{opacity:0!important} .final{opacity:1!important;transform:none!important}}
+</style>
+<g clip-path="url(#round)">
+<rect width="1200" height="420" fill="url(#bg)"/><rect width="1200" height="420" fill="url(#grid)"/>
+<ellipse class="fa" cx="264.0" cy="63.0" rx="300" ry="200" fill="url(#glowA)"/>
+<ellipse class="fb" cx="1020.0" cy="378.0" rx="320" ry="210" fill="url(#glowB)"/>
+<rect x="64" y="62" width="300" height="30" rx="15" fill="#ffffff" fill-opacity="0.06" stroke="#26324f"/>
+<circle cx="84" cy="77" r="5" fill="#22c55e"/><text x="98" y="82" font-size="13" fill="#8d97b0" letter-spacing="1.5">CLAUDE CODE SKILL · SEO + GEO</text>
+<text x="62" y="170" font-size="78" font-weight="800" fill="#e8ebf4" letter-spacing="-2">super<tspan fill="url(#acc)">-seo</tspan></text>
+<text x="64" y="218" font-size="27" font-weight="600" fill="#e8ebf4">Rank in Google. Get cited by AI.</text>
+<text x="64" y="252" font-size="18" fill="#8d97b0">Audits your SaaS codebase + running site, then fixes it in code.</text>
+<g><rect x="64" y="300" width="80.4" height="34" rx="17" fill="#ffffff" fill-opacity="0.05" stroke="#26324f"/><rect class="k1 final" x="64" y="300" width="80.4" height="34" rx="17" fill="#22c55e" fill-opacity="0.12" stroke="#22c55e" stroke-opacity="0.7"/><circle cx="81" cy="317" r="4.5" fill="#8d97b0"/><circle class="k1 final" cx="81" cy="317" r="4.5" fill="#22c55e"/><text x="92" y="322" font-size="13" fill="#e8ebf4">Google</text></g>
+<g><rect x="152.4" y="300" width="87.80000000000001" height="34" rx="17" fill="#ffffff" fill-opacity="0.05" stroke="#26324f"/><rect class="k2 final" x="152.4" y="300" width="87.80000000000001" height="34" rx="17" fill="#22c55e" fill-opacity="0.12" stroke="#22c55e" stroke-opacity="0.7"/><circle cx="169.4" cy="317" r="4.5" fill="#8d97b0"/><circle class="k2 final" cx="169.4" cy="317" r="4.5" fill="#22c55e"/><text x="180.4" y="322" font-size="13" fill="#e8ebf4">ChatGPT</text></g>
+<g><rect x="248.20000000000002" y="300" width="110.0" height="34" rx="17" fill="#ffffff" fill-opacity="0.05" stroke="#26324f"/><rect class="k3 final" x="248.20000000000002" y="300" width="110.0" height="34" rx="17" fill="#22c55e" fill-opacity="0.12" stroke="#22c55e" stroke-opacity="0.7"/><circle cx="265.20000000000005" cy="317" r="4.5" fill="#8d97b0"/><circle class="k3 final" cx="265.20000000000005" cy="317" r="4.5" fill="#22c55e"/><text x="276.20000000000005" y="322" font-size="13" fill="#e8ebf4">Perplexity</text></g>
+<g><rect x="366.20000000000005" y="300" width="80.4" height="34" rx="17" fill="#ffffff" fill-opacity="0.05" stroke="#26324f"/><rect class="k4 final" x="366.20000000000005" y="300" width="80.4" height="34" rx="17" fill="#22c55e" fill-opacity="0.12" stroke="#22c55e" stroke-opacity="0.7"/><circle cx="383.20000000000005" cy="317" r="4.5" fill="#8d97b0"/><circle class="k4 final" cx="383.20000000000005" cy="317" r="4.5" fill="#22c55e"/><text x="394.20000000000005" y="322" font-size="13" fill="#e8ebf4">Gemini</text></g>
+<g><rect x="454.6" y="300" width="80.4" height="34" rx="17" fill="#ffffff" fill-opacity="0.05" stroke="#26324f"/><rect class="k5 final" x="454.6" y="300" width="80.4" height="34" rx="17" fill="#22c55e" fill-opacity="0.12" stroke="#22c55e" stroke-opacity="0.7"/><circle cx="471.6" cy="317" r="4.5" fill="#8d97b0"/><circle class="k5 final" cx="471.6" cy="317" r="4.5" fill="#22c55e"/><text x="482.6" y="322" font-size="13" fill="#e8ebf4">Claude</text></g>
+<g><rect x="543.0" y="300" width="87.80000000000001" height="34" rx="17" fill="#ffffff" fill-opacity="0.05" stroke="#26324f"/><rect class="k6 final" x="543.0" y="300" width="87.80000000000001" height="34" rx="17" fill="#22c55e" fill-opacity="0.12" stroke="#22c55e" stroke-opacity="0.7"/><circle cx="560.0" cy="317" r="4.5" fill="#8d97b0"/><circle class="k6 final" cx="560.0" cy="317" r="4.5" fill="#22c55e"/><text x="571.0" y="322" font-size="13" fill="#e8ebf4">Copilot</text></g>
+<text x="64" y="370" font-size="13" fill="#8d97b0">Code-first · localhost-first · ships fixes for Next.js, Laravel, Astro, Nuxt, SvelteKit, Vite</text>
+<rect x="700" y="52" width="448" height="316" rx="14" fill="#121b31" stroke="#26324f"/>
+<circle cx="722" cy="72" r="5" fill="#ff5f57"/>
+<circle cx="738" cy="72" r="5" fill="#febc2e"/>
+<circle cx="754" cy="72" r="5" fill="#28c840"/>
+<text class="mono" x="780" y="77" font-size="12" fill="#8d97b0">audit · localhost:3000</text>
+<text x="724" y="122" font-size="12" fill="#8d97b0" letter-spacing="1">GOOGLE POSITION</text>
+<text class="k7 initial" x="722" y="170" font-size="44" font-weight="800" fill="#e8ebf4" opacity="0">#47</text>
+<text class="k8 initial" x="722" y="170" font-size="44" font-weight="800" fill="#e8ebf4" opacity="0">#31</text>
+<text class="k9 initial" x="722" y="170" font-size="44" font-weight="800" fill="#e8ebf4" opacity="0">#18</text>
+<text class="k10 initial" x="722" y="170" font-size="44" font-weight="800" fill="#e8ebf4" opacity="0">#9</text>
+<text class="k11 initial" x="722" y="170" font-size="44" font-weight="800" fill="#e8ebf4" opacity="0">#4</text>
+<text class="k12 final" x="722" y="170" font-size="44" font-weight="800" fill="#22c55e" opacity="0">#1</text>
+<text x="900" y="122" font-size="12" fill="#8d97b0" letter-spacing="1">READINESS</text>
+<rect x="900" y="144" width="220" height="12" rx="6" fill="#ffffff" fill-opacity="0.07"/>
+<rect class="k13 final" x="900" y="144" width="212" height="12" rx="6" fill="url(#acc)"/>
+<line x1="720" y1="192" x2="1128" y2="192" stroke="#26324f"/>
+<g class="k14 initial"><circle cx="732" cy="219" r="9" fill="#f05252" fill-opacity="0.15"/><path d="M728 215l8 8m0 -8l-8 8" stroke="#f05252" stroke-width="2" stroke-linecap="round"/></g>
+<g class="k15 final" opacity="0"><circle cx="732" cy="219" r="9" fill="#22c55e" fill-opacity="0.18"/><path d="M727 219l3.5 3.5l6.5 -7" stroke="#22c55e" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="752" y="224" font-size="15" fill="#e8ebf4">Content rendered without JavaScript</text>
+<g class="k16 initial"><circle cx="732" cy="247" r="9" fill="#f05252" fill-opacity="0.15"/><path d="M728 243l8 8m0 -8l-8 8" stroke="#f05252" stroke-width="2" stroke-linecap="round"/></g>
+<g class="k17 final" opacity="0"><circle cx="732" cy="247" r="9" fill="#22c55e" fill-opacity="0.18"/><path d="M727 247l3.5 3.5l6.5 -7" stroke="#22c55e" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="752" y="252" font-size="15" fill="#e8ebf4">AI search bots allowed (robots + WAF)</text>
+<g class="k18 initial"><circle cx="732" cy="275" r="9" fill="#f05252" fill-opacity="0.15"/><path d="M728 271l8 8m0 -8l-8 8" stroke="#f05252" stroke-width="2" stroke-linecap="round"/></g>
+<g class="k19 final" opacity="0"><circle cx="732" cy="275" r="9" fill="#22c55e" fill-opacity="0.18"/><path d="M727 275l3.5 3.5l6.5 -7" stroke="#22c55e" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="752" y="280" font-size="15" fill="#e8ebf4">Canonical, sitemap and noindex clean</text>
+<g class="k20 initial"><circle cx="732" cy="303" r="9" fill="#f05252" fill-opacity="0.15"/><path d="M728 299l8 8m0 -8l-8 8" stroke="#f05252" stroke-width="2" stroke-linecap="round"/></g>
+<g class="k21 final" opacity="0"><circle cx="732" cy="303" r="9" fill="#22c55e" fill-opacity="0.18"/><path d="M727 303l3.5 3.5l6.5 -7" stroke="#22c55e" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="752" y="308" font-size="15" fill="#e8ebf4">SoftwareApplication JSON-LD valid</text>
+<g class="k22 initial"><circle cx="732" cy="331" r="9" fill="#f05252" fill-opacity="0.15"/><path d="M728 327l8 8m0 -8l-8 8" stroke="#f05252" stroke-width="2" stroke-linecap="round"/></g>
+<g class="k23 final" opacity="0"><circle cx="732" cy="331" r="9" fill="#22c55e" fill-opacity="0.18"/><path d="M727 331l3.5 3.5l6.5 -7" stroke="#22c55e" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="752" y="336" font-size="15" fill="#e8ebf4">Answer-first pricing &amp; vs pages</text>
+<rect class="k24 initial" x="716" y="202" width="416" height="2" fill="url(#acc)" opacity="0" fill-opacity="0.55"/>
+</g>
+<rect x="0.5" y="0.5" width="1199" height="419" rx="18" fill="none" stroke="#26324f"/>
+</svg>

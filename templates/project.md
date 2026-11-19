@@ -32,7 +32,7 @@
 | /pricing | money | [brand pricing] |
 
 ## Writing preferences
-- Voice: [e.g. plain, direct, BM-English mix allowed in ms pages]
+- Voice: [e.g. plain, direct, Malay-English mix allowed on ms pages]
 - Avoid: [banned words/claims, topics]
 - Proof assets: [customer numbers, case studies, benchmarks, screenshots we can cite]
 
