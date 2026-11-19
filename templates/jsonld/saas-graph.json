@@ -1,0 +1,43 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://[REPLACE-domain]/#organization",
+      "name": "[REPLACE Brand]",
+      "legalName": "[REPLACE Brand Sdn. Bhd.]",
+      "url": "https://[REPLACE-domain]/",
+      "logo": { "@type": "ImageObject", "url": "https://[REPLACE-domain]/logo.png", "width": 512, "height": 512 },
+      "description": "[REPLACE one factual sentence]",
+      "foundingDate": "[REPLACE YYYY]",
+      "address": { "@type": "PostalAddress", "addressLocality": "[REPLACE Kuala Lumpur]", "addressCountry": "MY" },
+      "contactPoint": [{ "@type": "ContactPoint", "contactType": "customer support", "email": "[REPLACE real address]", "availableLanguage": ["en", "ms"] }],
+      "sameAs": ["https://www.linkedin.com/company/[REPLACE]", "https://github.com/[REPLACE]"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://[REPLACE-domain]/#website",
+      "url": "https://[REPLACE-domain]/",
+      "name": "[REPLACE Brand]",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://[REPLACE-domain]/#organization" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://[REPLACE-domain]/#software",
+      "name": "[REPLACE Brand]",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://[REPLACE-domain]/",
+      "description": "[REPLACE]",
+      "publisher": { "@id": "https://[REPLACE-domain]/#organization" },
+      "featureList": ["[REPLACE feature 1]", "[REPLACE feature 2]"],
+      "releaseNotes": "https://[REPLACE-domain]/changelog",
+      "offers": [
+        { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "MYR", "url": "https://[REPLACE-domain]/pricing" },
+        { "@type": "Offer", "name": "Pro", "price": "[REPLACE 29]", "priceCurrency": "MYR", "url": "https://[REPLACE-domain]/pricing",
+          "priceSpecification": { "@type": "UnitPriceSpecification", "price": "[REPLACE 29]", "priceCurrency": "MYR", "billingDuration": 1, "unitCode": "MON" } }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+# robots.txt for a SaaS marketing site (static hosts: place in the web root).
+# PRODUCTION ONLY. Staging/preview must serve:  User-agent: *  /  Disallow: /   (plus X-Robots-Tag: noindex)
+# RFC 9309: a bot that matches a named group ignores the * group, so every group repeats the private paths.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /app/
+Disallow: /dashboard/
+Disallow: /account/
+Disallow: /login
+Disallow: /signup
+
+# AI search + user-triggered agents (needed to be cited / read on request)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: DuckAssistBot
+User-agent: MistralAI-User
+Allow: /
+Disallow: /api/
+Disallow: /app/
+Disallow: /dashboard/
+Disallow: /account/
+Disallow: /login
+Disallow: /signup
+
+# AI training crawlers: business decision. Default here = allow. To opt out, replace the Allow with "Disallow: /".
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Disallow: /app/
+Disallow: /dashboard/
+Disallow: /account/
+Disallow: /login
+Disallow: /signup
+
+# Optional Cloudflare Content Signals (preference, not enforcement):
+# Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+Sitemap: https://[REPLACE-domain]/sitemap.xml

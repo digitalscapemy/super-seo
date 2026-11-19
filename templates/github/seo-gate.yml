@@ -1,0 +1,30 @@
+# .github/workflows/seo-gate.yml — run the SEO/GEO gate on every successful preview deployment.
+# Requires the skill's scripts vendored into the repo at tools/seo/ (copy super-seo/scripts/*.py there).
+name: seo-gate
+on:
+  deployment_status:
+jobs:
+  seo:
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Static scan + crawl preview
+        env:
+          PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
+        run: |
+          # Preview deploys are intentionally noindex; the gate fails on other criticals (CSR shell, 5xx, broken robots, ...)
+          python tools/seo/audit.py --path . --url "$PREVIEW_URL" --no-probe --max-pages 80 || true
+          python tools/seo/project_scan.py . > seo-scan.md
+          python tools/seo/crawl_audit.py "$PREVIEW_URL" --max-pages 80 --out .seo/audits --fail-on critical --ua "super-seo-ci"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-report
+          path: |
+            .seo/reports/
+            .seo/audits/
+            seo-scan.md

@@ -1,0 +1,16 @@
+{
+  "brand": { "name": "Invoicely", "domain": "invoicely.my", "aliases": ["Invoicely MY"] },
+  "competitors": [
+    { "name": "FreshBooks", "domain": "freshbooks.com", "notes": "global leader, cited in most 'best invoicing' answers" },
+    { "name": "Bukku", "domain": "bukku.my", "notes": "local, LHDN e-invoice ready" }
+  ],
+  "market": "MY-en",
+  "engines": ["chatgpt", "perplexity", "google-ai-mode", "gemini", "claude", "copilot"],
+  "prompts": [
+    { "text": "best invoicing app for freelancers in Malaysia", "topic": "invoicing app" },
+    { "text": "which invoicing software supports LHDN MyInvois e-invoice", "topic": "e-invoice software" },
+    { "text": "free invoice software for small business Malaysia", "topic": "invoicing app" },
+    { "text": "FreshBooks alternatives for Malaysian businesses", "topic": "invoicing app" },
+    { "text": "how to send an e-invoice to LHDN as a freelancer", "topic": "e-invoice software" }
+  ]
+}
