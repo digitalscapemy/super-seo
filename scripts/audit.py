@@ -173,6 +173,7 @@ def main(argv=None):
     ap.add_argument("--max-pages", type=int, default=60)
     ap.add_argument("--psi", action="store_true", help="add PageSpeed Insights / CrUX (public URLs only)")
     ap.add_argument("--no-probe", action="store_true", help="skip spoofed-UA bot probes")
+    ap.add_argument("--allow-private", action="store_true", help="pass through to crawlers: allow private addresses for a non-localhost URL")
     ap.add_argument("--seo-dir", default=None, help="where .seo/ lives (default: <path>/.seo or ./.seo)")
     ap.add_argument("--fail-on", choices=["critical", "high"])
     a = ap.parse_args(argv)
@@ -197,7 +198,8 @@ def main(argv=None):
             measured |= {"rendering", "metadata", "structured_data", "indexability"}
             how.append(f"project_scan on {scan['root']} ({scan['detect']['framework']}, {scan['files_scanned']} files)")
     if a.url:
-        crawl = run_tool(["crawl_audit.py", a.url, "--max-pages", str(a.max_pages), "--json", "--no-write"])
+        crawl = run_tool(["crawl_audit.py", a.url, "--max-pages", str(a.max_pages), "--json", "--no-write"]
+                         + (["--allow-private"] if a.allow_private else []))
         if crawl:
             host = crawl["origin"].split("://", 1)[1].replace(":", "_")
             (audits / f"crawl-{host}-{stamp}.json").write_text(json.dumps(crawl, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -210,7 +212,8 @@ def main(argv=None):
             measured |= {"indexability", "rendering", "metadata", "structured_data"}
             how.append(f"crawl_audit {crawl['origin']}: {crawl['pages_crawled']} pages ({'complete' if crawl.get('crawl_complete') else 'partial'}), "
                        f"sitemap {crawl['sitemap_url_count']} URLs")
-        acc_args = ["ai_access.py", a.url, "--json"] + (["--no-probe"] if a.no_probe else [])
+        acc_args = (["ai_access.py", a.url, "--json"] + (["--no-probe"] if a.no_probe else [])
+                    + (["--allow-private"] if a.allow_private else []))
         access = run_tool(acc_args)
         if access:
             (audits / f"ai-access-{stamp}.json").write_text(json.dumps(access, indent=2), encoding="utf-8")

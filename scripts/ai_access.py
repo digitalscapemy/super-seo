@@ -32,7 +32,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from crawl_audit import fetch, PageParser, PUBLIC_ONLY, is_private_host  # noqa: E402
+from crawl_audit import fetch, PageParser, set_network_mode  # noqa: E402
 from robots_rfc import Robots  # noqa: E402
 
 BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
@@ -167,6 +167,7 @@ def main(argv=None):
     ap.add_argument("url")
     ap.add_argument("--paths", nargs="*", default=None, help="paths to probe (default: / plus /pricing, /docs, /blog if they exist)")
     ap.add_argument("--no-probe", action="store_true", help="skip live UA probes (robots.txt only)")
+    ap.add_argument("--allow-private", action="store_true", help="allow private/internal addresses for a non-localhost start host")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--out")
     a = ap.parse_args(argv)
@@ -175,7 +176,7 @@ def main(argv=None):
 
     u = urlparse(a.url)
     origin = f"{u.scheme}://{u.netloc}"
-    PUBLIC_ONLY["on"] = not is_private_host(u.hostname)
+    set_network_mode(u.hostname, a.allow_private)
     findings = []
 
     def add(sev, code, msg):

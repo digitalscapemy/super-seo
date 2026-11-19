@@ -101,4 +101,7 @@ that, but prefer PowerShell or write paths without a leading slash (`--paths pri
 - Scaled/programmatic pages only through the gates in `saas-pages.md` §4.
 - No paid APIs or DataForSEO. Optional free APIs (PageSpeed Insights, CrUX, Search Console exports) only.
 - Spoofed-UA probes only against sites the user owns or is authorised to test.
+- Network safety: when the start URL is public, the fetchers refuse redirects/sitemaps into private, loopback or
+  link-local addresses (checked on the actual connected IP). `localhost`/private-IP start URLs work automatically;
+  use `--allow-private` only for an internal staging hostname the user controls.
 - Report what was measured vs. not measured; state crawl coverage (complete/partial) and dates.

@@ -84,7 +84,7 @@ def ip_is_public(addr: str) -> bool:
 
 
 # Set by crawl()/callers: when the audit starts from a PUBLIC host, never connect into private networks.
-PUBLIC_ONLY = {"on": False}
+PUBLIC_ONLY = {"on": True}
 
 
 class BlockedAddress(OSError):
@@ -154,8 +154,8 @@ def _decode_body(raw: bytes, encoding: str | None, max_bytes: int) -> tuple[byte
 
 
 def is_private_host(host: str | None) -> bool:
-    """True if host is (or resolves to) any non-public address, or cannot be resolved.
-    Used to decide the audit mode and as an early check; the binding check is _check_peer() at connect time."""
+    """Per-URL early block check (fail closed): True if host is missing, unresolvable, or resolves to ANY
+    non-public address. The binding check is still _check_peer() at connect time."""
     if not host:
         return True
     try:
@@ -163,6 +163,33 @@ def is_private_host(host: str | None) -> bool:
     except OSError:
         return True
     return any(not ip_is_public(info[4][0]) for info in infos)
+
+
+def start_is_local(host: str | None) -> bool:
+    """Mode decision (fail safe): True ONLY when the start host is unambiguously local — 'localhost' / '*.localhost',
+    a literal non-public IP, or a name whose EVERY resolved address is non-public. Unresolvable or mixed
+    public/private records count as NOT local, so protection stays on."""
+    if not host:
+        return False
+    h = host.strip("[]").lower().rstrip(".")
+    if h == "localhost" or h.endswith(".localhost"):
+        return True
+    try:
+        return not ip_is_public(str(ipaddress.ip_address(h.split("%")[0])))
+    except ValueError:
+        pass
+    try:
+        infos = socket.getaddrinfo(h, None)
+    except OSError:
+        return False
+    return bool(infos) and all(not ip_is_public(info[4][0]) for info in infos)
+
+
+def set_network_mode(start_host: str | None, allow_private: bool = False) -> bool:
+    """Protection is ON by default. It is turned off only for a clearly local start host or an explicit
+    --allow-private. Returns True when protection is on."""
+    PUBLIC_ONLY["on"] = not (allow_private or start_is_local(start_host))
+    return PUBLIC_ONLY["on"]
 
 
 def url_allowed(url: str) -> str | None:
@@ -677,12 +704,13 @@ def read_sitemap_urls(sm_url: str, ua: str, limit: int = 5000, depth: int = 0) -
     return locs[:limit], problems
 
 
-def crawl(start: str, max_pages: int, ua: str, delay: float, fixed_urls: list[str] | None, respect_robots: bool) -> dict:
+def crawl(start: str, max_pages: int, ua: str, delay: float, fixed_urls: list[str] | None, respect_robots: bool,
+          allow_private: bool = False) -> dict:
     start = normalize(start)
     sp = urlparse(start)
     origin = f"{sp.scheme}://{sp.netloc}"
     host = sp.hostname
-    PUBLIC_ONLY["on"] = not is_private_host(host)
+    set_network_mode(host, allow_private)
     site_issues: list[dict] = []
 
     robots = read_robots(origin, ua)
@@ -861,6 +889,8 @@ def main(argv=None):
     ap.add_argument("--ua", default=UA_DEFAULT)
     ap.add_argument("--delay", type=float, default=0.2, help="seconds between requests")
     ap.add_argument("--ignore-robots", action="store_true", help="crawl paths robots.txt disallows (own site only)")
+    ap.add_argument("--allow-private", action="store_true",
+                    help="allow private/internal addresses even though the start host is not localhost/private (e.g. an internal staging hostname)")
     ap.add_argument("--out", default=".seo/audits")
     ap.add_argument("--no-write", action="store_true")
     ap.add_argument("--json", action="store_true", help="print JSON to stdout instead of markdown")
@@ -872,7 +902,7 @@ def main(argv=None):
     fixed = None
     if a.urls:
         fixed = [l.strip() for l in Path(a.urls).read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")]
-    result = crawl(a.url, a.max_pages, a.ua, a.delay, fixed, not a.ignore_robots)
+    result = crawl(a.url, a.max_pages, a.ua, a.delay, fixed, not a.ignore_robots, a.allow_private)
     summary = summarize(result)
     result["summary"] = {"counts": summary["counts"], "technical_score": summary["technical_score"]}
     md = to_markdown(result, summary)
