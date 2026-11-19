@@ -27,7 +27,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from crawl_audit import fetch, UA_DEFAULT  # noqa: E402
+from crawl_audit import fetch, UA_DEFAULT, PUBLIC_ONLY, is_private_host  # noqa: E402
 from html.parser import HTMLParser  # noqa: E402
 
 FILLER = ["it's important to note", "it is important to note", "in today's fast-paced", "in today's digital", "when it comes to",
@@ -231,6 +231,8 @@ def main(argv=None):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     src = a.source
     if re.match(r"https?://", src):
+        from urllib.parse import urlparse
+        PUBLIC_ONLY["on"] = not is_private_host(urlparse(src).hostname)
         r = fetch(src, UA_DEFAULT)
         if r["status"] != 200:
             sys.exit(f"fetch failed: {r['status']} {r['error'] or ''}")

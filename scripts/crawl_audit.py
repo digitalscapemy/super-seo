@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import gzip
 import hashlib
+import ipaddress
 import http.client
 import json
 import re
@@ -69,22 +70,58 @@ class NoRedirect(request.HTTPRedirectHandler):
 
 
 _ctx = ssl.create_default_context()
-_opener = request.build_opener(NoRedirect, request.HTTPSHandler(context=_ctx))
+_opener = request.OpenerDirector()
+for _h in (request.HTTPHandler(), request.HTTPSHandler(context=_ctx), NoRedirect(),
+           request.HTTPErrorProcessor(), request.HTTPDefaultErrorHandler()):
+    _opener.add_handler(_h)  # deliberately no FileHandler/FTPHandler/DataHandler
 
 
-def _decode_body(raw: bytes, encoding: str | None) -> bytes:
+def _decode_body(raw: bytes, encoding: str | None, max_bytes: int) -> tuple[bytes, bool]:
+    """Streaming decompression with an OUTPUT cap (defends against decompression bombs).
+    Returns (body, truncated)."""
     enc = (encoding or "").lower()
+    if enc not in ("gzip", "deflate"):
+        return raw[:max_bytes], len(raw) > max_bytes
+    for wbits in ((31,) if enc == "gzip" else (15, -15)):
+        try:
+            d = zlib.decompressobj(wbits)
+            out = d.decompress(raw, max_bytes + 1)
+            return out[:max_bytes], len(out) > max_bytes or bool(d.unconsumed_tail)
+        except zlib.error:
+            continue
+    return raw[:max_bytes], len(raw) > max_bytes
+
+
+def is_private_host(host: str | None) -> bool:
+    """True if host is (or resolves to) a loopback/private/link-local/reserved address."""
+    if not host:
+        return True
     try:
-        if enc == "gzip":
-            return gzip.decompress(raw)
-        if enc == "deflate":
-            try:
-                return zlib.decompress(raw)
-            except zlib.error:
-                return zlib.decompress(raw, -zlib.MAX_WBITS)
-    except Exception:
-        return raw
-    return raw
+        infos = socket.getaddrinfo(host, None)
+    except OSError:
+        return False  # unresolvable: the fetch itself will fail
+    for info in infos:
+        try:
+            ip = ipaddress.ip_address(info[4][0].split("%")[0])
+        except ValueError:
+            continue
+        if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast or ip.is_unspecified:
+            return True
+    return False
+
+
+# Set by crawl(): when the audit starts from a PUBLIC host, never follow redirects/sitemaps into private networks.
+PUBLIC_ONLY = {"on": False}
+
+
+def url_allowed(url: str) -> str | None:
+    """Return a reason string if the URL must not be fetched, else None."""
+    p = urlparse(url)
+    if p.scheme not in ("http", "https"):
+        return f"blocked non-http(s) scheme '{p.scheme}'"
+    if PUBLIC_ONLY["on"] and is_private_host(p.hostname):
+        return f"blocked private/internal address {p.hostname} (audit started from a public host)"
+    return None
 
 
 def fetch(url: str, ua: str, timeout: float = 20.0, max_redirects: int = 10, accept: str | None = None,
@@ -94,6 +131,10 @@ def fetch(url: str, ua: str, timeout: float = 20.0, max_redirects: int = 10, acc
     current = url
     started = time.perf_counter()
     for _ in range(max_redirects + 1):
+        reason = url_allowed(current)
+        if reason:
+            return {"url": url, "final_url": current, "status": 0, "error": reason, "chain": chain,
+                    "headers": {}, "body": "", "ttfb_ms": None, "total_ms": None, "bytes": 0}
         headers = {
             "User-Agent": ua,
             "Accept": accept or "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -122,7 +163,7 @@ def fetch(url: str, ua: str, timeout: float = 20.0, max_redirects: int = 10, acc
             chain.append({"url": current, "status": status, "to": nxt})
             current = nxt
             continue
-        body_bytes = _decode_body(raw, hdrs.get("Content-Encoding"))
+        body_bytes, truncated = _decode_body(raw, hdrs.get("Content-Encoding"), max_bytes)
         charset = hdrs.get_content_charset() or "utf-8"
         try:
             body = body_bytes.decode(charset, errors="replace")
@@ -132,7 +173,7 @@ def fetch(url: str, ua: str, timeout: float = 20.0, max_redirects: int = 10, acc
             "url": url, "final_url": current, "status": status, "error": None, "chain": chain,
             "headers": {k.lower(): v for k, v in hdrs.items()}, "body": body,
             "ttfb_ms": round(ttfb * 1000), "total_ms": round((time.perf_counter() - started) * 1000),
-            "bytes": len(body_bytes), "truncated": len(raw) > max_bytes,
+            "bytes": len(body_bytes), "truncated": truncated or len(raw) > max_bytes,
         }
     return {"url": url, "final_url": current, "status": 0, "error": "too many redirects", "chain": chain,
             "headers": {}, "body": "", "ttfb_ms": None, "total_ms": None, "bytes": 0}
@@ -567,7 +608,12 @@ def read_sitemap_urls(sm_url: str, ua: str, limit: int = 5000, depth: int = 0) -
     locs = [el.text.strip() for el in root.iter() if el.tag.split("}")[-1] == "loc" and el.text]
     if tag == "sitemapindex" and depth == 0:
         urls = []
+        parent_host = (urlparse(sm_url).hostname or "").removeprefix("www.")
         for child in locs[:50]:
+            ch = (urlparse(child).hostname or "").removeprefix("www.")
+            if ch != parent_host and not ch.endswith("." + parent_host):
+                problems.append(f"skipped cross-host child sitemap {child}")
+                continue
             u, pr = read_sitemap_urls(child, ua, limit - len(urls), depth + 1)
             urls += u
             problems += pr
@@ -584,6 +630,7 @@ def crawl(start: str, max_pages: int, ua: str, delay: float, fixed_urls: list[st
     sp = urlparse(start)
     origin = f"{sp.scheme}://{sp.netloc}"
     host = sp.hostname
+    PUBLIC_ONLY["on"] = not is_private_host(host)
     site_issues: list[dict] = []
 
     robots = read_robots(origin, ua)

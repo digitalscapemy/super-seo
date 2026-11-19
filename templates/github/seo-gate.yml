@@ -1,30 +1,48 @@
 # .github/workflows/seo-gate.yml — run the SEO/GEO gate on every successful preview deployment.
-# Requires the skill's scripts vendored into the repo at tools/seo/ (copy super-seo/scripts/*.py there).
+# Security model:
+#   - The deployed commit is UNTRUSTED (it can come from any branch, incl. a contributor's PR preview).
+#     It is checked out only as data (read by project_scan); nothing from it is executed.
+#   - The audit tools run from the default branch (trusted copy), vendored at tools/seo/ (copy super-seo/scripts/*.py there).
+#   - Token is read-only and not persisted into the checkouts.
 name: seo-gate
 on:
   deployment_status:
+permissions:
+  contents: read
 jobs:
   seo:
-    if: github.event.deployment_status.state == 'success'
+    # Only successful deployments created for this repository's preview environment.
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      contains(fromJSON('["Preview","preview","staging"]'), github.event.deployment.environment)
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - name: Trusted tools (default branch)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          path: trusted
+          persist-credentials: false
+      - name: Deployed code (read as data only)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+          path: deployed
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Static scan + crawl preview
+      - name: Scan + crawl preview
         env:
-          PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
+          PREVIEW_URL: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
         run: |
+          case "$PREVIEW_URL" in https://*) ;; *) echo "refusing non-https preview URL"; exit 1;; esac
           # Preview deploys are intentionally noindex; the gate fails on other criticals (CSR shell, 5xx, broken robots, ...)
-          python tools/seo/audit.py --path . --url "$PREVIEW_URL" --no-probe --max-pages 80 || true
-          python tools/seo/project_scan.py . > seo-scan.md
-          python tools/seo/crawl_audit.py "$PREVIEW_URL" --max-pages 80 --out .seo/audits --fail-on critical --ua "super-seo-ci"
+          python trusted/tools/seo/audit.py --path deployed --url "$PREVIEW_URL" --no-probe --max-pages 80 --seo-dir out || true
+          python trusted/tools/seo/crawl_audit.py "$PREVIEW_URL" --max-pages 80 --out out/audits --fail-on critical --ua "super-seo-ci"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: seo-report
-          path: |
-            .seo/reports/
-            .seo/audits/
-            seo-scan.md
+          path: out/

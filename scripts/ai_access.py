@@ -32,7 +32,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from crawl_audit import fetch, PageParser  # noqa: E402
+from crawl_audit import fetch, PageParser, PUBLIC_ONLY, is_private_host  # noqa: E402
 from robots_rfc import Robots  # noqa: E402
 
 BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
@@ -175,6 +175,7 @@ def main(argv=None):
 
     u = urlparse(a.url)
     origin = f"{u.scheme}://{u.netloc}"
+    PUBLIC_ONLY["on"] = not is_private_host(u.hostname)
     findings = []
 
     def add(sev, code, msg):
