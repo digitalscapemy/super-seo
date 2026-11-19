@@ -187,6 +187,15 @@ class FindBrowserTests(unittest.TestCase):
 
 
 class ArgvTests(unittest.TestCase):
+    """CLI renderer path: only used when protection is off (localhost / --allow-private)."""
+
+    def setUp(self):
+        self._prev = rc.PUBLIC_ONLY["on"]
+        rc.PUBLIC_ONLY["on"] = False
+
+    def tearDown(self):
+        rc.PUBLIC_ONLY["on"] = self._prev
+
     def test_dump_dom_argv_via_subprocess(self):
         seen = {}
 
@@ -259,3 +268,67 @@ class GuardTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BrowserNetworkGuardTests(unittest.TestCase):
+    """Protected mode (public start URL): every browser request is intercepted and checked."""
+
+    def _handler(self):
+        sent = []
+
+        class FakeSess:
+            def send_nowait(self, method, params=None):
+                sent.append((method, params))
+
+        handler, state = cdp_lite.make_network_guard(
+            lambda u: None if "public.test" in u else "blocked private/internal address",
+            lambda ip: ip == "93.184.216.34")
+        return handler, state, FakeSess(), sent
+
+    def _paused(self, url, rid="1"):
+        return {"method": "Fetch.requestPaused", "params": {"requestId": rid, "request": {"url": url}}}
+
+    def test_public_request_continues(self):
+        h, state, sess, sent = self._handler()
+        self.assertTrue(h(sess, self._paused("https://public.test/app.js")))
+        self.assertEqual(sent[-1][0], "Fetch.continueRequest")
+        self.assertEqual(state["blocked"], [])
+
+    def test_private_redirect_or_subresource_fails(self):
+        h, state, sess, sent = self._handler()
+        h(sess, self._paused("http://169.254.169.254/latest/meta-data/", "7"))
+        self.assertEqual(sent[-1], ("Fetch.failRequest", {"requestId": "7", "errorReason": "BlockedByClient"}))
+        self.assertEqual(len(state["blocked"]), 1)
+
+    def test_data_urls_allowed(self):
+        h, state, sess, sent = self._handler()
+        h(sess, self._paused("data:image/png;base64,AAAA"))
+        self.assertEqual(sent[-1][0], "Fetch.continueRequest")
+
+    def test_private_connected_ip_poisons_run(self):
+        h, state, sess, sent = self._handler()
+        h(sess, {"method": "Network.responseReceived",
+                 "params": {"response": {"url": "https://public.test/", "remoteIPAddress": "127.0.0.1"}}})
+        self.assertEqual(state["violations"][0]["ip"], "127.0.0.1")
+
+    def test_public_connected_ip_ok(self):
+        h, state, sess, sent = self._handler()
+        h(sess, {"method": "Network.responseReceived",
+                 "params": {"response": {"url": "https://public.test/", "remoteIPAddress": "93.184.216.34"}}})
+        self.assertEqual(state["violations"], [])
+
+    def test_unrelated_events_pass_through(self):
+        h, state, sess, sent = self._handler()
+        self.assertFalse(h(sess, {"method": "Page.loadEventFired", "params": {}}))
+
+    def test_protected_render_uses_guarded_devtools(self):
+        prev = rc.PUBLIC_ONLY["on"]
+        rc.PUBLIC_ONLY["on"] = True
+        try:
+            with mock.patch.object(rc.cdp_lite, "emulate", return_value={"error": None, "html": "<html>x</html>"}) as em,                     mock.patch("subprocess.run") as run:
+                r = rc.render_dom("chrome", "https://public.test/")
+            self.assertIsNotNone(em.call_args.kwargs.get("network_guard"))
+            run.assert_not_called()  # the un-interceptable CLI renderer is never used for public URLs
+            self.assertEqual(r["html"], "<html>x</html>")
+        finally:
+            rc.PUBLIC_ONLY["on"] = prev

@@ -37,7 +37,7 @@ from urllib.parse import urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from crawl_audit import PageParser, fetch, jsonld_types, normalize, set_network_mode, url_allowed  # noqa: E402
+from crawl_audit import PageParser, fetch, jsonld_types, normalize, set_network_mode, url_allowed, PUBLIC_ONLY, ip_is_public  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cdp_lite  # noqa: E402
@@ -159,6 +159,13 @@ def run_browser(argv_builder, timeout: int = BROWSER_TIMEOUT) -> subprocess.Comp
 
 def render_dom(browser: str, url: str, budget_ms: int = 10000, user_agent: str | None = None,
                window: tuple[int, int] | None = None) -> dict:
+    if protected():
+        # Public start URL: the CLI renderer cannot intercept redirects or subresources, so render through DevTools
+        # with every request checked against the network guard (and the connected IP verified on every response).
+        w, h = window or DESKTOP_SIZE
+        r = cdp_lite.emulate(browser, url, w, h, user_agent, mobile=bool(window and window[0] < 500), want_dom=True,
+                             settle_ms=min(budget_ms, 4000), network_guard=browser_network_guard())
+        return {"html": r.get("html") or "", "error": r.get("error"), "blocked_requests": r.get("blocked_requests", [])}
     proc = run_browser(lambda prof: dump_dom_argv(browser, url, prof, budget_ms, user_agent, window))
     if isinstance(proc, dict):
         return {"html": "", **proc}
@@ -170,6 +177,18 @@ def render_dom(browser: str, url: str, budget_ms: int = 10000, user_agent: str |
 
 
 # --------------------------------------------------------------------------- network guard
+def protected() -> bool:
+    """True when the start URL was public (network protection on); set by guard()."""
+    return bool(PUBLIC_ONLY["on"])
+
+
+def browser_network_guard():
+    """(handler, state) for cdp_lite.emulate, or None when protection is off (localhost / --allow-private)."""
+    if not protected():
+        return None
+    return cdp_lite.make_network_guard(url_allowed, ip_is_public)
+
+
 def guard(url: str, allow_private: bool) -> str | None:
     """Return a refusal reason, or None if the browser may be launched on this URL."""
     p = urlparse(url)
@@ -588,6 +607,15 @@ def take_screenshots(browser: str, url: str, out_dir: str, budget_ms: int, devic
     for dev in devices:
         path = str(d / f"{_host(url)}-{dev}-{stamp}.png")
         size, ua = (DESKTOP_SIZE, None) if dev == "desktop" else (MOBILE_SIZE, MOBILE_UA)
+        if protected():
+            r = cdp_lite.emulate(browser, url, size[0], size[1], ua, mobile=(dev == "mobile"), screenshot_path=path,
+                                 network_guard=browser_network_guard())
+            if not r["error"] and os.path.exists(path) and os.path.getsize(path) > 0:
+                shots.append({"device": dev, "path": path, "bytes": os.path.getsize(path),
+                              "window": f"{size[0]}x{size[1]}", "method": "devtools-guarded"})
+            else:
+                add(findings, "high" if "refused" in str(r["error"]) else "medium", "screenshot_failed", f"{dev}: {r['error']}")
+            continue
         if dev == "mobile" and use_cdp:
             r = cdp_lite.emulate(browser, url, size[0], size[1], ua, mobile=True, screenshot_path=path)
             if not r["error"] and os.path.exists(path) and os.path.getsize(path) > 0:
@@ -643,8 +671,11 @@ def cmd_screenshot(a, browser):
 def _dom_for(a, browser, mobile=False):
     if getattr(a, "from_file", None):
         return Path(a.from_file).read_text(encoding="utf-8", errors="replace"), None
-    if mobile and not a.cli_only:
-        r = cdp_lite.emulate(browser, a.url, MOBILE_SIZE[0], MOBILE_SIZE[1], MOBILE_UA, mobile=True, want_dom=True)
+    if mobile and (not a.cli_only or protected()):
+        r = cdp_lite.emulate(browser, a.url, MOBILE_SIZE[0], MOBILE_SIZE[1], MOBILE_UA, mobile=True, want_dom=True,
+                             network_guard=browser_network_guard())
+        if protected():
+            return (r["html"] or ""), r["error"]
         if not r["error"] and r["html"]:
             return r["html"], None
     r = render_dom(browser, a.url, a.budget_ms, MOBILE_UA if mobile else None, MOBILE_SIZE if mobile else None)

@@ -119,8 +119,19 @@ class _WS:
 
 
 class Session:
-    def __init__(self, ws: _WS):
+    def __init__(self, ws: _WS, on_event=None):
         self.ws, self._id, self.events = ws, 0, []
+        self.on_event = on_event  # called for every event; returns True if it consumed the event
+
+    def send_nowait(self, method: str, params: dict | None = None) -> None:
+        """Fire-and-forget command (its reply is ignored). Used from inside event handlers."""
+        self._id += 1
+        self.ws.send(json.dumps({"id": self._id, "method": method, "params": params or {}}))
+
+    def _dispatch(self, msg: dict) -> None:
+        if self.on_event and self.on_event(self, msg):
+            return
+        self.events.append(msg)
 
     def call(self, method: str, params: dict | None = None, timeout: float = 30.0) -> dict:
         self._id += 1
@@ -134,7 +145,7 @@ class Session:
                     raise CDPError(f"{method}: {msg['error'].get('message')}")
                 return msg.get("result", {})
             if "method" in msg:
-                self.events.append(msg)
+                self._dispatch(msg)
         raise CDPError(f"{method}: timed out")
 
     def wait_event(self, name: str, timeout: float) -> bool:
@@ -149,10 +160,10 @@ class Session:
                     msg = json.loads(self.ws.recv())
                 except (socket.timeout, TimeoutError):
                     return False
+                if "method" in msg:
+                    self._dispatch(msg)
                 if msg.get("method") == name:
                     return True
-                if "method" in msg:
-                    self.events.append(msg)
         finally:
             self.ws.sock.settimeout(old)
         return False
@@ -175,10 +186,54 @@ def _read_port(profile: str, proc: subprocess.Popen, timeout: float) -> int:
     raise CDPError("DevTools port not reported in time")
 
 
+def make_network_guard(url_reason, ip_ok):
+    """Event handler enforcing the network policy inside the browser.
+
+    url_reason(url) -> str | None : refusal reason for a request URL (scheme + resolved-host check); None = allowed.
+    ip_ok(ip) -> bool             : True if the address the browser actually connected to is public.
+    Every request is paused (Fetch.requestPaused) and failed if refused. Every response's remoteIPAddress is checked,
+    which also catches DNS rebinding (the browser resolves hosts itself); any violation poisons the whole run.
+    """
+    state = {"blocked": [], "violations": []}
+    cache = {}
+
+    def handler(sess, msg):
+        m, prm = msg.get("method"), msg.get("params") or {}
+        if m == "Fetch.requestPaused":
+            req_url = (prm.get("request") or {}).get("url", "")
+            scheme = req_url.split(":", 1)[0].lower()
+            if scheme in ("data", "blob"):
+                reason = None
+            else:
+                key = req_url.split("/", 3)[2] if "://" in req_url else req_url
+                key = scheme + "|" + key
+                if key not in cache:
+                    cache[key] = url_reason(req_url)
+                reason = cache[key]
+            if reason:
+                state["blocked"].append({"url": req_url[:200], "reason": reason})
+                sess.send_nowait("Fetch.failRequest", {"requestId": prm.get("requestId"), "errorReason": "BlockedByClient"})
+            else:
+                sess.send_nowait("Fetch.continueRequest", {"requestId": prm.get("requestId")})
+            return True
+        if m == "Network.responseReceived":
+            resp = prm.get("response") or {}
+            ip = (resp.get("remoteIPAddress") or "").strip("[]")
+            if ip and not ip_ok(ip):
+                state["violations"].append({"url": resp.get("url", "")[:200], "ip": ip})
+            return True
+        return False
+
+    return handler, state
+
+
 def emulate(browser: str, url: str, width: int, height: int, user_agent: str | None = None, mobile: bool = True,
             screenshot_path: str | None = None, want_dom: bool = False, settle_ms: int = 2000,
-            timeout: float = 60.0) -> dict:
-    """Load url with device emulation; optionally save a PNG and/or return the rendered DOM."""
+            timeout: float = 60.0, network_guard=None) -> dict:
+    """Load url with device emulation; optionally save a PNG and/or return the rendered DOM.
+
+    network_guard: (handler, state) from make_network_guard(). When given, every browser request is intercepted and
+    checked, and the result is discarded if the browser ever connected to a non-public address."""
     profile = tempfile.mkdtemp(prefix="super-seo-cdp-")
     proc = None
     ws = None
@@ -194,7 +249,10 @@ def emulate(browser: str, url: str, width: int, height: int, user_agent: str | N
         if not page:
             raise CDPError("no page target")
         ws = _WS(page["webSocketDebuggerUrl"], timeout=30)
-        s = Session(ws)
+        s = Session(ws, on_event=network_guard[0] if network_guard else None)
+        if network_guard:
+            s.call("Network.enable")
+            s.call("Fetch.enable", {"patterns": [{"urlPattern": "*", "requestStage": "Request"}]})
         s.call("Page.enable")
         s.call("Emulation.setDeviceMetricsOverride",
                {"width": width, "height": height, "deviceScaleFactor": 1, "mobile": mobile})
@@ -217,6 +275,20 @@ def emulate(browser: str, url: str, width: int, height: int, user_agent: str | N
         if want_dom:
             r = s.call("Runtime.evaluate", {"expression": "document.documentElement.outerHTML", "returnByValue": True})
             out["html"] = "<!DOCTYPE html>\n" + str((r.get("result") or {}).get("value") or "")
+        if network_guard:
+            loc = s.call("Runtime.evaluate", {"expression": "location.href", "returnByValue": True})
+            final_url = str((loc.get("result") or {}).get("value") or "")
+            out["final_url"] = final_url
+            if final_url and final_url.split(":", 1)[0] not in ("http", "https", "about", "chrome-error"):
+                network_guard[1]["violations"].append({"url": final_url[:200], "ip": "non-http final document"})
+            out["blocked_requests"] = network_guard[1]["blocked"]
+            if network_guard[1]["violations"]:
+                # Poisoned run: never return anything that came from a private address.
+                if out.get("screenshot") and os.path.exists(out["screenshot"]):
+                    os.remove(out["screenshot"])
+                v = network_guard[1]["violations"][0]
+                out.update(html=None, screenshot=None,
+                           error=f"refused: the browser reached a private/internal address ({v['ip']}); output discarded")
         try:
             s.call("Browser.close", timeout=5)
         except (CDPError, OSError):
@@ -240,4 +312,10 @@ def emulate(browser: str, url: str, width: int, height: int, user_agent: str | N
             if not os.path.exists(profile):
                 break
             time.sleep(0.5)
+    if network_guard:
+        # Always report what the guard did, also when navigation itself was blocked (error path).
+        out["blocked_requests"] = network_guard[1]["blocked"]
+        if out.get("error") and network_guard[1]["blocked"] and not str(out["error"]).startswith("refused"):
+            first = network_guard[1]["blocked"][0]
+            out["error"] = f"refused: browser request blocked by the network guard ({first['reason']}: {first['url']})"
     return out
