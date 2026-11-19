@@ -238,8 +238,9 @@ def hero_strip():
                    (7.4, "transform:translateY(-8px);opacity:1"), (7.6, "transform:translateY(0);opacity:1"), (11.2, "transform:translateY(0);opacity:1"),
                    (11.5, "transform:translateY(0);opacity:0"), (T, "transform:translateY(60px);opacity:0")],
                   ease="cubic-bezier(.2,.9,.3,1.3)", box=False)
-    b.append(f'<rect x="874" y="404" width="170" height="52" fill="url(#dotsY)" stroke="{INK}" stroke-width="4"/>'
-             f'<text class="h" x="959" y="442" text-anchor="middle" font-size="32" fill="{INK}">#1</text>')
+    # podium pops in only when the site starts climbing; "#1" lands together with the card (the story's payoff)
+    b.append(f'<g class="{A.pop(6.6, 11.2)} i1"><rect x="874" y="404" width="170" height="52" fill="url(#dotsY)" stroke="{INK}" stroke-width="4"/></g>')
+    b.append(f'<g class="{A.pop(7.4, 11.2)} i1"><text class="h" x="959" y="442" text-anchor="middle" font-size="32" fill="{INK}">#1</text></g>')
     b.append(f'<g class="{climb} i1">{site_card(884, 288, 150, "your-saas.com", "#1", "happy")}</g>')
     b.append(f'<g class="{A.pop(7.6, 11.2)} i1">{burst(1112, 404, 40, 12, YEL, 0.62)}<text class="h" x="1112" y="412" text-anchor="middle" font-size="22" fill="{RED}">#1!</text></g>')
     for m, (eng, bx, by, col, t0) in enumerate([("ChatGPT: cited", 826, 190, CYAN, 8.0), ("Perplexity: cited", 1004, 190, MAG, 8.4),
@@ -426,8 +427,8 @@ def gadget_belt():
     # the belt
     b.append(f'<rect x="40" y="196" width="1120" height="38" rx="8" fill="#7a4a24" stroke="{INK}" stroke-width="4"/>'
              f'<rect x="40" y="204" width="1120" height="6" fill="#9a6232"/>')
-    b.append(f'<rect x="566" y="186" width="68" height="58" rx="10" fill="url(#dotsY)" stroke="{INK}" stroke-width="4"/>'
-             f'<text class="h" x="600" y="226" text-anchor="middle" font-size="30" fill="{RED}" stroke="{INK}" stroke-width="1.5" paint-order="stroke">S</text>')
+    b.append(f'<rect x="572" y="188" width="56" height="54" rx="10" fill="url(#dotsY)" stroke="{INK}" stroke-width="4"/>'
+             f'<text class="h" x="600" y="226" text-anchor="middle" font-size="28" fill="{RED}" stroke="{INK}" stroke-width="1.5" paint-order="stroke">S</text>')
     # 13 evenly spaced slots, symmetric around the buckle: 6 gadgets | buckle | 6 gadgets
     step = 1020 / 12
     grid = [90 + i * step for i in range(13)]
