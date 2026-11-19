@@ -1,52 +1,67 @@
 <!--
-  super-seo: a code-first SEO + GEO skill for Claude Code. Audits a SaaS codebase and its running site
+  super-seo: a code-first, multi-agent SEO + GEO skill for Claude Code. Audits a SaaS codebase and its running site
   (localhost, preview or production), then ships the fixes as code.
 -->
 
 <p align="center">
-  <img src="assets/hero.svg" width="100%" alt="super-seo: rank in Google, get cited by AI. SEO checks flip from failing to passing, the Google position climbs to #1, and AI engines light up." />
+  <img src="assets/hero.svg" width="100%" alt="Comic strip: a SaaS site is stuck at #47 while AI bots bounce off a 403 wall; the super-seo robot hero flies in shouting SSR, Schema, Sitemap and Unblock; the site rises to #1 and ChatGPT, Perplexity, Gemini, Claude and Copilot cite it." />
 </p>
 
 <h1 align="center">super-seo</h1>
 
 <p align="center">
   <a href="#-quick-start">
-    <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=22&duration=2600&pause=700&color=22D3EE&center=true&vCenter=true&width=760&lines=Audit+your+codebase%2C+not+just+your+URL;Crawl+localhost+before+you+deploy;Get+cited+by+ChatGPT%2C+Perplexity%2C+Gemini+%26+Claude;Ship+every+fix+as+code" alt="Audit your codebase, not just your URL. Crawl localhost before you deploy. Get cited by ChatGPT, Perplexity, Gemini and Claude. Ship every fix as code." />
+    <img src="https://readme-typing-svg.demolab.com?font=Bangers&size=30&duration=2400&pause=600&color=EE3B34&center=true&vCenter=true&width=820&lines=One+command%3A+%2Fsuper-seo;Eight+specialist+agents+in+parallel;Audit+your+code%2C+not+just+your+URL;Crawl+localhost+before+you+deploy;Get+cited+by+ChatGPT%2C+Perplexity+%26+Gemini;Every+fix+shipped+as+code" alt="One command: /super-seo. Eight specialist agents in parallel. Audit your code, not just your URL. Crawl localhost before you deploy. Get cited by ChatGPT, Perplexity and Gemini. Every fix shipped as code." />
   </a>
 </p>
 
 <p align="center">
-  <b>The SEO + GEO engineer that lives inside <a href="https://claude.com/product/claude-code">Claude Code</a>.</b><br />
-  Rank in Google, get cited by AI search, and keep it that way on every release.
+  <b>The SEO + GEO superhero squad that lives inside <a href="https://claude.com/product/claude-code">Claude Code</a>.</b><br />
+  Type <code>/super-seo</code>. Eight specialists audit your codebase and your site in parallel, then fix what they find.
 </p>
 
 <p align="center">
+  <a href="#-meet-the-squad">Squad</a> ·
   <a href="#-features">Features</a> ·
   <a href="#-how-it-works">How it works</a> ·
   <a href="#-quick-start">Quick start</a> ·
-  <a href="#-just-ask-claude">Usage</a> ·
+  <a href="#-commands">Commands</a> ·
+  <a href="#-extensions">Extensions</a> ·
   <a href="#-the-toolkit">Toolkit</a> ·
   <a href="#-admin-integrations">Admin integrations</a> ·
-  <a href="#-framework-support">Frameworks</a> ·
   <a href="#-faq">FAQ</a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Claude%20Code-Skill-7c5cff?style=for-the-badge" alt="Claude Code skill" />
-  <img src="https://img.shields.io/badge/Python-3.10%2B-22d3ee?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.10+" />
-  <img src="https://img.shields.io/badge/Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-supported-0ea5e9?style=for-the-badge" alt="Windows, macOS and Linux" />
-  <a href="https://github.com/digitalscapemy/super-seo/stargazers"><img src="https://img.shields.io/github/stars/digitalscapemy/super-seo?style=for-the-badge&color=f5a524" alt="GitHub stars" /></a>
-  <img src="https://img.shields.io/github/last-commit/digitalscapemy/super-seo?style=for-the-badge&color=22c55e" alt="Last commit" />
+  <img src="https://img.shields.io/badge/Claude%20Code-Skill%20%2B%20Agents-ee3b34?style=for-the-badge" alt="Claude Code skill and agents" />
+  <img src="https://img.shields.io/badge/Python-3.10%2B-2b7de9?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.10+" />
+  <img src="https://img.shields.io/badge/tests-296%20passing-3fbf4f?style=for-the-badge" alt="296 tests passing" />
+  <img src="https://img.shields.io/badge/Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-supported-ffcf2e?style=for-the-badge&labelColor=141414" alt="Windows, macOS and Linux" />
+  <a href="https://github.com/digitalscapemy/super-seo/stargazers"><img src="https://img.shields.io/github/stars/digitalscapemy/super-seo?style=for-the-badge&color=ff8a1f" alt="GitHub stars" /></a>
 </p>
 
 ---
 
 Most SEO tools look at a live URL and hand you a list of problems. **super-seo starts where your product is built: the code.**
 It reads your framework, routes and metadata, crawls a production build on `localhost` before you deploy, checks whether
-Google **and** AI engines can actually reach and read your pages, then writes the fix in your framework's own APIs:
-metadata, canonicals, sitemaps, robots rules, JSON-LD, server rendering and the pages buyers search for.
+Google **and** AI engines can actually reach and read your pages, then writes the fix in your framework's own APIs.
 
-Built for SaaS teams who ship weekly and want search visibility to be part of the build, not an afterthought.
+## 🦸 Meet the squad
+
+<p align="center">
+  <img src="assets/squad.svg" width="100%" alt="The super-seo squad: eight robot superheroes named Code, Technical, GEO, Content, Schema, Speed, Rivals and Fixer, each with an emblem and a one-line power." />
+</p>
+
+| Hero | Agent | Power |
+|---|---|---|
+| **CODE** | `super-seo-code` | Reads routes, metadata, sitemap and robots code, JSON-LD components and leaks; drafts exact diffs |
+| **TECHNICAL** | `super-seo-technical` | Crawl and index health: status codes, redirects, canonicals, sitemaps, hreflang, drift between releases |
+| **GEO** | `super-seo-geo` | AI crawler access, WAF and CDN blocks, `llms.txt`, citability, entity presence, AI-answer gaps |
+| **CONTENT** | `super-seo-content` | Page inventory against the SaaS playbook, on-page quality, metadata rewrites, internal links |
+| **SCHEMA** | `super-seo-schema` | Validates JSON-LD everywhere and writes ready-to-paste markup per page type |
+| **SPEED** | `super-seo-performance` | Core Web Vitals, Lighthouse, raw-vs-rendered HTML, desktop and mobile screenshots, images |
+| **RIVALS** | `super-seo-competitors` | Verified competitors, SERP clusters, comparison-page opportunities, link and mention prospects |
+| **FIXER** | `super-seo-fixer` | Applies fixes in parallel, one instance per file set, then verifies with a re-scan |
 
 ## ✨ Features
 
@@ -62,24 +77,24 @@ left on, `localhost` or preview URLs in canonicals, client-only JSON-LD and SPA 
 <td width="33%" valign="top">
 
 ### 🕷️ Localhost-first crawler
-Audits your production build **before** deploy: status codes, redirects, canonicals, sitemap, robots, titles, Open
-Graph, structured data, hreflang, duplicates, orphans, broken links, WAF blocks.
+Audits your production build **before** deploy with 70+ checks: status codes, redirects, canonicals, sitemap, robots,
+titles, Open Graph, structured data, hreflang, duplicates, orphans, broken links and WAF blocks.
 
 </td>
 <td width="33%" valign="top">
 
 ### 🤖 AI search access
-Checks every major AI crawler (search, user-triggered and training) against robots.txt using RFC 9309 rules, probes
-for CDN/WAF blocks, and detects managed robots.txt blocks you never wrote.
+Checks every major AI crawler (search, user-triggered and training) with RFC 9309 rules, probes for CDN/WAF blocks,
+and detects managed robots.txt blocks you never wrote.
 
 </td>
 </tr>
 <tr>
 <td valign="top">
 
-### 🛠️ Fixes shipped as code
-Drop-in templates for metadata, sitemaps, environment-aware robots rules, `llms.txt` and a full SaaS JSON-LD
-graph, wired the way each framework expects.
+### 🖥️ Real browser rendering
+Compares raw HTML with the rendered DOM to catch content only JavaScript can see, captures desktop and true 390 px
+mobile screenshots, and checks agent-friendly UI.
 
 </td>
 <td valign="top">
@@ -91,32 +106,32 @@ versus competitors, which sources they lean on, and how that moves over time.
 </td>
 <td valign="top">
 
-### ✍️ Citable content
-Section-by-section checks for answer-first writing, self-contained passages, sourced numbers, comparison tables and
-stock phrasing, on a URL or straight from your `.mdx` files.
+### ⚡ Performance, measured
+Core Web Vitals field data, CrUX history and LCP subparts, Lighthouse on any URL including localhost, and an image
+audit for weight, format, oversizing and hero loading.
 
 </td>
 </tr>
 <tr>
 <td valign="top">
 
-### 🧭 SaaS page playbook
-Specs for pricing, feature, use-case, integration, `vs` and alternatives pages, docs and changelog, plus quality gates
-for programmatic pages.
+### 🛠️ Fixes shipped as code
+Drop-in templates for metadata, sitemaps, environment-aware robots rules, `llms.txt` and a full SaaS JSON-LD graph;
+a validation hook checks JSON-LD every time a file is edited.
 
 </td>
 <td valign="top">
 
-### 🔌 Admin integrations
-Production-ready patterns to bring Search Console, GA4, Bing Webmaster, IndexNow and Core Web Vitals into your
-super-admin backend.
+### 🧭 Every page type
+Playbooks for SaaS pages, e-commerce, local businesses, multilingual sites, content briefs and topic clusters,
+plus Open Graph images generated in code.
 
 </td>
 <td valign="top">
 
 ### 🛡️ Release gate
-One command scores readiness and fails CI on criticals; drift detection catches `noindex`, canonical or H1
-regressions between releases.
+A readiness score that fails CI on criticals, and drift detection that catches `noindex`, canonical or H1 regressions
+between releases.
 
 </td>
 </tr>
@@ -125,135 +140,128 @@ regressions between releases.
 ## 🔁 How it works
 
 <p align="center">
-  <img src="assets/flow.svg" width="100%" alt="Five steps: scan the code, crawl localhost before deploy, check AI access, fix in code, gate every release." />
+  <img src="assets/flow.svg" width="100%" alt="Five comic panels: scan the code, crawl localhost, unblock AI bots, fix in code, guard releases." />
 </p>
 
-1. **Scan code**: framework, rendering mode, route metadata and leaks, straight from the repository.
-2. **Crawl localhost**: a production build is audited like a search engine would see it, before anyone else does.
-3. **Check AI access**: robots rules per crawler, CDN and WAF behaviour, text visible without JavaScript.
-4. **Fix in code**: Claude applies the matching framework recipe and re-runs the audit until no critical issue remains.
-5. **Gate releases**: the same checks run in CI, and drift detection compares every release with the last.
+1. **Scan** the code: framework, rendering mode, route metadata and leaks.
+2. **Crawl** a production build on localhost, the way a search engine sees it.
+3. **Unblock** AI bots: robots rules per crawler, CDN and WAF behaviour, text visible without JavaScript.
+4. **Fix** in code: specialists propose, fixers apply in parallel, the audit re-runs until no critical issue remains.
+5. **Guard** releases: the same checks in CI, with drift detection against the previous release.
 
 ## 🎬 See it in action
 
 <p align="center">
-  <img src="assets/terminal.svg" width="100%" alt="Example terminal session: the audit runs, the code scan, crawl and AI access checks pass, and readiness reaches 93 out of 100." />
+  <img src="assets/terminal.svg" width="100%" alt="Comic-framed mission log: /super-seo runs a baseline, the squad works in parallel, findings are listed, fixers change 12 files, and readiness jumps from 42 to 95 with zero criticals." />
 </p>
 
-The audit writes a Markdown and a self-contained HTML report to `.seo/reports/`, plus raw JSON for every check.
+Every run writes a Markdown and a self-contained HTML report to `.seo/reports/`, plus raw JSON for every check.
 
 ## 🚀 Quick start
 
-**Requirements:** [Claude Code](https://claude.com/product/claude-code) and Python 3.10 or newer.
+**Requirements:** [Claude Code](https://claude.com/product/claude-code) and Python 3.10 or newer. Node.js and a
+Chromium-based browser unlock the Lighthouse and browser extensions.
 
-**1. Install the skill**
+**macOS / Linux**
 
 ```bash
-# macOS / Linux
-git clone https://github.com/digitalscapemy/super-seo.git ~/.claude/skills/super-seo
+git clone https://github.com/digitalscapemy/super-seo.git
+cd super-seo && ./install.sh                 # add --enable-hook for JSON-LD validation on every edit
 ```
+
+**Windows (PowerShell)**
 
 ```powershell
-# Windows (PowerShell)
-git clone https://github.com/digitalscapemy/super-seo.git "$env:USERPROFILE\.claude\skills\super-seo"
+git clone https://github.com/digitalscapemy/super-seo.git
+cd super-seo; .\install.ps1                  # add -EnableHook for JSON-LD validation on every edit
 ```
 
-Using a custom `CLAUDE_CONFIG_DIR`? Clone anywhere and run `install.ps1`, which copies the skill to the right place.
-To update later, run `git pull` in the skill folder.
+The installer copies the skill, its extensions and the eight `super-seo-*` agents into your Claude Code folder
+(respecting `CLAUDE_CONFIG_DIR`). Re-run it after `git pull` to update.
 
-**2. Open any SaaS project in Claude Code and ask:**
+**Then open any project in Claude Code and type:**
 
 ```text
-Audit the SEO of this project
+/super-seo
 ```
 
-**3. Or run the audit yourself**
+## 🎮 Commands
 
-```bash
-npm run build && npm run start          # any production build on localhost
-python ~/.claude/skills/super-seo/scripts/audit.py --path . --url http://localhost:3000
-```
-
-## 💬 Just ask Claude
-
-The skill activates on its own whenever you talk about search visibility. A few examples:
-
-| You say | super-seo does |
+| Command | What happens |
 |---|---|
-| *"Audit the SEO of this project"* | Code scan + localhost crawl + AI access check → scorecard, top fixes, backlog |
-| *"Make this Next.js app SEO-ready"* | Adds metadata, canonicals, sitemap, robots rules, JSON-LD and `llms.txt` in code |
-| *"Build a pricing page that ranks"* | Researches the query, writes answer-first copy, adds plan schema |
-| *"Write a comparison page against our main competitor"* | Honest, sourced comparison with tables, dates and disclosure |
-| *"Why doesn't ChatGPT mention us?"* | Checks bot access, sets up prompt tracking, maps the gaps to actions |
-| *"Integrate Search Console into the admin panel"* | OAuth or service account, daily sync, opportunities dashboard |
-| *"Get us ready to launch"* | Pre-launch gate, Search Console and Bing setup, baseline crawl |
-| *"Did the last release break anything?"* | Re-crawls and diffs against the previous release |
+| `/super-seo` | **Full audit + improvement**: baseline → squad in parallel → verified, prioritised report → safe fixes applied, content changes confirmed → re-audit with before/after |
+| `/super-seo audit` | The full audit without changing code |
+| `/super-seo fix` | Implement the latest report's backlog, then verify |
+| `/super-seo geo` | AI-search access, citability and AI-answer gaps |
+| `/super-seo page <path or url>` | Write or optimise one page |
+| `/super-seo launch` | Pre-launch gate and launch-day setup |
+| `/super-seo integrations` | Build SEO integrations into your super-admin backend |
+| `/super-seo extensions` | Show which extensions are active and how to enable the rest |
+| `/super-seo quick <url>` | A fast baseline audit, summarised in chat |
+
+You can also just talk to it: *"Why doesn't ChatGPT mention us?"*, *"Make this Next.js app SEO-ready"*,
+*"Write a comparison page against our main competitor"*, *"Did the last release break anything?"*
+
+## 🔌 Extensions
+
+Extensions switch on automatically when their requirement is present. Run `python scripts/extensions.py` to see the
+status on your machine.
+
+| Extension | Adds | Enable with |
+|---|---|---|
+| **Google** | Search Console queries, pages, URL Inspection, sitemaps; GA4 organic and AI referrals; PageSpeed; CrUX and history; LCP subparts | OAuth desktop login, a service account, or a PageSpeed API key |
+| **Bing Webmaster** | Query and page stats, inbound link counts, crawl issues, URL submission | Bing Webmaster API key |
+| **IndexNow** | Key generation and verification, change submission | an IndexNow key |
+| **PostHog · Matomo · Umami** | Organic and AI-assistant referral traffic, landing pages | each tool's API key |
+| **Cloudflare** | Bot and AI-crawler traffic and block rates, managed robots detection | a Cloudflare API token |
+| **Lighthouse** | Lighthouse on any URL including localhost, Agentic Browsing results, site-wide runs | Node.js (`npx`) |
+| **Browser** | Raw vs rendered HTML diff, desktop and mobile screenshots, agent-UX and mobile checks | an installed Chrome, Edge or Chromium |
+| **Shopify** | Product and collection SEO gaps, redirect chains | a store Admin API token |
 
 ## 🧰 The toolkit
 
-Every script runs on the Python standard library, on Windows, macOS and Linux. Claude runs them for you; you can also
-run them directly or in CI.
+Every script runs on the Python standard library. Claude runs them for you; you can also run them directly or in CI.
 
 | Script | What it does |
 |---|---|
-| `audit.py` | Runs everything below and produces the readiness scorecard plus Markdown/HTML reports; CI exit codes |
+| `audit.py` | Runs the core checks and produces the readiness scorecard plus Markdown/HTML reports; CI exit codes |
 | `project_scan.py` | Static scan of the codebase: framework, rendering mode, routes without metadata, leaks, missing SEO files |
-| `crawl_audit.py` | Crawler for localhost, preview or live sites, with 70+ checks across pages and the whole site |
+| `crawl_audit.py` | Crawler for localhost, preview or live sites with 70+ page and site checks |
 | `ai_access.py` | robots.txt per AI crawler, WAF/CDN probes, Content-Signal, snippet controls, `llms.txt`, Markdown negotiation |
 | `content_check.py` | Citability signals per section for a URL or a local `.md`/`.mdx`/`.html` file |
-| `ai_visibility.py` | Scores collected AI answers: mention rate, citation rate, position, gaps, cited sources, trends |
+| `hreflang_check.py` | hreflang mesh: self and return links, x-default, language codes, canonical targets |
+| `image_audit.py` | Image weight, served format, oversizing, alt quality, hero lazy-loading and priority |
+| `ai_visibility.py` | Scores collected AI answers: mention rate, citation rate, position, gaps, sources, trends |
 | `gsc_report.py` | Search Console exports → striking-distance queries, low CTR, cannibalisation, question queries |
 | `drift.py` | Compares two crawls and flags SEO regressions between releases |
-| `robots_rfc.py` | RFC 9309 robots.txt matcher (longest match, group selection, wildcards) |
+| `extensions.py` | Lists extensions and whether each one is active |
 
 <details>
 <summary><b>Command reference</b></summary>
 
 ```bash
 python scripts/audit.py --path . --url http://localhost:3000 --fail-on critical
-python scripts/audit.py --url https://example.com --psi            # adds PageSpeed / CrUX field data
-python scripts/project_scan.py .
+python scripts/audit.py --url https://example.com --psi
 python scripts/crawl_audit.py https://example.com --max-pages 100 --out .seo/audits
 python scripts/ai_access.py https://example.com --paths pricing docs
+python scripts/hreflang_check.py https://example.com
+python scripts/image_audit.py https://example.com
 python scripts/content_check.py content/blog/post.mdx
-python scripts/ai_visibility.py checklist .seo/ai-visibility
-python scripts/ai_visibility.py score .seo/ai-visibility/runs/2026-11-19
 python scripts/gsc_report.py .seo/gsc --brand "acme"
 python scripts/drift.py --latest .seo/audits --fail-on critical
+python extensions/google/google.py gsc --property sc-domain:example.com --days 90
+python extensions/lighthouse/lighthouse.py run http://localhost:3000 --agentic
+python extensions/browser/render_check.py render http://localhost:3000/pricing
 ```
-
-For reliable Core Web Vitals data, set `PSI_API_KEY` to a PageSpeed Insights API key from the Google Cloud console.
 
 </details>
 
-## 🧩 Workflows
-
-| | Workflow | Outcome |
-|---|---|---|
-| **A** | Full audit | Verdict, top 1–3 fixes, scorecard and a prioritised backlog |
-| **B** | Implement in code | Framework-native fixes, verified by a re-crawl |
-| **C** | Write or optimise a page | Researched, answer-first page with metadata and schema |
-| **D** | GEO / AI visibility | Access fixes, prompt tracker, mention and citation gaps turned into actions |
-| **E** | Research | Keywords, clusters, competitors and link prospects from first-party and web evidence |
-| **F** | Launch & release gate | Launch checklist, Search Console / Bing setup, CI gate, drift checks |
-| **G** | Quick answers | Short, sourced answers from the built-in references |
-| **H** | Admin integrations | Search Console, GA4, Bing, IndexNow and CWV inside your product's backend |
-
 ## 🔌 Admin integrations
 
-Bring first-party search data into your SaaS super-admin backend, with templates for **Laravel** and **Next.js**.
-
-| Integration | What your admin gets |
-|---|---|
-| **Google Search Console** | OAuth 2.0 with PKCE per tenant, or a service account for the platform; 16-month backfill and daily sync; sitemap status; URL Inspection for key pages |
-| **Google Analytics 4** | Organic landing pages, conversions, and traffic referred by AI assistants |
-| **Bing Webmaster Tools** | Query stats from the index behind Copilot and part of ChatGPT search |
-| **IndexNow** | Instant change notifications to Bing, Yandex, Naver and Seznam on publish and update |
-| **PageSpeed Insights / CrUX** | p75 LCP, INP and CLS field data, with lab fallback |
-
-The dashboard pattern focuses on action: striking-distance queries, titles losing clicks for their position, pages split
-across one query, indexing problems, Core Web Vitals and alerts. Tokens are encrypted at rest, every query is
-tenant-scoped, and a tenant can only attach a property that matches its own verified domain.
+Bring first-party search data into your SaaS super-admin backend, with templates for **Laravel** and **Next.js**:
+Search Console (OAuth 2.0 with PKCE per tenant, or a service account for the platform), GA4 organic and AI-referral
+traffic, Bing Webmaster, IndexNow and Core Web Vitals. Tokens are encrypted at rest, every query is tenant-scoped,
+and a tenant can only attach a property that matches its own verified domain.
 
 ## 🏗️ Framework support
 
@@ -265,43 +273,20 @@ tenant-scoped, and a tenant can only attach a property that matches its own veri
 | **Laravel (Blade / Inertia)** | Layout metadata, Inertia SSR, sitemap package, environment-aware robots, `noindex` middleware for app routes |
 | **Astro** | Site config, sitemap integration, layout head, JSON-LD, `llms.txt` endpoint |
 | **Nuxt · SvelteKit · Remix · React Router 7 · TanStack Start** | Native head/meta APIs, prerendering, resource routes for sitemap and robots |
-| **Static HTML + nginx** | Per-page head, correct 404 handling, staging `noindex`, cache headers |
-
-## 🤖 AI crawler policy, done right
-
-super-seo keeps three kinds of access separate, because they control different things:
-
-| Access | Examples | Controls |
-|---|---|---|
-| **Search / index** | Googlebot, bingbot, OAI-SearchBot, Claude-SearchBot, PerplexityBot | Whether you can be found and cited in answers |
-| **User-triggered** | ChatGPT-User, Claude-User, Perplexity-User | Whether an assistant can open your page when a user asks |
-| **Training** | GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot | Whether content is used to train models (your business decision) |
+| **Shopify · static HTML + nginx** | Store SEO gaps and redirects; per-page head, 404 handling, staging `noindex` |
 
 ## 🗂️ Project memory
-
-Each project keeps its SEO context and history next to the code, so every session starts informed:
 
 ```text
 .seo/
 ├── project.md          # positioning, audience, competitors, key pages, crawler policy
 ├── research-log.md     # one line per research task, reused for 30 days
-├── audits/             # raw JSON + Markdown from every check (drift compares these)
-├── reports/            # human-readable audit reports (.md + .html)
+├── audits/             # raw JSON from every check and every agent (drift compares these)
+├── reports/            # human-readable reports (.md + .html)
+├── screenshots/        # desktop and mobile captures from the browser extension
 ├── ai-visibility/      # tracker, collected answers per run, scores and trends
 └── gsc/                # Search Console exports
 ```
-
-## 🛡️ CI release gate
-
-Fail the build when a release would hurt search visibility:
-
-```bash
-python tools/seo/crawl_audit.py "$PREVIEW_URL" --max-pages 80 --out .seo/audits --fail-on critical
-python tools/seo/drift.py --latest .seo/audits --fail-on critical
-```
-
-A hardened GitHub Actions workflow is included in `templates/github/seo-gate.yml`: read-only token, tools run from
-the default branch, deployed code read as data only.
 
 ## 📐 Principles
 
@@ -309,57 +294,37 @@ the default branch, deployed code read as data only.
 - **Fixes, not reports.** The deliverable is a diff plus a short report.
 - **One system for Google and AI.** Crawlable, server-rendered, well-ranked, clearly written pages win in both.
 - **Honest claims.** No ranking, traffic or citation forecasts; heuristics are labelled as heuristics.
-- **Safe by default.** Network guards against private-address redirects, decompression limits, hardened CI.
-
-## 📁 Repository layout
-
-```text
-super-seo/
-├── SKILL.md            # how Claude routes each request to a workflow
-├── references/         # technical SEO, GEO, schema, SaaS pages, integrations, research, reporting
-├── scripts/            # the toolkit
-├── templates/          # Next.js, Laravel, JSON-LD, robots.txt, project memory, CI workflow
-├── assets/             # README artwork
-└── install.ps1         # copies the skill into your Claude Code skills folder
-```
+- **Safe by default.** Private-network guards on every fetch, decompression limits, signed OAuth state, hardened CI.
 
 ## ❓ FAQ
 
 <details>
 <summary><b>Does it work on a site that isn't deployed yet?</b></summary>
 
-Yes, and that's the point. Run a production build locally (`next build && next start`, `vite build && vite preview`,
-`php artisan serve`) and audit `http://localhost:<port>`. Development servers behave differently, so audit a production build.
+Yes, and that's the point. Run a production build locally and audit `http://localhost:<port>`. Development servers
+behave differently, so audit a production build.
 </details>
 
 <details>
-<summary><b>Is GEO different from SEO?</b></summary>
+<summary><b>Do I need all the extensions?</b></summary>
 
-Mostly it's SEO done properly, plus three things: letting AI crawlers in (robots rules, CDN and WAF settings), making
-content readable without JavaScript, and writing passages that can be quoted on their own. Off-site presence on the
-sources AI engines cite matters too, and super-seo shows you which ones those are.
+No. The core works on its own. Each extension adds a data source and turns on automatically when its key or tool is present.
+</details>
+
+<details>
+<summary><b>Will it change my code without asking?</b></summary>
+
+`/super-seo` applies safe, mechanical fixes (metadata, sitemap, robots, schema with confirmed facts) and asks before
+content or business changes. Every edit goes through your normal Claude Code permissions as a reviewable diff, and
+nothing is committed for you.
 </details>
 
 <details>
 <summary><b>How is AI visibility measured?</b></summary>
 
 You collect real answers from each engine for a fixed set of buyer prompts (super-seo prints the checklist), and the
-scorer computes mention rate, citation rate, position and competitor gaps. Simulated, search-grounded answers can be
-used to find likely gaps, and they are always reported separately from real observations.
-</details>
-
-<details>
-<summary><b>Will it change my code without asking?</b></summary>
-
-It proposes and applies fixes through Claude Code, so every edit goes through your normal Claude Code permissions and
-shows up as a reviewable diff.
-</details>
-
-<details>
-<summary><b>Do I need an `llms.txt`?</b></summary>
-
-It's cheap and useful for documentation and developer products, because coding agents read it. It isn't a ranking
-factor, so super-seo gives it zero weight in the score.
+scorer computes mention rate, citation rate, position and competitor gaps. Simulated, search-grounded answers are
+reported separately from real observations.
 </details>
 
 <details>
@@ -371,12 +336,12 @@ search terms are handled per market.
 
 ## 🤝 Contributing
 
-Issues and pull requests are welcome. Please include the framework, the command you ran and the relevant part of the
-report when reporting a problem.
+Issues and pull requests are welcome. Run `python -m unittest discover -s tests` before opening a PR, and include the
+framework, the command you ran and the relevant part of the report when reporting a problem.
 
 ---
 
 <p align="center">
-  <sub>Built by <a href="https://github.com/digitalscapemy">Digitalscape</a> · Made for teams who ship SaaS and want to be found.</sub><br />
+  <sub>Built by <a href="https://github.com/digitalscapemy">Digitalscape</a> · Made for teams who ship and want to be found.</sub><br />
   <a href="#super-seo"><sub>Back to top ↑</sub></a>
 </p>
