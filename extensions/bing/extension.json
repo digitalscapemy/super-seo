@@ -1,0 +1,20 @@
+{
+  "name": "bing",
+  "title": "Bing Webmaster Tools",
+  "description": "Bing query and page stats, free backlink counts per page, crawl issues, URL submission quota and batch submission.",
+  "requires": {
+    "env_any": ["BING_WEBMASTER_API_KEY"],
+    "binary_any": [],
+    "mcp_prefix": ""
+  },
+  "setup": "Bing Webmaster Tools > Settings > API access > generate an API key, then set BING_WEBMASTER_API_KEY.",
+  "commands": [
+    "python extensions/bing/bing.py sites",
+    "python extensions/bing/bing.py queries --site https://example.com/",
+    "python extensions/bing/bing.py pages --site https://example.com/",
+    "python extensions/bing/bing.py links --site https://example.com/",
+    "python extensions/bing/bing.py crawl-issues --site https://example.com/",
+    "python extensions/bing/bing.py quota --site https://example.com/",
+    "python extensions/bing/bing.py submit --site https://example.com/ --file urls.txt --dry-run"
+  ]
+}

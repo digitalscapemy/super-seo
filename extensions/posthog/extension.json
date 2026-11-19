@@ -1,0 +1,18 @@
+{
+  "name": "posthog",
+  "title": "PostHog organic & AI-referral analytics",
+  "description": "Organic search, AI assistant referrals and landing pages from PostHog via HogQL (free tier).",
+  "requires": {
+    "env_any": [
+      "POSTHOG_PERSONAL_API_KEY"
+    ],
+    "binary_any": [],
+    "mcp_prefix": "mcp__plugin_posthog_posthog__"
+  },
+  "setup": "Set POSTHOG_PERSONAL_API_KEY (scope query:read) and POSTHOG_PROJECT_ID; POSTHOG_HOST for EU/self-hosted.",
+  "commands": [
+    "python extensions/posthog/posthog.py organic --days 28",
+    "python extensions/posthog/posthog.py ai-referrals --days 90",
+    "python extensions/posthog/posthog.py landing --days 28"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "indexnow",
+  "title": "IndexNow",
+  "description": "Generate and verify an IndexNow key, then push new or changed URLs (args, file or sitemap lastmod) to Bing, Yandex, Naver and Seznam.",
+  "requires": {
+    "env_any": ["INDEXNOW_KEY"],
+    "binary_any": [],
+    "mcp_prefix": ""
+  },
+  "setup": "Run indexnow.py keygen (works without a key), host <key>.txt at the site root, then set INDEXNOW_KEY.",
+  "commands": [
+    "python extensions/indexnow/indexnow.py keygen --public-dir public",
+    "python extensions/indexnow/indexnow.py verify --host example.com",
+    "python extensions/indexnow/indexnow.py submit --host example.com --from-sitemap https://example.com/sitemap.xml --since 2026-11-01 --dry-run"
+  ]
+}

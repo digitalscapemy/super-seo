@@ -1,0 +1,18 @@
+{
+  "name": "cloudflare",
+  "title": "Cloudflare crawler traffic & bot settings",
+  "description": "Search/AI crawler requests and edge blocks (GraphQL Analytics), bot-related zone settings and live managed robots.txt detection.",
+  "requires": {
+    "env_any": [
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "binary_any": [],
+    "mcp_prefix": "mcp__plugin_cloudflare_cloudflare__"
+  },
+  "setup": "Create a Cloudflare API token with Zone:Read + Zone Analytics:Read and set CLOUDFLARE_API_TOKEN (optional CLOUDFLARE_ZONE_ID).",
+  "commands": [
+    "python extensions/cloudflare/cloudflare.py zone --zone example.com",
+    "python extensions/cloudflare/cloudflare.py bots --zone example.com --days 3",
+    "python extensions/cloudflare/cloudflare.py settings --zone example.com"
+  ]
+}

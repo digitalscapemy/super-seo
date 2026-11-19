@@ -1,0 +1,23 @@
+{
+  "name": "google",
+  "title": "Google Search Console, GA4, PageSpeed & CrUX",
+  "description": "Search Analytics (CSV for gsc_report.py), URL Inspection, sitemaps, GA4 organic + AI-assistant referrals, PageSpeed Insights, CrUX p75, 25-week history and LCP subparts. Free Google APIs.",
+  "requires": {
+    "env_any": ["SUPER_SEO_GOOGLE_SA", "SUPER_SEO_GOOGLE_CLIENT_ID", "PSI_API_KEY"],
+    "binary_any": [],
+    "mcp_prefix": ""
+  },
+  "setup": "Set SUPER_SEO_GOOGLE_SA (service-account JSON path) or SUPER_SEO_GOOGLE_CLIENT_ID/SECRET (Desktop app OAuth client) and run google.py auth; PSI_API_KEY alone enables psi/crux.",
+  "commands": [
+    "python extensions/google/google.py auth",
+    "python extensions/google/google.py sites",
+    "python extensions/google/google.py gsc --property sc-domain:example.com --days 28 --dimensions page,query --out",
+    "python extensions/google/google.py inspect --property sc-domain:example.com --from-sitemap https://example.com/sitemap.xml --limit 50",
+    "python extensions/google/google.py sitemaps --property sc-domain:example.com",
+    "python extensions/google/google.py ga4 --property-id 123456789 --days 28",
+    "python extensions/google/google.py psi https://example.com/",
+    "python extensions/google/google.py crux --origin https://example.com",
+    "python extensions/google/google.py crux-history --origin https://example.com",
+    "python extensions/google/google.py lcp-subparts --origin https://example.com"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "umami",
+  "title": "Umami organic & AI-referral analytics",
+  "description": "Organic search, AI assistant referrals and top pages from the Umami API (self-hosted free or Cloud free tier).",
+  "requires": {
+    "env_any": [
+      "UMAMI_API_KEY",
+      "UMAMI_USERNAME"
+    ],
+    "binary_any": [],
+    "mcp_prefix": ""
+  },
+  "setup": "Set UMAMI_WEBSITE_ID plus UMAMI_API_KEY (Cloud) or UMAMI_URL + UMAMI_USERNAME + UMAMI_PASSWORD (self-hosted).",
+  "commands": [
+    "python extensions/umami/umami.py organic --days 28",
+    "python extensions/umami/umami.py ai-referrals --days 90",
+    "python extensions/umami/umami.py landing --days 28"
+  ]
+}

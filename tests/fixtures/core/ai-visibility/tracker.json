@@ -1,0 +1,14 @@
+{
+  "brand": { "name": "Invoicely", "domain": "invoicely.my", "aliases": ["Invoicely MY"] },
+  "competitors": [
+    { "name": "FreshBooks", "domain": "freshbooks.com" },
+    { "name": "Bukku", "domain": "bukku.my" }
+  ],
+  "market": "MY-en",
+  "engines": ["chatgpt", "perplexity"],
+  "prompts": [
+    { "text": "best invoicing app for freelancers", "topic": "invoicing app" },
+    { "text": "free invoice software for small business", "topic": "invoicing app" },
+    { "text": "is Invoicely good for freelancers", "topic": "brand" }
+  ]
+}

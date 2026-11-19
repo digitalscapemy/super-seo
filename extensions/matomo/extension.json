@@ -1,0 +1,18 @@
+{
+  "name": "matomo",
+  "title": "Matomo organic & AI-referral analytics",
+  "description": "Organic search engines, AI assistant referrals and entry pages from the Matomo Reporting API (self-hosted free or Cloud).",
+  "requires": {
+    "env_any": [
+      "MATOMO_TOKEN"
+    ],
+    "binary_any": [],
+    "mcp_prefix": ""
+  },
+  "setup": "Set MATOMO_URL, MATOMO_TOKEN (view access token_auth) and MATOMO_SITE_ID.",
+  "commands": [
+    "python extensions/matomo/matomo.py organic --days 28",
+    "python extensions/matomo/matomo.py ai-referrals --days 90",
+    "python extensions/matomo/matomo.py landing --days 28"
+  ]
+}

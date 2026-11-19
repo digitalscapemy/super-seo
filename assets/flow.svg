@@ -1,68 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="250" viewBox="0 0 1200 250" role="img" aria-labelledby="t d">
-<title id="t">How super-seo works</title><desc id="d">Five steps highlighted in turn: scan the code, crawl localhost before deploy, check AI access, fix in code, gate every release.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="t d">
+<title id="t">How super-seo works</title><desc id="d">Five comic panels light up in turn: scan the code, crawl localhost before deploy, unblock AI bots, fix in code, guard releases.</desc>
 <defs>
-<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a0f1f"/><stop offset="1" stop-color="#111a33"/></linearGradient>
-<linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
-<radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#7c5cff" stop-opacity="0.35"/><stop offset="1" stop-color="#7c5cff" stop-opacity="0"/></radialGradient>
-<radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#22d3ee" stop-opacity="0.25"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
-<pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.035"/></pattern>
-<clipPath id="round"><rect width="1200" height="250" rx="18"/></clipPath>
+<pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.7" fill="#141414" fill-opacity="0.10"/></pattern>
+<pattern id="dotsY" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#ffcf2e"/><circle cx="4.5" cy="4.5" r="2.1" fill="#ff8a1f" fill-opacity="0.55"/></pattern>
+<pattern id="dotsB" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#2b7de9"/><circle cx="4.5" cy="4.5" r="2.2" fill="#1b4fa8" fill-opacity="0.6"/></pattern>
+<pattern id="dotsR" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#ee3b34"/><circle cx="4.5" cy="4.5" r="2.2" fill="#a8201b" fill-opacity="0.55"/></pattern>
+<pattern id="dotsC" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#19c2b0"/><circle cx="4.5" cy="4.5" r="2.1" fill="#0d7d72" fill-opacity="0.5"/></pattern>
 </defs>
 <style>
-text{font-family:ui-sans-serif, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif} .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace}
-@keyframes floatA{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,18px)}}
-@keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(-36px,-14px)}}
-.fa{animation:floatA 14s ease-in-out infinite} .fb{animation:floatB 17s ease-in-out infinite}
-@keyframes k1{0%{opacity:0}5.33%{opacity:0}9.33%{opacity:1}22.67%{opacity:1}26.67%{opacity:0}100%{opacity:0}}.k1{animation:k1 7.5s linear infinite}
-@keyframes k2{0%{opacity:0}18.67%{opacity:0}20.67%{opacity:1}25.33%{opacity:1}27.33%{opacity:0}100%{opacity:0}}.k2{animation:k2 7.5s linear infinite}
-@keyframes k3{0%{opacity:0}21.33%{opacity:0}25.33%{opacity:1}38.67%{opacity:1}42.67%{opacity:0}100%{opacity:0}}.k3{animation:k3 7.5s linear infinite}
-@keyframes k4{0%{opacity:0}34.67%{opacity:0}36.67%{opacity:1}41.33%{opacity:1}43.33%{opacity:0}100%{opacity:0}}.k4{animation:k4 7.5s linear infinite}
-@keyframes k5{0%{opacity:0}37.33%{opacity:0}41.33%{opacity:1}54.67%{opacity:1}58.67%{opacity:0}100%{opacity:0}}.k5{animation:k5 7.5s linear infinite}
-@keyframes k6{0%{opacity:0}50.67%{opacity:0}52.67%{opacity:1}57.33%{opacity:1}59.33%{opacity:0}100%{opacity:0}}.k6{animation:k6 7.5s linear infinite}
-@keyframes k7{0%{opacity:0}53.33%{opacity:0}57.33%{opacity:1}70.67%{opacity:1}74.67%{opacity:0}100%{opacity:0}}.k7{animation:k7 7.5s linear infinite}
-@keyframes k8{0%{opacity:0}66.67%{opacity:0}68.67%{opacity:1}73.33%{opacity:1}75.33%{opacity:0}100%{opacity:0}}.k8{animation:k8 7.5s linear infinite}
-@keyframes k9{0%{opacity:0}69.33%{opacity:0}73.33%{opacity:1}86.67%{opacity:1}90.67%{opacity:0}100%{opacity:0}}.k9{animation:k9 7.5s linear infinite}
-@media (prefers-reduced-motion: reduce){*{animation:none!important} .initial{opacity:0!important} .final{opacity:1!important;transform:none!important}}
+text{font-family:'Trebuchet MS', 'Segoe UI', Verdana, Arial, sans-serif} .h{font-family:Impact, 'Arial Black', 'Helvetica Neue', Arial, sans-serif;letter-spacing:.5px} .m{font-family:ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes flap{0%,100%{transform:skewX(0deg) scaleX(1)}50%{transform:skewX(-7deg) scaleX(1.06)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes jitter{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(1px,-1px) rotate(-1deg)}75%{transform:translate(-1px,1px) rotate(1deg)}}
+.bob{animation:bob 2.4s ease-in-out infinite;transform-box:fill-box}
+.eye{animation:blink 4s infinite;transform-box:fill-box;transform-origin:center}
+.cape{animation:flap .7s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
+.spin{animation:spin 14s linear infinite;transform-box:fill-box;transform-origin:center}
+.jit{animation:jitter .35s steps(2) infinite;transform-box:fill-box;transform-origin:center}
+@keyframes a1{0.0%{transform:scale(0);opacity:0}3.33%{transform:scale(0);opacity:0}5.33%{transform:scale(1.25);opacity:1}6.89%{transform:scale(1);opacity:1}93.33%{transform:scale(1);opacity:1}95.56%{transform:scale(0);opacity:0}100.0%{transform:scale(0);opacity:0}}.a1{animation:a1 9.0s linear infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes a2{0.0%{opacity:0}3.33%{opacity:0}5.56%{opacity:1}17.78%{opacity:1}20.0%{opacity:0}100.0%{opacity:0}}.a2{animation:a2 9.0s linear infinite;}
+@keyframes a3{0.0%{transform:scale(0);opacity:0}17.78%{transform:scale(0);opacity:0}19.78%{transform:scale(1.25);opacity:1}21.33%{transform:scale(1);opacity:1}93.33%{transform:scale(1);opacity:1}95.56%{transform:scale(0);opacity:0}100.0%{transform:scale(0);opacity:0}}.a3{animation:a3 9.0s linear infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes a4{0.0%{opacity:0}17.78%{opacity:0}20.0%{opacity:1}32.22%{opacity:1}34.44%{opacity:0}100.0%{opacity:0}}.a4{animation:a4 9.0s linear infinite;}
+@keyframes a5{0.0%{transform:scale(0);opacity:0}32.22%{transform:scale(0);opacity:0}34.22%{transform:scale(1.25);opacity:1}35.78%{transform:scale(1);opacity:1}93.33%{transform:scale(1);opacity:1}95.56%{transform:scale(0);opacity:0}100.0%{transform:scale(0);opacity:0}}.a5{animation:a5 9.0s linear infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes a6{0.0%{opacity:0}32.22%{opacity:0}34.44%{opacity:1}46.67%{opacity:1}48.89%{opacity:0}100.0%{opacity:0}}.a6{animation:a6 9.0s linear infinite;}
+@keyframes a7{0.0%{transform:scale(0);opacity:0}46.67%{transform:scale(0);opacity:0}48.67%{transform:scale(1.25);opacity:1}50.22%{transform:scale(1);opacity:1}93.33%{transform:scale(1);opacity:1}95.56%{transform:scale(0);opacity:0}100.0%{transform:scale(0);opacity:0}}.a7{animation:a7 9.0s linear infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes a8{0.0%{opacity:0}46.67%{opacity:0}48.89%{opacity:1}61.11%{opacity:1}63.33%{opacity:0}100.0%{opacity:0}}.a8{animation:a8 9.0s linear infinite;}
+@keyframes a9{0.0%{transform:scale(0);opacity:0}61.11%{transform:scale(0);opacity:0}63.11%{transform:scale(1.25);opacity:1}64.67%{transform:scale(1);opacity:1}93.33%{transform:scale(1);opacity:1}95.56%{transform:scale(0);opacity:0}100.0%{transform:scale(0);opacity:0}}.a9{animation:a9 9.0s linear infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes a10{0.0%{opacity:0}61.11%{opacity:0}63.33%{opacity:1}75.56%{opacity:1}77.78%{opacity:0}100.0%{opacity:0}}.a10{animation:a10 9.0s linear infinite;}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}.i0{opacity:0!important}.i1{opacity:1!important;transform:none!important}}
 </style>
-<g clip-path="url(#round)">
-<rect width="1200" height="250" fill="url(#bg)"/><rect width="1200" height="250" fill="url(#grid)"/>
-<ellipse class="fa" cx="264.0" cy="37.5" rx="300" ry="200" fill="url(#glowA)"/>
-<ellipse class="fb" cx="1020.0" cy="225.0" rx="320" ry="210" fill="url(#glowB)"/>
-<text x="600" y="48" text-anchor="middle" font-size="15" fill="#8d97b0" letter-spacing="2">HOW IT WORKS</text>
-<rect x="50.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
-<rect class="k1" x="50.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
-<circle cx="80.0" cy="118" r="14" fill="url(#acc)"/><text x="80.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">1</text>
-<text x="104.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">Scan code</text>
-<text x="72.0" y="164" font-size="14" fill="#8d97b0">framework, routes, leaks</text>
-<line x1="250.0" y1="138" x2="272.0" y2="138" stroke="#26324f" stroke-width="2"/>
-<circle class="k2" cx="261.0" cy="138" r="4" fill="#22d3ee" opacity="0"/>
-<rect x="276.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
-<rect class="k3" x="276.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
-<circle cx="306.0" cy="118" r="14" fill="url(#acc)"/><text x="306.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">2</text>
-<text x="330.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">Crawl localhost</text>
-<text x="298.0" y="164" font-size="14" fill="#8d97b0">before you deploy</text>
-<line x1="476.0" y1="138" x2="498.0" y2="138" stroke="#26324f" stroke-width="2"/>
-<circle class="k4" cx="487.0" cy="138" r="4" fill="#22d3ee" opacity="0"/>
-<rect x="502.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
-<rect class="k5" x="502.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
-<circle cx="532.0" cy="118" r="14" fill="url(#acc)"/><text x="532.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">3</text>
-<text x="556.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">AI access</text>
-<text x="524.0" y="164" font-size="14" fill="#8d97b0">bots, WAF, llms.txt</text>
-<line x1="702.0" y1="138" x2="724.0" y2="138" stroke="#26324f" stroke-width="2"/>
-<circle class="k6" cx="713.0" cy="138" r="4" fill="#22d3ee" opacity="0"/>
-<rect x="728.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
-<rect class="k7" x="728.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
-<circle cx="758.0" cy="118" r="14" fill="url(#acc)"/><text x="758.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">4</text>
-<text x="782.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">Fix in code</text>
-<text x="750.0" y="164" font-size="14" fill="#8d97b0">metadata, schema, SSR</text>
-<line x1="928.0" y1="138" x2="950.0" y2="138" stroke="#26324f" stroke-width="2"/>
-<circle class="k8" cx="939.0" cy="138" r="4" fill="#22d3ee" opacity="0"/>
-<rect x="954.0" y="86" width="196" height="104" rx="14" fill="#121b31" stroke="#26324f"/>
-<rect class="k9" x="954.0" y="86" width="196" height="104" rx="14" fill="none" stroke="url(#acc)" stroke-width="2" opacity="0"/>
-<circle cx="984.0" cy="118" r="14" fill="url(#acc)"/><text x="984.0" y="123" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f">5</text>
-<text x="1008.0" y="124" font-size="17" font-weight="700" fill="#e8ebf4">Gate releases</text>
-<text x="976.0" y="164" font-size="14" fill="#8d97b0">CI + drift</text>
-<text x="600" y="226" text-anchor="middle" font-size="13" fill="#8d97b0">One command: python scripts/audit.py --path . --url http://localhost:3000</text>
-</g>
-<rect x="0.5" y="0.5" width="1199" height="249" rx="18" fill="none" stroke="#26324f"/>
+<rect width="1200" height="300" fill="#ffe9b8"/><rect width="1200" height="300" fill="url(#dots)"/>
+<text class="h" x="600.0" y="44" text-anchor="middle" font-size="30" fill="#141414">THE MISSION, IN FIVE PANELS</text>
+<polygon points="36.0,80 250.0,74 246.0,269 40.0,269" fill="#141414"/><polygon points="29.0,73 243.0,67 239.0,262 33.0,262" fill="#fffdf5"/><polygon points="29.0,73 243.0,67 239.0,262 33.0,262" fill="url(#dots)" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+<g class="a1 i1"><polygon points="93.0,104.0 84.3,109.6 88.0,119.3 77.7,118.7 75.0,128.7 67.0,122.2 59.0,128.7 56.3,118.7 46.0,119.3 49.7,109.6 41.0,104.0 49.7,98.4 46.0,88.7 56.3,89.3 59.0,79.3 67.0,85.8 75.0,79.3 77.7,89.3 88.0,88.7 84.3,98.4" fill="#ffcf2e" stroke="#141414" stroke-width="4" stroke-linejoin="round"/><text class="h" x="67.0" y="112" text-anchor="middle" font-size="22" fill="#141414">1</text></g>
+<text class="h" x="101.0" y="116" font-size="34" fill="#2b7de9" stroke="#141414" stroke-width="3" paint-order="stroke">SCAN</text>
+<text class="h" x="47.0" y="170" font-size="26" fill="#141414">THE CODE</text>
+<text x="47.0" y="204" font-size="14" font-weight="700" fill="#141414" opacity="0.8">framework, routes, leaks</text>
+<polygon class="a2" points="29.0,73 243.0,67 239.0,262 33.0,262" fill="none" stroke="#2b7de9" stroke-width="8" stroke-dasharray="14 8" opacity="0"/>
+<polygon points="244.0,160 260.0,170 244.0,180" fill="#ffcf2e" stroke="#141414" stroke-width="3"/>
+<polygon points="268.0,74 482.0,80 478.0,269 272.0,269" fill="#141414"/><polygon points="261.0,67 475.0,73 471.0,262 265.0,262" fill="#fffdf5"/><polygon points="261.0,67 475.0,73 471.0,262 265.0,262" fill="url(#dots)" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+<g class="a3 i1"><polygon points="325.0,104.0 316.3,109.6 320.0,119.3 309.7,118.7 307.0,128.7 299.0,122.2 291.0,128.7 288.3,118.7 278.0,119.3 281.7,109.6 273.0,104.0 281.7,98.4 278.0,88.7 288.3,89.3 291.0,79.3 299.0,85.8 307.0,79.3 309.7,89.3 320.0,88.7 316.3,98.4" fill="#ffcf2e" stroke="#141414" stroke-width="4" stroke-linejoin="round"/><text class="h" x="299.0" y="112" text-anchor="middle" font-size="22" fill="#141414">2</text></g>
+<text class="h" x="333.0" y="116" font-size="34" fill="#ff8a1f" stroke="#141414" stroke-width="3" paint-order="stroke">CRAWL</text>
+<text class="h" x="279.0" y="170" font-size="26" fill="#141414">LOCALHOST</text>
+<text x="279.0" y="204" font-size="14" font-weight="700" fill="#141414" opacity="0.8">before you deploy</text>
+<polygon class="a4" points="261.0,67 475.0,73 471.0,262 265.0,262" fill="none" stroke="#ff8a1f" stroke-width="8" stroke-dasharray="14 8" opacity="0"/>
+<polygon points="476.0,160 492.0,170 476.0,180" fill="#ffcf2e" stroke="#141414" stroke-width="3"/>
+<polygon points="500.0,80 714.0,74 710.0,269 504.0,269" fill="#141414"/><polygon points="493.0,73 707.0,67 703.0,262 497.0,262" fill="#fffdf5"/><polygon points="493.0,73 707.0,67 703.0,262 497.0,262" fill="url(#dots)" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+<g class="a5 i1"><polygon points="557.0,104.0 548.3,109.6 552.0,119.3 541.7,118.7 539.0,128.7 531.0,122.2 523.0,128.7 520.3,118.7 510.0,119.3 513.7,109.6 505.0,104.0 513.7,98.4 510.0,88.7 520.3,89.3 523.0,79.3 531.0,85.8 539.0,79.3 541.7,89.3 552.0,88.7 548.3,98.4" fill="#7b5cff" stroke="#141414" stroke-width="4" stroke-linejoin="round"/><text class="h" x="531.0" y="112" text-anchor="middle" font-size="22" fill="#141414">3</text></g>
+<text class="h" x="565.0" y="116" font-size="34" fill="#7b5cff" stroke="#141414" stroke-width="3" paint-order="stroke">UNBLOCK</text>
+<text class="h" x="511.0" y="170" font-size="26" fill="#141414">AI BOTS</text>
+<text x="511.0" y="204" font-size="14" font-weight="700" fill="#141414" opacity="0.8">robots, WAF, llms.txt</text>
+<polygon class="a6" points="493.0,73 707.0,67 703.0,262 497.0,262" fill="none" stroke="#7b5cff" stroke-width="8" stroke-dasharray="14 8" opacity="0"/>
+<polygon points="708.0,160 724.0,170 708.0,180" fill="#ffcf2e" stroke="#141414" stroke-width="3"/>
+<polygon points="732.0,74 946.0,80 942.0,269 736.0,269" fill="#141414"/><polygon points="725.0,67 939.0,73 935.0,262 729.0,262" fill="#fffdf5"/><polygon points="725.0,67 939.0,73 935.0,262 729.0,262" fill="url(#dots)" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+<g class="a7 i1"><polygon points="789.0,104.0 780.3,109.6 784.0,119.3 773.7,118.7 771.0,128.7 763.0,122.2 755.0,128.7 752.3,118.7 742.0,119.3 745.7,109.6 737.0,104.0 745.7,98.4 742.0,88.7 752.3,89.3 755.0,79.3 763.0,85.8 771.0,79.3 773.7,89.3 784.0,88.7 780.3,98.4" fill="#ffcf2e" stroke="#141414" stroke-width="4" stroke-linejoin="round"/><text class="h" x="763.0" y="112" text-anchor="middle" font-size="22" fill="#141414">4</text></g>
+<text class="h" x="797.0" y="116" font-size="34" fill="#3fbf4f" stroke="#141414" stroke-width="3" paint-order="stroke">FIX</text>
+<text class="h" x="743.0" y="170" font-size="26" fill="#141414">IN CODE</text>
+<text x="743.0" y="204" font-size="14" font-weight="700" fill="#141414" opacity="0.8">metadata, schema, SSR</text>
+<polygon class="a8" points="725.0,67 939.0,73 935.0,262 729.0,262" fill="none" stroke="#3fbf4f" stroke-width="8" stroke-dasharray="14 8" opacity="0"/>
+<polygon points="940.0,160 956.0,170 940.0,180" fill="#ffcf2e" stroke="#141414" stroke-width="3"/>
+<polygon points="964.0,80 1178.0,74 1174.0,269 968.0,269" fill="#141414"/><polygon points="957.0,73 1171.0,67 1167.0,262 961.0,262" fill="#fffdf5"/><polygon points="957.0,73 1171.0,67 1167.0,262 961.0,262" fill="url(#dots)" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+<g class="a9 i1"><polygon points="1021.0,104.0 1012.3,109.6 1016.0,119.3 1005.7,118.7 1003.0,128.7 995.0,122.2 987.0,128.7 984.3,118.7 974.0,119.3 977.7,109.6 969.0,104.0 977.7,98.4 974.0,88.7 984.3,89.3 987.0,79.3 995.0,85.8 1003.0,79.3 1005.7,89.3 1016.0,88.7 1012.3,98.4" fill="#ffcf2e" stroke="#141414" stroke-width="4" stroke-linejoin="round"/><text class="h" x="995.0" y="112" text-anchor="middle" font-size="22" fill="#141414">5</text></g>
+<text class="h" x="1029.0" y="116" font-size="34" fill="#ee3b34" stroke="#141414" stroke-width="3" paint-order="stroke">GUARD</text>
+<text class="h" x="975.0" y="170" font-size="26" fill="#141414">RELEASES</text>
+<text x="975.0" y="204" font-size="14" font-weight="700" fill="#141414" opacity="0.8">CI gate + drift</text>
+<polygon class="a10" points="957.0,73 1171.0,67 1167.0,262 961.0,262" fill="none" stroke="#ee3b34" stroke-width="8" stroke-dasharray="14 8" opacity="0"/>
+<text class="m" x="600.0" y="290" text-anchor="middle" font-size="13" fill="#141414">/super-seo   →   all five, automatically</text>
 </svg>

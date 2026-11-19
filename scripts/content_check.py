@@ -39,7 +39,7 @@ AI_PHRASES = ["delve into", "ever-evolving", "ever-changing landscape", "tapestr
               "revolutionize", "supercharge", "look no further", "whether you're a"]
 LEAD_WEAK = re.compile(r"^(it|this|that|these|those|they|them|he|she|however|but|and|also|so|additionally|moreover|furthermore)\b", re.I)
 STAT = re.compile(r"(\b\d[\d,.]*\s?%|(?:RM|USD|\$|€|£|S\$)\s?\d[\d,.]*|\b\d[\d,.]*\s?(?:ms|s|seconds|minutes|hours|days|x|times|users|customers|companies|teams|requests|GB|MB|k|K|million|billion)\b)")
-SOURCE = re.compile(r"(https?://|\]\(|according to|source:|per [A-Z]|\[\d+\]|\[\^\d+\]|data from|survey|study by|report by)", re.I)
+SOURCE = re.compile(r"(https?://|\]\(|(?i:according to|source:|data from|survey|study by|report by)|per [A-Z][\w&.-]+|\[\d+\]|\[\^\d+\])")
 DEFINITION = re.compile(r"\b(is|are|means|refers to|lets you|helps|allows|costs|takes|supports)\b", re.I)
 DATE = re.compile(r"\b(updated|last updated|published|reviewed)\b[^\n]{0,40}\b(20\d\d|\d{1,2}\s\w+\s20\d\d|\w+\s\d{1,2},?\s20\d\d)", re.I)
 

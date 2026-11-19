@@ -1,0 +1,17 @@
+{
+  "name": "shopify",
+  "title": "Shopify store audit (GraphQL Admin API)",
+  "description": "Products, collections and URL redirects from a Shopify store: missing SEO titles/descriptions, duplicate titles, images without alt, thin descriptions, empty collections, redirect chains and loops.",
+  "requires": {
+    "env_any": ["SHOPIFY_ADMIN_TOKEN"],
+    "binary_any": [],
+    "mcp_prefix": ""
+  },
+  "setup": "Create a custom app in the Shopify admin (Settings > Apps and sales channels > Develop apps) with read_products + read_online_store_navigation, install it, then set SHOPIFY_STORE=myshop.myshopify.com and SHOPIFY_ADMIN_TOKEN. Optional SHOPIFY_API_VERSION (default 2025-10).",
+  "commands": [
+    "python extensions/shopify/shopify.py audit",
+    "python extensions/shopify/shopify.py products --json",
+    "python extensions/shopify/shopify.py collections",
+    "python extensions/shopify/shopify.py redirects"
+  ]
+}

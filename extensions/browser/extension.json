@@ -1,0 +1,18 @@
+{
+  "name": "browser",
+  "title": "Browser rendering (headless Chrome / Edge / Chromium / Brave)",
+  "description": "Raw HTML vs rendered DOM (JS gap), desktop + mobile screenshots, agent-UX and mobile checks via an installed Chromium-based browser's headless CLI.",
+  "requires": {
+    "env_any": ["SUPER_SEO_CHROME"],
+    "binary_any": ["chrome", "google-chrome", "chromium", "chromium-browser", "msedge", "microsoft-edge"],
+    "mcp_prefix": ""
+  },
+  "setup": "Install Chrome, Edge, Chromium or Brave (Edge ships with Windows). Windows and macOS install paths are auto-detected by the script even when the browser is not on PATH, so this may show inactive yet work: run `python extensions/browser/render_check.py where`. Or set SUPER_SEO_CHROME to the browser executable.",
+  "commands": [
+    "python extensions/browser/render_check.py where",
+    "python extensions/browser/render_check.py render http://localhost:3000/",
+    "python extensions/browser/render_check.py screenshot http://localhost:3000/pricing",
+    "python extensions/browser/render_check.py agent-ux http://localhost:3000/",
+    "python extensions/browser/render_check.py mobile http://localhost:3000/ --screenshot"
+  ]
+}

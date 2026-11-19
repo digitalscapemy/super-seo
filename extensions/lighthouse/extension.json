@@ -1,0 +1,19 @@
+{
+  "name": "lighthouse",
+  "title": "Lighthouse & Unlighthouse lab audits",
+  "description": "Local Lighthouse runs (performance, accessibility, best practices, SEO, agentic browsing) for one URL or a whole site; works on localhost.",
+  "requires": {
+    "env_any": [],
+    "binary_any": [
+      "npx",
+      "lighthouse"
+    ],
+    "mcp_prefix": ""
+  },
+  "setup": "Install Node.js 18+ (provides npx) and Google Chrome; packages are fetched on first run with npx -y.",
+  "commands": [
+    "python extensions/lighthouse/lighthouse.py run http://localhost:3000",
+    "python extensions/lighthouse/lighthouse.py site https://example.com --max-pages 20",
+    "python extensions/lighthouse/lighthouse.py from-json report.json"
+  ]
+}

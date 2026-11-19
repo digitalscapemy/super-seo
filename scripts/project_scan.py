@@ -202,7 +202,8 @@ def grep(root: Path, files: list[Path]) -> list[dict]:
         name = f.name.lower()
         if f.suffix not in CODE_EXT and name not in ("robots.txt",) and not name.endswith(".txt"):
             continue
-        if re.search(r"(\.test\.|\.spec\.|__tests__|/tests?/|stories|\.stories\.)", f.as_posix()):
+        rel_posix = "/" + f.relative_to(root).as_posix()   # match against the path INSIDE the project only
+        if re.search(r"(\.test\.|\.spec\.|__tests__|/tests?/|stories|\.stories\.)", rel_posix):
             continue
         src = read(f)
         if not src:
@@ -214,7 +215,9 @@ def grep(root: Path, files: list[Path]) -> list[dict]:
                 line = src.count("\n", 0, m.start()) + 1
                 if code == "localhost_url" and re.search(r"(dev|test|mock|example|playwright|vite\.config|\.env)", f.name, re.I):
                     break
-                if code == "noindex_in_code" and APP_SEGMENTS.search(f.relative_to(root).as_posix()):
+                # strip the router root (app/ or src/app/, pages/ or src/pages/) so "app/" itself isn't read as the app area
+                route_rel = re.sub(r"^(src/)?(app|pages)/", "", f.relative_to(root).as_posix())
+                if code == "noindex_in_code" and APP_SEGMENTS.search(route_rel):
                     sev = "info"  # noindex inside the authenticated app area is expected
                 hits.append({"code": code, "severity": sev, "message": msg, "file": f.relative_to(root).as_posix(),
                              "line": line, "match": m.group(0)[:100]})
