@@ -400,17 +400,18 @@ def terminal():
 
 # =================================================================== GADGET BELT (extensions)
 GADGETS = [
-    ("GOOGLE", "Search Console · GA4 · CrUX", "G", BLUE),
-    ("BING", "Webmaster · backlinks", "B", CYAN),
+    ("GOOGLE", "GSC · GA4 · CrUX", "G", BLUE),
+    ("BING", "webmaster · links", "B", CYAN),
     ("INDEXNOW", "instant re-crawl", "⇪", GRN),
     ("POSTHOG", "AI referrals", "P", ORG),
     ("MATOMO", "organic traffic", "M", PUR),
     ("UMAMI", "privacy analytics", "U", MAG),
     ("CLOUDFLARE", "bot & AI crawl", "☁", ORG),
     ("LIGHTHOUSE", "lab + agentic", "L", RED),
-    ("BROWSER", "render · screenshots", "◉", BLUE),
+    ("BROWSER", "render · shots", "◉", BLUE),
     ("SHOPIFY", "store SEO", "S", GRN),
     ("YOUTUBE", "video presence", "▶", RED),
+    ("NEXT", "your idea here", "+", "#c9c2b0"),
 ]
 
 
@@ -427,10 +428,10 @@ def gadget_belt():
              f'<rect x="40" y="204" width="1120" height="6" fill="#9a6232"/>')
     b.append(f'<rect x="566" y="186" width="68" height="58" rx="10" fill="url(#dotsY)" stroke="{INK}" stroke-width="4"/>'
              f'<text class="h" x="600" y="226" text-anchor="middle" font-size="30" fill="{RED}" stroke="{INK}" stroke-width="1.5" paint-order="stroke">S</text>')
-    n = len(GADGETS)
-    grid = [74 + i * (1052 / n) for i in range(n + 1)]          # n+1 evenly spaced slots...
-    centre = min(range(len(grid)), key=lambda i: abs(grid[i] - 600))
-    slots = [x + (16 if x > 600 else -16) for i, x in enumerate(grid) if i != centre]  # minus the buckle slot, spread
+    # 13 evenly spaced slots, symmetric around the buckle: 6 gadgets | buckle | 6 gadgets
+    step = 1020 / 12
+    grid = [90 + i * step for i in range(13)]
+    slots = [x for i, x in enumerate(grid) if i != 6]
     for i, (name, sub, glyph, col) in enumerate(GADGETS):
         x = slots[i]
         t0 = 0.3 + i * 0.32
@@ -440,14 +441,15 @@ def gadget_belt():
                  f'<text class="h" x="{x}" y="186" text-anchor="middle" font-size="24" fill="{INK}">{escape(glyph)}</text>'
                  f'<circle cx="{x + 22}" cy="204" r="5" fill="{YEL}" stroke="{INK}" stroke-width="2"/></g>')
         lbl = A.show(t0 + 0.2, 8.4)
-        b.append(f'<g class="{lbl} i1"><text class="h" x="{x}" y="272" text-anchor="middle" font-size="16" fill="{INK}">{escape(name)}</text>'
+        b.append(f'<g class="{lbl} i1"><text class="h" x="{x}" y="272" text-anchor="middle" font-size="{15 if len(name) < 9 else 13}" fill="{INK}">{escape(name)}</text>'
                  + "".join(f'<text x="{x}" y="{290 + k * 14}" text-anchor="middle" font-size="11" font-weight="700" fill="{INK}" opacity="0.8">{escape(line)}</text>'
-                           for k, line in enumerate(wrap(sub, 14))) + "</g>")
+                           for k, line in enumerate(wrap(sub, 12))) + "</g>")
     b.append(f'<g class="{A.pop(4.2, 8.4)} i1">{burst(1110, 66, 40, 14, RED, 0.68)}<text class="h" x="1110" y="75" text-anchor="middle" font-size="22" fill="#fff" stroke="{INK}" stroke-width="2" paint-order="stroke">CLICK!</text></g>')
     b.append(f'<g class="{A.pop(2.0, 8.4)} i1">{burst(92, 66, 36, 12, YEL, 0.66)}<text class="h" x="92" y="74" text-anchor="middle" font-size="20" fill="{RED}">FREE</text></g>')
     svg = frame(W, H, "\n".join(b), A.css(), "The super-seo gadget belt",
-                "A comic utility belt where eleven free extension gadgets click into place one by one: Google, Bing, IndexNow, "
-                "PostHog, Matomo, Umami, Cloudflare, Lighthouse, Browser, Shopify and YouTube.")
+                "A comic utility belt where eleven free extension gadgets click into place one by one around a central buckle: "
+                "Google, Bing, IndexNow, PostHog, Matomo, Umami, Cloudflare, Lighthouse, Browser, Shopify and YouTube, plus an "
+                "empty slot for the next one.")
     (OUT / "gadgets.svg").write_text(svg, encoding="utf-8")
 
 
