@@ -1,0 +1,16 @@
+{
+  "name": "youtube",
+  "title": "YouTube Data API v3",
+  "description": "Brand mentions in YouTube videos, channel statistics and recent uploads, and per-video SEO checks (chapters, captions, description, links).",
+  "requires": {
+    "env_any": ["YOUTUBE_API_KEY"],
+    "binary_any": [],
+    "mcp_prefix": ""
+  },
+  "setup": "Google Cloud console > enable YouTube Data API v3 > Credentials > Create API key, restrict it to YouTube Data API v3, then set YOUTUBE_API_KEY.",
+  "commands": [
+    "python extensions/youtube/youtube.py mentions --q \"acme\" --months 12",
+    "python extensions/youtube/youtube.py channel --handle @acme",
+    "python extensions/youtube/youtube.py video-seo --id VIDEO_ID --brand acme"
+  ]
+}

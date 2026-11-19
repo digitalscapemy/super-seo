@@ -395,8 +395,4 @@ def terminal():
     (OUT / "terminal.svg").write_text(svg, encoding="utf-8")
 
 
-hero_strip()
-squad()
-mission()
-terminal()
-print("ok", sorted(p_.name for p_ in OUT.glob("*.svg")))
+

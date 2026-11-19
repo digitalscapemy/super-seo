@@ -41,11 +41,13 @@ Common flags: `--json`, `--no-write`, `--out .seo/audits` (reports `browser-<com
 ## Safety
 - Only `http(s)` start URLs. The start host passes the same public/private guard as `crawl_audit.py`
   (`set_network_mode`); a public start host that resolves to a private address is refused unless `--allow-private`.
-- **Public start URL → guarded DevTools rendering.** Every browser request (navigation, redirects, sub-resources) is
-  paused with `Fetch.enable` and checked with the same `url_allowed()` rule; requests to private, loopback or
-  link-local addresses, or to non-http(s) schemes, are failed. Every response's `remoteIPAddress` (the IP the browser
-  actually connected to) is also checked, which catches DNS rebinding; any private address discards the whole
-  output. The un-interceptable CLI renderer (`--dump-dom` / `--screenshot`) is never used for public start URLs.
+- **Public start URL → network-layer enforcement.** The browser is launched behind `guard_proxy.py`, a local filtering
+  proxy (`--proxy-server`, `--proxy-bypass-list=<-loopback>`, `--disable-quic`, WebRTC non-proxied UDP disabled), so
+  every connection from every frame, iframe, worker, service worker and WebSocket goes through it. The proxy performs
+  the only DNS lookup, refuses unless every resolved address is public (mixed records refused), connects to the exact
+  IP it checked and re-checks the connected peer before relaying, so DNS rebinding cannot redirect it. Allowed ports:
+  80, 443, 8080, 8443. On top, the page target's requests are screened with `Fetch.enable` for non-http(s) schemes.
+  The CLI renderer (`--dump-dom` / `--screenshot`) is never used for public start URLs.
 - Localhost / private start URLs (or `--allow-private`) use the plain CLI renderer with no interception, because the
   target is already local. Only render sites the user owns or is authorised to test.
 - Each run uses a fresh temporary profile (`--user-data-dir`), deleted afterwards. Mobile emulation uses the local

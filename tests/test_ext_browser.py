@@ -305,17 +305,22 @@ class BrowserNetworkGuardTests(unittest.TestCase):
         h(sess, self._paused("data:image/png;base64,AAAA"))
         self.assertEqual(sent[-1][0], "Fetch.continueRequest")
 
-    def test_private_connected_ip_poisons_run(self):
+    def test_connected_address_enforced_by_proxy_not_handler(self):
+        # The connected-IP rule lives in guard_proxy (see test_ext_browser_proxy.py); the CDP handler only screens.
         h, state, sess, sent = self._handler()
-        h(sess, {"method": "Network.responseReceived",
-                 "params": {"response": {"url": "https://public.test/", "remoteIPAddress": "127.0.0.1"}}})
-        self.assertEqual(state["violations"][0]["ip"], "127.0.0.1")
+        self.assertFalse(h(sess, {"method": "Network.responseReceived",
+                                  "params": {"response": {"url": "https://public.test/", "remoteIPAddress": "127.0.0.1"}}}))
 
-    def test_public_connected_ip_ok(self):
-        h, state, sess, sent = self._handler()
-        h(sess, {"method": "Network.responseReceived",
-                 "params": {"response": {"url": "https://public.test/", "remoteIPAddress": "93.184.216.34"}}})
-        self.assertEqual(state["violations"], [])
+    def test_no_per_host_verdict_cache(self):
+        calls = []
+        handler, state = cdp_lite.make_network_guard(lambda u: calls.append(u), lambda ip: True)
+
+        class S:
+            def send_nowait(self, *a):
+                pass
+        for i in range(3):
+            handler(S(), self._paused("https://public.test/a%d" % i, str(i)))
+        self.assertEqual(len(calls), 3)  # evaluated per request
 
     def test_unrelated_events_pass_through(self):
         h, state, sess, sent = self._handler()

@@ -166,6 +166,31 @@ li{{margin:.35em 0}} code{{font-size:.85em}} .card{{background:var(--card);borde
 <h2>How this was made</h2><p class="mut">{e(meta['how'])}</p></body></html>"""
 
 
+def html_to_pdf(html_path: Path, pdf_path: Path) -> str:
+    """Print our own generated report to PDF with a headless Chromium-based browser. Returns the PDF path or a reason."""
+    import tempfile
+    import shutil as _sh
+    sys.path.insert(0, str(HERE.parent / "extensions" / "browser"))
+    try:
+        from render_check import find_browser
+    except Exception as e:  # noqa: BLE001
+        return f"browser extension unavailable: {e}"
+    browser = find_browser()
+    if not browser:
+        return "no Chrome/Edge/Chromium found (set SUPER_SEO_CHROME)"
+    profile = tempfile.mkdtemp(prefix="super-seo-pdf-")
+    try:
+        argv = [browser, "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
+                f"--user-data-dir={profile}", "--no-pdf-header-footer", f"--print-to-pdf={pdf_path.resolve()}",
+                html_path.resolve().as_uri()]
+        subprocess.run(argv, capture_output=True, timeout=120, check=False)
+    except (OSError, subprocess.TimeoutExpired) as e:
+        return f"PDF export failed: {e}"
+    finally:
+        _sh.rmtree(profile, ignore_errors=True)
+    return str(pdf_path) if pdf_path.exists() and pdf_path.stat().st_size > 0 else "PDF export produced no file"
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--path", help="project root to scan statically")
@@ -176,6 +201,7 @@ def main(argv=None):
     ap.add_argument("--allow-private", action="store_true", help="pass through to crawlers: allow private addresses for a non-localhost URL")
     ap.add_argument("--seo-dir", default=None, help="where .seo/ lives (default: <path>/.seo or ./.seo)")
     ap.add_argument("--fail-on", choices=["critical", "high"])
+    ap.add_argument("--pdf", action="store_true", help="also save the report as PDF (uses an installed Chrome/Edge/Chromium)")
     a = ap.parse_args(argv)
     if not a.path and not a.url:
         ap.error("give --path and/or --url")
@@ -276,8 +302,18 @@ def main(argv=None):
     (reports / f"audit-{day}.html").write_text(
         to_html(title, sc, overall, top, backlog, {"when": datetime.now().strftime("%Y-%m-%d %H:%M"), "target": target, "how": " · ".join(how)}),
         encoding="utf-8")
+    # machine-readable summary: used by /super-seo to show before/after and by dashboards
+    (audits / f"audit-{stamp}.json").write_text(json.dumps({
+        "when": datetime.now().isoformat(timespec="seconds"), "target": target, "readiness": overall,
+        "categories": {c: v["score"] for c, v in sc.items()},
+        "counts": {s: sum(1 for f in findings if f["severity"] == s) for s in ORDER},
+        "top": [{k: t[k] for k in ("severity", "code", "message", "where")} for t in top],
+    }, indent=2), encoding="utf-8")
     print(md)
     print(f"[saved] {(reports / f'audit-{day}.md').as_posix()} and .html", file=sys.stderr)
+    if a.pdf:
+        pdf = html_to_pdf(reports / f"audit-{day}.html", reports / f"audit-{day}.pdf")
+        print(f"[saved] {pdf}" if pdf.endswith(".pdf") else f"[pdf] {pdf}", file=sys.stderr)
     if a.fail_on and any(ORDER[f["severity"]] <= ORDER[a.fail_on] for f in findings):
         sys.exit(1)
 

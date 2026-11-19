@@ -26,10 +26,10 @@ class CDPError(RuntimeError):
     pass
 
 
-def launch_argv(browser: str, profile_dir: str) -> list[str]:
+def launch_argv(browser: str, profile_dir: str, extra_flags: list[str] | None = None) -> list[str]:
     return [browser, "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
             f"--user-data-dir={profile_dir}", "--remote-debugging-port=0", "--remote-debugging-address=127.0.0.1",
-            "--hide-scrollbars", "--disable-extensions", "--mute-audio", "about:blank"]
+            "--hide-scrollbars", "--disable-extensions", "--mute-audio", *(extra_flags or []), "about:blank"]
 
 
 class _WS:
@@ -191,11 +191,11 @@ def make_network_guard(url_reason, ip_ok):
 
     url_reason(url) -> str | None : refusal reason for a request URL (scheme + resolved-host check); None = allowed.
     ip_ok(ip) -> bool             : True if the address the browser actually connected to is public.
-    Every request is paused (Fetch.requestPaused) and failed if refused. Every response's remoteIPAddress is checked,
-    which also catches DNS rebinding (the browser resolves hosts itself); any violation poisons the whole run.
+    This is the screening/reporting layer for the page target (schemes, early refusals). ENFORCEMENT happens in
+    guard_proxy.GuardProxy: every connection from every frame, worker and protocol goes through it, it performs the
+    only DNS lookup, refuses non-public addresses and connects to the exact IP it checked (no rebinding window).
     """
     state = {"blocked": [], "violations": []}
-    cache = {}
 
     def handler(sess, msg):
         m, prm = msg.get("method"), msg.get("params") or {}
@@ -205,26 +205,24 @@ def make_network_guard(url_reason, ip_ok):
             if scheme in ("data", "blob"):
                 reason = None
             else:
-                key = req_url.split("/", 3)[2] if "://" in req_url else req_url
-                key = scheme + "|" + key
-                if key not in cache:
-                    cache[key] = url_reason(req_url)
-                reason = cache[key]
+                reason = url_reason(req_url)   # evaluated per request; never cached for the run
             if reason:
                 state["blocked"].append({"url": req_url[:200], "reason": reason})
                 sess.send_nowait("Fetch.failRequest", {"requestId": prm.get("requestId"), "errorReason": "BlockedByClient"})
             else:
                 sess.send_nowait("Fetch.continueRequest", {"requestId": prm.get("requestId")})
             return True
-        if m == "Network.responseReceived":
-            resp = prm.get("response") or {}
-            ip = (resp.get("remoteIPAddress") or "").strip("[]")
-            if ip and not ip_ok(ip):
-                state["violations"].append({"url": resp.get("url", "")[:200], "ip": ip})
-            return True
         return False
 
     return handler, state
+
+
+def ip_ok_for_proxy(ip: str) -> bool:
+    """Public-address rule used by the proxy (same allow-list as crawl_audit.ip_is_public)."""
+    import sys as _sys
+    _sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "scripts"))
+    from crawl_audit import ip_is_public
+    return ip_is_public(ip)
 
 
 def emulate(browser: str, url: str, width: int, height: int, user_agent: str | None = None, mobile: bool = True,
@@ -237,10 +235,16 @@ def emulate(browser: str, url: str, width: int, height: int, user_agent: str | N
     profile = tempfile.mkdtemp(prefix="super-seo-cdp-")
     proc = None
     ws = None
+    proxy = None
     out: dict = {"error": None, "html": None, "screenshot": None, "viewport": f"{width}x{height}"}
     start = time.time()
     try:
-        proc = subprocess.Popen(launch_argv(browser, profile), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if network_guard:
+            from guard_proxy import GuardProxy  # local import: same folder
+            proxy = GuardProxy(ip_ok_for_proxy)
+            proxy.start()
+        flags = proxy.chrome_flags() if proxy else None
+        proc = subprocess.Popen(launch_argv(browser, profile, flags), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         port = _read_port(profile, proc, 20)
         opener = request.build_opener(request.ProxyHandler({}))  # local endpoint: never via a proxy
         with opener.open(f"http://127.0.0.1:{port}/json/list", timeout=10) as r:
@@ -251,7 +255,6 @@ def emulate(browser: str, url: str, width: int, height: int, user_agent: str | N
         ws = _WS(page["webSocketDebuggerUrl"], timeout=30)
         s = Session(ws, on_event=network_guard[0] if network_guard else None)
         if network_guard:
-            s.call("Network.enable")
             s.call("Fetch.enable", {"patterns": [{"urlPattern": "*", "requestStage": "Request"}]})
         s.call("Page.enable")
         s.call("Emulation.setDeviceMetricsOverride",
@@ -298,6 +301,8 @@ def emulate(browser: str, url: str, width: int, height: int, user_agent: str | N
     finally:
         if ws:
             ws.close()
+        if proxy:
+            proxy.stop()
         if proc and proc.poll() is None:
             try:
                 proc.wait(timeout=5)
@@ -314,7 +319,9 @@ def emulate(browser: str, url: str, width: int, height: int, user_agent: str | N
             time.sleep(0.5)
     if network_guard:
         # Always report what the guard did, also when navigation itself was blocked (error path).
-        out["blocked_requests"] = network_guard[1]["blocked"]
+        out["blocked_requests"] = network_guard[1]["blocked"] + (proxy.blocked if proxy else [])
+        if proxy and proxy.blocked and not out.get("error"):
+            out["notes"] = f"network guard refused {len(proxy.blocked)} connection(s) to non-public addresses"
         if out.get("error") and network_guard[1]["blocked"] and not str(out["error"]).startswith("refused"):
             first = network_guard[1]["blocked"][0]
             out["error"] = f"refused: browser request blocked by the network guard ({first['reason']}: {first['url']})"
